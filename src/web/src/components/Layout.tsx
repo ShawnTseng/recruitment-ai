@@ -4,8 +4,9 @@ export default function Layout() {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/recruiter', label: 'Recruiter Portal' },
+    { path: '/recruiter', label: 'Recruiter' },
+    { path: '/interviewer', label: 'Interviewer' },
+    { path: '/manager', label: 'Manager' },
   ];
 
   return (

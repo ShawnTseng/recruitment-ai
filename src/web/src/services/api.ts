@@ -172,8 +172,7 @@ export const submissionApi = {
   submitAnswers: (token: string, data: { answersJson: string; consentAiEvaluation: boolean }) =>
     request<{ message: string; submissionId: string }>(
       `/api/submissions/by-token/${token}/answer`,
-      { method: 'POST', body: JSON.stringify(data) },
-      false
+      { method: 'POST', body: JSON.stringify(data) }
     ),
 
   getByCandidate: (candidateId: string) =>
@@ -201,9 +200,7 @@ export const evaluationApi = {
 
 export const interviewApi = {
   generate: (submissionId: string) =>
-    request<InterviewGuide>(`/api/interviews/generate/${submissionId}`, {
-      method: 'POST',
-    }),
+    request<InterviewGuide>(`/api/interviews/generate/${submissionId}`, { method: 'POST' }),
 
   getBySubmission: (submissionId: string) =>
     request<InterviewGuide>(`/api/interviews/${submissionId}`),
@@ -217,12 +214,12 @@ export const feedbackApi = {
     jobDescriptionId: string;
     recruiterId: string;
     outcome: string;
-    tags?: string;
+    tags: string;
     comments?: string;
   }) =>
     request<ClientFeedback>('/api/feedback', {
       method: 'POST',
-      body: JSON.stringify({ tags: '[]', ...data }),
+      body: JSON.stringify(data),
     }),
 
   getByRecruiter: (recruiterId: string) =>

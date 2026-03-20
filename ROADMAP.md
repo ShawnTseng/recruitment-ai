@@ -1,7 +1,7 @@
 # RecruitmentAI — Development Roadmap
 
-> **當前狀態**: Sprint 3 全部完成。登入系統已移除（無需登入即可使用），CI/CD 已修復，圖層和 API 均已成功部署且可正常存取。  
-> **下一目標**: Sprint 4 — Manager Dashboard + Talent Pool。
+> **當前狀態**: Sprint 4 部分完成。三角色 UX 重新設計已上線（Recruiter / Interviewer / Manager 各自獨立頁面）。HTTP 500 問題已修復（Key Vault 設定 DB 連線字串與 Blob Endpoint、App Service Managed Identity RBAC、启动时自動 Migrate）。api.ts 完整（interviewApi / feedbackApi）。  
+> **下一目標**: System Parameter Management、Talent Pool、Application Insights 告警。
 
 ---
 
@@ -88,7 +88,37 @@
 
 ---
 
-## 📊 Sprint 4 — Manager Dashboard + Talent Pool
+## ✅ 已完成 (v0.4 — Sprint 4 三角色 UX + HTTP 500 修復)
+
+### Infrastructure / DevOps
+| Task | 說明 | 狀態 |
+|---|---|---|
+| Key Vault RBAC 設定 | App Service Managed Identity 取得 `Key Vault Secrets User` 角色 | ✅ |
+| Blob Storage RBAC 設定 | App Service Managed Identity 取得 `Storage Blob Data Contributor` 角色 | ✅ |
+| Key Vault Secrets | `ConnectionStrings--DefaultConnection` + `BlobStorage--Endpoint` 已存入 Key Vault | ✅ |
+| Easy Auth 停用 | App Service 平台層 Auth 停用，避免 401 攔截 | ✅ |
+| 垃圾檔清理 | 移除 publish/、publish2/、deploy*.zip、latest-logs/；更新 .gitignore | ✅ |
+
+### Backend
+| Task | 說明 | 狀態 |
+|---|---|---|
+| 啟動時自動 Migrate | `db.Database.Migrate()` 在 Program.cs startup 執行 | ✅ |
+| BlobServiceClient Null 安全 | 未設定時不崩潰，使用 fallback 並回傳清楚錯誤 | ✅ |
+| AzureBlobStorageService | CreateIfNotExistsAsync、Nullable client | ✅ |
+
+### Frontend
+| Task | 說明 | 狀態 |
+|---|---|---|
+| UX 三角色重新設計 | Recruiter (`/recruiter`) / Interviewer (`/interviewer`) / Manager (`/manager`) 各自獨立頁面 | ✅ |
+| RecruiterDashboard 整合 | Tab 切換：Job Descriptions / Candidates（含問卷下拉+Send Link）/ Client Feedback | ✅ |
+| InterviewerLanding | `/interviewer` — 列出所有已送出問卷的候選人 + Stage 1 評分，進入面試指南 | ✅ |
+| Manager Dashboard | `/manager` — 系統狀態 + KPI 看板 + Client Feedback 表格 | ✅ |
+| Layout 導航更新 | 三角色頂部導航：Recruiter / Interviewer / Manager | ✅ |
+| api.ts 完整化 | 新增 `interviewApi`、`feedbackApi`，修復 `submitAnswers` | ✅ |
+
+---
+
+## 📊 Sprint 4 — Manager Dashboard + Talent Pool (剩餘)
 
 **目標**: 商業價值量化、Analytics、人才庫管理。
 

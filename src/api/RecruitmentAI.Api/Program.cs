@@ -37,6 +37,11 @@ if (!string.IsNullOrEmpty(blobEndpoint))
 {
     builder.Services.AddSingleton(new Azure.Storage.Blobs.BlobServiceClient(new Uri(blobEndpoint), new DefaultAzureCredential()));
 }
+else
+{
+    // Fallback: register null client so DI doesn't fail; upload endpoints will return 503
+    builder.Services.AddSingleton<Azure.Storage.Blobs.BlobServiceClient>(_ => null!);
+}
 
 // -- Semantic Kernel ---------------------------------------------------------
 var aoaiEndpoint = builder.Configuration["AzureOpenAI:Endpoint"];
@@ -89,12 +94,23 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
+// -- Auto-migrate DB on startup ----------------------------------------------
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<RecruitmentDbContext>();
+    db.Database.Migrate();
+}
+
 // -- Middleware ---------------------------------------------------------------
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Enable Swagger in all envs for easy testing
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");

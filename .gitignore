@@ -8,6 +8,17 @@ obj/
 .vs/
 *.csproj.user
 publish/
+publish2/
+publish_deploy/
+publish_deploy.zip
+deploy.zip
+deploy2.zip
+latest-logs/
+latest-logs.zip
+app-logs/
+app-logs.zip
+auth-off.json
+app-manifest.json
 
 # Node
 node_modules/

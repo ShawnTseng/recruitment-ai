@@ -1,4 +1,0 @@
-<step title="Incoming Request" date="2026-03-20T03:35:19.024" instance="03aaff" url="/dump" method="GET" type="request" pid="769,1,16" Host="recai-api.scm.azurewebsites.net" User-Agent="AZURECLI/2.55.0 (MSI)" Accept-Encoding="identity" Authorization="Bas..." x-ms-client-request-id="d191449a-240d-11f1-adbb-cc1531e6f423" X-ARR-LOG-ID="d191449a-240d-11f1-adbb-cc1531e6f423" CLIENT-IP="36.225.137.83:28523" X-SITE-DEPLOYMENT-ID="recai-api" WAS-DEFAULT-HOSTNAME="recai-api.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/dump" X-Client-IP="36.225.137.83" X-Client-Port="28523" >
-  <step title="Cleanup Xml Logs" date="2026-03-20T03:35:19.094" /><!-- duration: 60ms -->
-  <step title="Outgoing response" date="2026-03-20T03:35:30.239" type="response" statusCode="200" statusText="OK" /><!-- duration: 11ms -->
-</step><!-- duration: 11266ms -->
