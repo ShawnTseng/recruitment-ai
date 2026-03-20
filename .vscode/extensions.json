@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "bierner.markdown-mermaid",
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "ms-dotnettools.csdevkit",
+    "Angular.ng-template",
+    "ms-azuretools.vscode-azureresourcegroups",
+    "ms-azuretools.vscode-azureappservice",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    "mtxr.sqltools"
+  ]
+}
