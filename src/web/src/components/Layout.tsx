@@ -1,12 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { useIsAuthenticated, useMsal } from '@azure/msal-react'
-import { loginRequest } from '../auth/msalConfig'
 
 export default function Layout() {
   const location = useLocation();
-  const isAuthenticated = useIsAuthenticated();
-  const { instance, accounts } = useMsal();
-  const displayName = accounts[0]?.name ?? accounts[0]?.username;
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -45,28 +40,6 @@ export default function Layout() {
               </Link>
             );
           })}
-
-          {/* Auth controls */}
-          <div style={{ marginLeft: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {isAuthenticated ? (
-              <>
-                <span style={{ fontSize: '0.85rem', opacity: 0.9 }}>{displayName}</span>
-                <button
-                  onClick={() => instance.logoutPopup()}
-                  style={{ background: 'rgba(255,255,255,0.15)', color: 'white', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '6px', padding: '5px 14px', fontSize: '0.85rem', cursor: 'pointer' }}
-                >
-                  Sign out
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={() => instance.loginPopup(loginRequest)}
-                style={{ background: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid rgba(255,255,255,0.4)', borderRadius: '6px', padding: '5px 14px', fontSize: '0.85rem', cursor: 'pointer' }}
-              >
-                Sign in
-              </button>
-            )}
-          </div>
         </nav>
       </header>
       <main style={{ flex: 1, padding: '24px', maxWidth: '1200px', width: '100%', margin: '0 auto' }}>
@@ -84,3 +57,4 @@ export default function Layout() {
     </div>
   )
 }
+

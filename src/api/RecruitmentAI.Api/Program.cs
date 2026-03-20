@@ -1,6 +1,5 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
 using Microsoft.SemanticKernel;
 using RecruitmentAI.Core.Interfaces;
 using RecruitmentAI.Infrastructure.Data;
@@ -16,9 +15,6 @@ if (!string.IsNullOrEmpty(keyVaultUri))
 {
     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUri), new DefaultAzureCredential());
 }
-
-// -- Authentication (Azure Entra ID) ----------------------------------------
-builder.Services.AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
 
 // -- Database ----------------------------------------------------------------
 builder.Services.AddDbContext<RecruitmentDbContext>(options =>
@@ -102,8 +98,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
 

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Entities;
@@ -7,7 +6,6 @@ using RecruitmentAI.Core.Interfaces;
 namespace RecruitmentAI.Api.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/feedback")]
 public class FeedbackController : ControllerBase
 {

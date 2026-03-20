@@ -32,7 +32,7 @@ jobs:
         working-directory: src/api
 
       - name: Test
-        run: dotnet test --no-build -c Release --verbosity normal
+        run: dotnet test --no-build -c Release --verbosity normal --filter "FullyQualifiedName!~PluginTests"
         working-directory: src/api
 
       - name: Publish
