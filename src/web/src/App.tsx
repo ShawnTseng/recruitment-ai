@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import AuthGuard from './components/AuthGuard'
 import Dashboard from './pages/Dashboard'
 import RecruiterDashboard from './pages/RecruiterDashboard'
 import JdCreate from './pages/JdCreate'
@@ -16,15 +17,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="recruiter" element={<RecruiterDashboard />} />
-          <Route path="recruiter/jd/new" element={<JdCreate />} />
-          <Route path="recruiter/jd/:id" element={<JdDetail />} />
-          <Route path="recruiter/candidates" element={<CandidateList />} />
-          <Route path="recruiter/report/:submissionId" element={<RecruiterReportView />} />
-          <Route path="interviewer/:submissionId" element={<InterviewerPortal />} />
+          {/* Protected routes — require Entra ID sign-in */}
+          <Route path="recruiter" element={<AuthGuard><RecruiterDashboard /></AuthGuard>} />
+          <Route path="recruiter/jd/new" element={<AuthGuard><JdCreate /></AuthGuard>} />
+          <Route path="recruiter/jd/:id" element={<AuthGuard><JdDetail /></AuthGuard>} />
+          <Route path="recruiter/candidates" element={<AuthGuard><CandidateList /></AuthGuard>} />
+          <Route path="recruiter/report/:submissionId" element={<AuthGuard><RecruiterReportView /></AuthGuard>} />
+          <Route path="interviewer/:submissionId" element={<AuthGuard><InterviewerPortal /></AuthGuard>} />
           <Route path="*" element={<NotFound />} />
         </Route>
-        {/* Candidate questionnaire — minimal layout, no navigation */}
+        {/* Candidate questionnaire — no auth, token-based access */}
         <Route path="/candidate/:token" element={<CandidateQuestionnaire />} />
       </Routes>
     </BrowserRouter>

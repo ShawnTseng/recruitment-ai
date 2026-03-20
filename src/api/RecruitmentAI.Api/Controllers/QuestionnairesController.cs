@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using RecruitmentAI.Core.DTOs;
@@ -8,6 +9,7 @@ using RecruitmentAI.Plugins;
 namespace RecruitmentAI.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/questionnaires")]
 public class QuestionnairesController : ControllerBase
 {

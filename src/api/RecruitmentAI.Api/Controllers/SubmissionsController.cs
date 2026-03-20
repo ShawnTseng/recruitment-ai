@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Interfaces;
@@ -50,6 +51,7 @@ public class SubmissionsController : ControllerBase
     }
 
     /// <summary>GET /api/submissions/{id}</summary>
+    [Authorize]
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -65,6 +67,7 @@ public class SubmissionsController : ControllerBase
     }
 
     /// <summary>GET /api/submissions?candidateId={id} — List submissions for a candidate (recruiter-facing)</summary>
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetByCandidate([FromQuery] Guid candidateId, CancellationToken ct)
     {

@@ -1,10 +1,28 @@
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
-async function request<T>(url: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE}${url}`, {
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    ...options,
-  });
+// Token provider — injected by AuthenticatedApiProvider after MSAL is ready.
+// Candidate-facing endpoints (by-token) do NOT call this.
+let _getToken: (() => Promise<string>) | null = null;
+
+export function setTokenProvider(fn: () => Promise<string>) {
+  _getToken = fn;
+}
+
+async function request<T>(url: string, options?: RequestInit, authenticated = true): Promise<T> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(options?.headers as Record<string, string>),
+  };
+
+  if (authenticated && _getToken) {
+    try {
+      headers['Authorization'] = `Bearer ${await _getToken()}`;
+    } catch {
+      // Token acquisition failed — the call will return 401 from the server
+    }
+  }
+
+  const res = await fetch(`${API_BASE}${url}`, { ...options, headers });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ message: res.statusText }));
     throw new Error(error.message || `HTTP ${res.status}`);
@@ -165,12 +183,13 @@ export const questionnaireApi = {
 
 export const submissionApi = {
   getByToken: (token: string) =>
-    request<SubmissionInfo>(`/api/submissions/by-token/${token}`),
+    request<SubmissionInfo>(`/api/submissions/by-token/${token}`, undefined, false),
 
   submitAnswers: (token: string, data: { answersJson: string; consentAiEvaluation: boolean }) =>
     request<{ message: string; submissionId: string }>(
       `/api/submissions/by-token/${token}/answer`,
-      { method: 'POST', body: JSON.stringify(data) }
+      { method: 'POST', body: JSON.stringify(data) },
+      false
     ),
 
   getByCandidate: (candidateId: string) =>
