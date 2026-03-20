@@ -19,6 +19,22 @@ public interface ICandidateRepository : IWorkspaceRepository<Candidate>
 public interface ICandidateSubmissionRepository : IRepository<CandidateSubmission>
 {
     Task<CandidateSubmission?> GetByTokenAsync(string token, CancellationToken ct = default);
+    Task<IReadOnlyList<CandidateSubmission>> GetByCandidateAsync(Guid candidateId, CancellationToken ct = default);
+}
+
+public interface IQuestionnaireRepository : IRepository<Questionnaire>
+{
+    Task<IReadOnlyList<Questionnaire>> GetByJobDescriptionAsync(Guid jobDescriptionId, CancellationToken ct = default);
+}
+
+public interface IRecruiterRepository : IRepository<Recruiter>
+{
+    Task<Recruiter?> GetByEmailAsync(string email, CancellationToken ct = default);
+}
+
+public interface IEvaluationReportRepository : IRepository<EvaluationReport>
+{
+    Task<IReadOnlyList<EvaluationReport>> GetBySubmissionAsync(Guid submissionId, CancellationToken ct = default);
 }
 
 public interface IBlobStorageService

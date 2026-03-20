@@ -1,18 +1,46 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 
 export default function Layout() {
+  const location = useLocation();
+
+  const navItems = [
+    { path: '/', label: 'Home' },
+    { path: '/recruiter', label: 'Recruiter Portal' },
+  ];
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header style={{
         backgroundColor: '#1a73e8',
         color: 'white',
-        padding: '12px 24px',
+        padding: '0 24px',
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
+        gap: '24px',
       }}>
-        <h1 style={{ fontSize: '1.25rem', fontWeight: 600 }}>RecruitmentAI</h1>
-        <span style={{ fontSize: '0.875rem', opacity: 0.8 }}>Screening System</span>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', color: 'white', padding: '12px 0' }}>
+          <h1 style={{ fontSize: '1.25rem', fontWeight: 600 }}>RecruitmentAI</h1>
+          <span style={{ fontSize: '0.875rem', opacity: 0.8 }}>Screening System</span>
+        </Link>
+        <nav style={{ display: 'flex', gap: '4px', marginLeft: 'auto' }}>
+          {navItems.map(item => {
+            const isActive = item.path === '/'
+              ? location.pathname === '/'
+              : location.pathname.startsWith(item.path);
+            return (
+              <Link key={item.path} to={item.path} style={{
+                color: 'white',
+                textDecoration: 'none',
+                padding: '14px 16px',
+                fontSize: '0.9rem',
+                borderBottom: isActive ? '3px solid white' : '3px solid transparent',
+                opacity: isActive ? 1 : 0.8,
+              }}>
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
       </header>
       <main style={{ flex: 1, padding: '24px', maxWidth: '1200px', width: '100%', margin: '0 auto' }}>
         <Outlet />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 interface ApiStatus {
   service: string
@@ -59,8 +60,8 @@ export default function Dashboard() {
         boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
       }}>
         <h3 style={{ marginBottom: '12px', fontSize: '1rem', color: '#5f6368' }}>Quick Links</h3>
-        <ul style={{ listStyle: 'none', display: 'grid', gap: '8px' }}>
-          <li>Stage 1 — Written Questionnaire Screening (coming soon)</li>
+        <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gap: '8px' }}>
+          <li><Link to="/recruiter">Stage 1 — Recruiter Portal (JD & Questionnaire Management)</Link></li>
           <li>Stage 2 — Technical Interview Guide (coming soon)</li>
           <li>Manager Dashboard (coming soon)</li>
         </ul>

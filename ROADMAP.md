@@ -1,7 +1,7 @@
 # RecruitmentAI — Development Roadmap
 
-> **當前狀態**: MVP 骨架已部署。Infrastructure、後端 API、前端 SPA 均在 Azure 上運行。  
-> **下一目標**: Stage 1 核心篩選流程。
+> **當前狀態**: Sprint 1 核心流程已完成。Recruiter 可上傳 JD、AI 解析並產生問卷，Candidate 可透過 Token 連結填寫作答，系統可觸發 AI 評估。  
+> **下一目標**: Stage 2 面試輔助 + Auth 整合。
 
 ---
 
@@ -17,61 +17,61 @@
 
 ---
 
-## 🚀 Sprint 1 — Stage 1 核心流程 (預計 2 週)
+## ✅ 已完成 (v0.2 — Sprint 1 + Sprint 2 核心)
 
-**目標**: Recruiter 可以上傳 JD，系統自動產生問卷，Candidate 可以填寫作答。
+### Backend
+| Task | 說明 | 狀態 |
+|---|---|---|
+| DTO 層 | `JobDescriptionDtos`, `CandidateDtos`, `QuestionnaireDtos`, `SubmissionDtos` | ✅ |
+| Repository 擴充 | `IQuestionnaireRepository`, `IRecruiterRepository`, `IEvaluationReportRepository` + 實作 | ✅ |
+| Semantic Kernel 整合 | Program.cs 註冊 `Kernel`，連接 Azure OpenAI GPT-4o | ✅ |
+| `JdParserPlugin` 實作 | Azure OpenAI 解析 JD → 結構化 JSON（技能、經驗等級、職責） | ✅ |
+| `QaGeneratorPlugin` 實作 | 從 JD 分析產生 5-8 個英文技術問題，支援 Resume 個人化 | ✅ |
+| `AnswerEvaluatorPlugin` 實作 | 3 維度評分 (Technical Depth / Specificity / Relevance)，紅旗偵測 | ✅ |
+| `ReportGeneratorPlugin` 實作 | Stage 1 評估報告 + Stage 2 面試指南 | ✅ |
+| `BusinessValuePlugin` 實作 | 計算節省時間、成本、效率增益 | ✅ |
+| `FeedbackLoopPlugin` 實作 | 分析客戶反饋模式，建議 Prompt 改善 | ✅ |
+| JD Upload API | `POST /api/job-descriptions` + `/upload`，Blob Storage 整合，檔案驗證 | ✅ |
+| JD Parse API | `POST /api/job-descriptions/{id}/parse` — AI 解析觸發 | ✅ |
+| Questionnaire API | `POST /api/questionnaires/generate`，`GET`，`PUT` | ✅ |
+| Candidate API | `POST /api/candidates`，`GET`，Resume 上傳 | ✅ |
+| Token API | `POST /api/candidates/{id}/tokens` — 一次性短效 token 產生 | ✅ |
+| Submission API | `GET/POST /api/submissions/by-token/{token}` — 無需登入，token 驗證 | ✅ |
+| Evaluation API | `POST /api/evaluations/evaluate/{submissionId}` — AI 評估觸發 | ✅ |
+
+### Frontend
+| Task | 說明 | 狀態 |
+|---|---|---|
+| API Client 服務 | 完整 TypeScript API client (`services/api.ts`) | ✅ |
+| 導航更新 | Header 加入 Recruiter Portal 連結，active 狀態標記 | ✅ |
+| Recruiter Dashboard | `/recruiter` — JD 列表、建立 JD 連結 | ✅ |
+| JD 建立頁面 | `/recruiter/jd/new` — 支援文字輸入和檔案上傳 | ✅ |
+| JD 詳細頁面 | `/recruiter/jd/:id` — 顯示解析結果、技能標籤、一鍵產生問卷 | ✅ |
+| 候選人管理 | `/recruiter/candidates` — 新增候選人、產生問卷連結 | ✅ |
+| 候選人作答頁面 | `/candidate/:token` — 獨立布局、無需登入、AI 同意聲明 | ✅ |
+
+---
+
+## 🚀 Sprint 3 — Stage 2 面試輔助 + Auth
+
+**目標**: Interviewer 使用 AI 產生的問題指引進行技術面試。整合 Azure Entra ID 認證。
 
 ### Backend
 
 | Task | 說明 | 難度 |
 |---|---|---|
-| `JdParserPlugin` 實作 | Azure OpenAI 解析 JD → 結構化 JSON | M |
-| `QaGeneratorPlugin` 實作 | 從 JD 分析產生 10 個英文技術問題 | M |
-| JD Upload API | `POST /api/job-descriptions`，上傳 PDF/DOCX 到 Blob Storage | S |
-| EF Migration | 建立 Azure SQL schema（首次 `dotnet ef database update`） | S |
-| Candidate Token API | `POST /api/candidates/{id}/tokens` — 一次性短效 token | M |
-| Candidate Submission API | `POST /api/submissions/{token}` — 不需登入，token 驗證 | M |
+| Azure Entra ID 整合 | `[Authorize]` 加入所有 endpoint（候選人 endpoint 除外） | M |
+| Stage 2 Interview Guide API | `POST /api/interviews/generate/{submissionId}` | M |
+| Calibration Loop | `POST /api/feedback` — Client 反饋 API | S |
+| InterviewGuide 自動產生 | 從 Stage 1 報告產生個人化面試問題 | M |
 
 ### Frontend
 
 | Task | 說明 | 難度 |
 |---|---|---|
-| Recruiter Portal | `/recruiter` — JD 管理、候選人列表 | M |
-| JD Upload Form | 上傳 JD 檔案，觸發 QA 生成 | S |
-| Candidate Questionnaire Page | `/candidate/:token` — 作答頁面，無需登入 | M |
-
-### 前置作業
-
-- **Azure Entra ID App Registration** — 為 Recruiter/Interviewer 登入建立 App Registration
-- **EF Core Migration deploy** — 執行 `az webapp config appsettings set` 加入 DB connection string，或透過 Key Vault 取得
-- **GitHub Secrets 設定** — `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_STATIC_WEB_APPS_API_TOKEN`
-
----
-
-## 🔄 Sprint 2 — Stage 1 AI 評估 + 報告
-
-**目標**: AI 自動評分作答，產生 Stage 1 評估報告。
-
-| Task | 說明 |
-|---|---|
-| `AnswerEvaluatorPlugin` 實作 | GPT-4o 評分 3 個維度 (Technical Depth / Specificity / Relevance) |
-| `ReportGeneratorPlugin` 實作 | 產生 Stage 1 PDF 報告 + Stage 2 Interview Guide |
-| Evaluation Trigger | 作答提交後自動觸發評估（Background Job 或 Queue） |
-| Report API | `GET /api/reports/{submissionId}` — 回傳評估結果 |
-| Recruiter Dashboard | 顯示候選人評分、紅旗標記、快速通過/拒絕 |
-
----
-
-## 🎯 Sprint 3 — Stage 2 面試輔助
-
-**目標**: Interviewer 使用 AI 產生的問題指引進行技術面試。
-
-| Task | 說明 |
-|---|---|
-| Stage 2 Interview Guide | 基於 Stage 1 報告產生個人化面試問題 |
-| Calibration Loop | `FeedbackLoopPlugin` — Client 反饋 → 改進 Prompt |
-| Interviewer Portal | `/interviewer/:submissionId` — 面試指南 + 即時評分記錄 |
-| Live Note Taking | 面試中的即時筆記與 AI 建議追問 |
+| Interviewer Portal | `/interviewer/:submissionId` — 面試指南顯示 + 即時評分 | M |
+| MSAL Auth 整合 | Azure Entra ID SSO for Recruiter/Interviewer | M |
+| Recruiter 報告檢視 | 候選人評分、紅旗標記、快速通過/拒絕 | M |
 
 ---
 
@@ -81,7 +81,6 @@
 
 | Task | 說明 |
 |---|---|
-| `BusinessValuePlugin` 實作 | 計算節省時間、品質指標 |
 | Manager Dashboard | KPI 看板：篩選率、通過率、客戶滿意度 |
 | System Parameter Management | 可調整 Rubric 權重、Prompt 版本管理 |
 | Talent Pool | 歷史候選人 Profile，支援未來重新接觸 |
@@ -90,13 +89,14 @@
 
 ## 🔐 貫穿各 Sprint 的必做事項
 
-| Task | 時機 |
-|---|---|
-| Azure Entra ID MSAL 整合 | Sprint 1 開始前 |
-| SQL Migration 自動化 | Sprint 1 |
-| Application Insights 告警設定 | Sprint 2 |
-| Security Review (OWASP Top 10) | Sprint 2 結束前 |
-| CI/CD secrets 設定 | Sprint 1 前置作業 |
+| Task | 時機 | 狀態 |
+|---|---|---|
+| Azure Entra ID MSAL 整合 | Sprint 3 | ⬜ |
+| SQL Migration 自動化 | Sprint 1 | ✅ |
+| Application Insights 告警設定 | Sprint 3 | ⬜ |
+| Security Review (OWASP Top 10) | Sprint 3 結束前 | ⬜ |
+| CI/CD secrets 設定 | Sprint 1 前置作業 | ⬜ |
+| 檔案上傳驗證 (MIME + 大小) | Sprint 1 | ✅ |
 
 ---
 
@@ -106,13 +106,15 @@
 - [ ] Integration tests with real Azure SQL
 - [ ] Candidate PII logging prevention (Application Insights filter)
 - [ ] Rate limiting on candidate submission endpoint
-- [ ] File upload validation (MIME type + size limit)
+- [x] File upload validation (MIME type + size limit)
+- [ ] EvaluationsController 改善 — 載入完整 Submission→Questionnaire→JD 鏈
+- [ ] Evaluation 觸發改用 Background Job / Queue
 
 ---
 
-## 立即下一步 (明天就可以開始)
+## 立即下一步
 
 1. **設定 GitHub Actions Secrets** — 在 GitHub repo 設定中加入 Azure credentials
-2. **Azure Entra ID App Registration** — Microsoft Entra admin center 建立 App，設定 redirect URI
-3. **第一次 EF Database Migration** — `az webapp config appsettings set` 加入 DB connection string，然後執行 migration
-4. 開始 `JdParserPlugin` 實作 — 連接 Azure OpenAI GPT-4o
+2. **Azure Entra ID App Registration** — 為 Recruiter/Interviewer 登入建立 App
+3. **部署測試** — `dotnet publish` + CI/CD 推送到 Azure App Service
+4. **Interviewer Portal** — 開始 Stage 2 面試輔助前端頁面

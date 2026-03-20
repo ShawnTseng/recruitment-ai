@@ -1,9 +1,11 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.SemanticKernel;
 using RecruitmentAI.Core.Interfaces;
 using RecruitmentAI.Infrastructure.Data;
 using RecruitmentAI.Infrastructure.Repositories;
 using RecruitmentAI.Infrastructure.Services;
+using RecruitmentAI.Plugins;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,9 @@ builder.Services.AddDbContext<RecruitmentDbContext>(options =>
 builder.Services.AddScoped<IJobDescriptionRepository, JobDescriptionRepository>();
 builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 builder.Services.AddScoped<ICandidateSubmissionRepository, CandidateSubmissionRepository>();
+builder.Services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
+builder.Services.AddScoped<IRecruiterRepository, RecruiterRepository>();
+builder.Services.AddScoped<IEvaluationReportRepository, EvaluationReportRepository>();
 builder.Services.AddScoped<IBlobStorageService, AzureBlobStorageService>();
 
 // -- Blob Storage ------------------------------------------------------------
@@ -29,6 +34,28 @@ var blobEndpoint = builder.Configuration["BlobStorage:Endpoint"];
 if (!string.IsNullOrEmpty(blobEndpoint))
 {
     builder.Services.AddSingleton(new Azure.Storage.Blobs.BlobServiceClient(new Uri(blobEndpoint), new DefaultAzureCredential()));
+}
+
+// -- Semantic Kernel ---------------------------------------------------------
+var aoaiEndpoint = builder.Configuration["AzureOpenAI:Endpoint"];
+var aoaiDeployment = builder.Configuration["AzureOpenAI:DeploymentName"] ?? "gpt-4o";
+if (!string.IsNullOrEmpty(aoaiEndpoint))
+{
+    builder.Services.AddSingleton(sp =>
+    {
+        var kernelBuilder = Kernel.CreateBuilder();
+        kernelBuilder.AddAzureOpenAIChatCompletion(aoaiDeployment, aoaiEndpoint, new DefaultAzureCredential());
+        kernelBuilder.Plugins.AddFromType<JdParserPlugin>();
+        kernelBuilder.Plugins.AddFromType<QaGeneratorPlugin>();
+        kernelBuilder.Plugins.AddFromType<AnswerEvaluatorPlugin>();
+        kernelBuilder.Plugins.AddFromType<ReportGeneratorPlugin>();
+        return kernelBuilder.Build();
+    });
+}
+else
+{
+    // Development fallback — Kernel without AI backend (plugins return stubs)
+    builder.Services.AddSingleton(_ => new Kernel());
 }
 
 // -- Application Insights ----------------------------------------------------
