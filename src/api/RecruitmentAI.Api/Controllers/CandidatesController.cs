@@ -126,6 +126,6 @@ public class CandidatesController : ControllerBase
         await _submissionRepo.AddAsync(submission, ct);
 
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
-        return Ok(new TokenResponse(token, expiresAt, $"{baseUrl}/candidate/{token}"));
+        return Ok(new TokenResponse(token, expiresAt, $"{baseUrl}/candidate/{token}", submission.Id));
     }
 }

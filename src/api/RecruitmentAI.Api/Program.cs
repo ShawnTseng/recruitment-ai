@@ -27,6 +27,8 @@ builder.Services.AddScoped<ICandidateSubmissionRepository, CandidateSubmissionRe
 builder.Services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
 builder.Services.AddScoped<IRecruiterRepository, RecruiterRepository>();
 builder.Services.AddScoped<IEvaluationReportRepository, EvaluationReportRepository>();
+builder.Services.AddScoped<IInterviewGuideRepository, InterviewGuideRepository>();
+builder.Services.AddScoped<IClientFeedbackRepository, ClientFeedbackRepository>();
 builder.Services.AddScoped<IBlobStorageService, AzureBlobStorageService>();
 
 // -- Blob Storage ------------------------------------------------------------

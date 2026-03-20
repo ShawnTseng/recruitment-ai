@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
-import { candidateApi, type Candidate, type TokenResponse } from '../services/api'
+import { candidateApi, submissionApi, type Candidate, type TokenResponse } from '../services/api'
 
 const WORKSPACE_ID = '00000000-0000-0000-0000-000000000001';
 
@@ -20,9 +20,23 @@ export default function CandidateList() {
   const [generatedTokens, setGeneratedTokens] = useState<Record<string, TokenResponse>>({});
   const [generatingToken, setGeneratingToken] = useState<string | null>(null);
 
+  // Submission IDs per candidate (for report links)
+  const [submissions, setSubmissions] = useState<Record<string, { id: string; submittedAt: string | null }[]>>({});
+
   useEffect(() => {
     candidateApi.getByWorkspace(WORKSPACE_ID)
-      .then(setCandidates)
+      .then(async (cands) => {
+        setCandidates(cands);
+        // Load submissions for each candidate to enable report links
+        const subMap: Record<string, { id: string; submittedAt: string | null }[]> = {};
+        await Promise.all(cands.map(async c => {
+          try {
+            const subs = await submissionApi.getByCandidate(c.id);
+            subMap[c.id] = subs.map(s => ({ id: s.id, submittedAt: s.submittedAt }));
+          } catch { /* ignore */ }
+        }));
+        setSubmissions(subMap);
+      })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
@@ -124,14 +138,34 @@ export default function CandidateList() {
                   <div style={{ fontSize: '0.8rem', color: '#5f6368', marginTop: '4px' }}>
                     Expires: {new Date(generatedTokens[c.id].expiresAt).toLocaleString()}
                   </div>
-                  <button
-                    onClick={() => navigator.clipboard.writeText(generatedTokens[c.id].submissionUrl)}
-                    style={{ ...secondaryBtn, marginTop: '8px', padding: '4px 12px', fontSize: '0.8rem' }}
-                  >
-                    Copy Link
-                  </button>
+                  <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                    <button
+                      onClick={() => navigator.clipboard.writeText(generatedTokens[c.id].submissionUrl)}
+                      style={{ ...secondaryBtn, padding: '4px 12px', fontSize: '0.8rem' }}
+                    >
+                      Copy Link
+                    </button>
+                    <Link
+                      to={`/recruiter/report/${generatedTokens[c.id].submissionId}`}
+                      style={{ padding: '4px 12px', background: '#1a73e8', color: 'white', borderRadius: '6px', textDecoration: 'none', fontSize: '0.8rem' }}
+                    >
+                      View Report →
+                    </Link>
+                  </div>
                 </div>
               )}
+
+              {/* Show report links for existing submissions */}
+              {!generatedTokens[c.id] && submissions[c.id]?.filter(s => s.submittedAt).map(sub => (
+                <div key={sub.id} style={{ marginTop: '8px' }}>
+                  <Link
+                    to={`/recruiter/report/${sub.id}`}
+                    style={{ fontSize: '0.85rem', color: '#1a73e8', textDecoration: 'none' }}
+                  >
+                    📋 View Report (submitted {sub.submittedAt ? new Date(sub.submittedAt).toLocaleDateString() : ''}) →
+                  </Link>
+                </div>
+              ))}
             </div>
           ))}
         </div>

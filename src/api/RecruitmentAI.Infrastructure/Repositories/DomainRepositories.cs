@@ -44,6 +44,14 @@ public class CandidateSubmissionRepository : Repository<CandidateSubmission>, IC
         => await _db.CandidateSubmissions
             .Where(cs => cs.CandidateId == candidateId)
             .ToListAsync(ct);
+
+    public async Task<CandidateSubmission?> GetByIdWithChainAsync(Guid submissionId, CancellationToken ct = default)
+        => await _db.CandidateSubmissions
+            .Include(cs => cs.Questionnaire)
+                .ThenInclude(q => q.JobDescription)
+            .Include(cs => cs.EvaluationReports)
+            .Include(cs => cs.InterviewGuide)
+            .FirstOrDefaultAsync(cs => cs.Id == submissionId, ct);
 }
 
 public class QuestionnaireRepository : Repository<Questionnaire>, IQuestionnaireRepository
@@ -72,5 +80,25 @@ public class EvaluationReportRepository : Repository<EvaluationReport>, IEvaluat
     public async Task<IReadOnlyList<EvaluationReport>> GetBySubmissionAsync(Guid submissionId, CancellationToken ct = default)
         => await _db.EvaluationReports
             .Where(er => er.SubmissionId == submissionId)
+            .ToListAsync(ct);
+}
+
+public class InterviewGuideRepository : Repository<InterviewGuide>, IInterviewGuideRepository
+{
+    public InterviewGuideRepository(RecruitmentDbContext db) : base(db) { }
+
+    public async Task<InterviewGuide?> GetBySubmissionAsync(Guid submissionId, CancellationToken ct = default)
+        => await _db.InterviewGuides
+            .FirstOrDefaultAsync(ig => ig.SubmissionId == submissionId, ct);
+}
+
+public class ClientFeedbackRepository : Repository<ClientFeedback>, IClientFeedbackRepository
+{
+    public ClientFeedbackRepository(RecruitmentDbContext db) : base(db) { }
+
+    public async Task<IReadOnlyList<ClientFeedback>> GetByRecruiterAsync(Guid recruiterId, CancellationToken ct = default)
+        => await _db.ClientFeedbacks
+            .Where(cf => cf.RecruiterId == recruiterId)
+            .OrderByDescending(cf => cf.CreatedAt)
             .ToListAsync(ct);
 }

@@ -23,5 +23,6 @@ public record GenerateTokenRequest(
 public record TokenResponse(
     string Token,
     DateTime ExpiresAt,
-    string SubmissionUrl
+    string SubmissionUrl,
+    Guid SubmissionId
 );

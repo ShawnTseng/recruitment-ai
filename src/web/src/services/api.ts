@@ -53,6 +53,7 @@ export interface TokenResponse {
   token: string;
   expiresAt: string;
   submissionUrl: string;
+  submissionId: string;
 }
 
 export interface SubmissionInfo {
@@ -68,6 +69,24 @@ export interface EvaluationReport {
   aiScore: number;
   recommendation: string;
   reportJson: string;
+  createdAt: string;
+}
+
+export interface InterviewGuide {
+  id: string;
+  submissionId: string;
+  guideJson: string;
+  createdAt: string;
+}
+
+export interface ClientFeedback {
+  id: string;
+  candidateId: string;
+  jobDescriptionId: string;
+  recruiterId: string;
+  outcome: string;
+  tags: string;
+  comments: string | null;
   createdAt: string;
 }
 
@@ -153,6 +172,11 @@ export const submissionApi = {
       `/api/submissions/by-token/${token}/answer`,
       { method: 'POST', body: JSON.stringify(data) }
     ),
+
+  getByCandidate: (candidateId: string) =>
+    request<{ id: string; candidateId: string; questionnaireId: string; submittedAt: string | null }[]>(
+      `/api/submissions?candidateId=${candidateId}`
+    ),
 };
 
 // --- Evaluations ---
@@ -168,4 +192,36 @@ export const evaluationApi = {
 
   getBySubmission: (submissionId: string) =>
     request<EvaluationReport[]>(`/api/evaluations/by-submission/${submissionId}`),
+};
+
+// --- Interviews ---
+
+export const interviewApi = {
+  generate: (submissionId: string) =>
+    request<InterviewGuide>(`/api/interviews/generate/${submissionId}`, {
+      method: 'POST',
+    }),
+
+  getBySubmission: (submissionId: string) =>
+    request<InterviewGuide>(`/api/interviews/${submissionId}`),
+};
+
+// --- Feedback ---
+
+export const feedbackApi = {
+  create: (data: {
+    candidateId: string;
+    jobDescriptionId: string;
+    recruiterId: string;
+    outcome: string;
+    tags?: string;
+    comments?: string;
+  }) =>
+    request<ClientFeedback>('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify({ tags: '[]', ...data }),
+    }),
+
+  getByRecruiter: (recruiterId: string) =>
+    request<ClientFeedback[]>(`/api/feedback?recruiterId=${recruiterId}`),
 };

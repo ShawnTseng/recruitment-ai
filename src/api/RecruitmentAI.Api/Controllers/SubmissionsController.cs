@@ -63,4 +63,18 @@ public class SubmissionsController : ControllerBase
             submission.AnswersJson,
             submission.SubmittedAt));
     }
+
+    /// <summary>GET /api/submissions?candidateId={id} — List submissions for a candidate (recruiter-facing)</summary>
+    [HttpGet]
+    public async Task<IActionResult> GetByCandidate([FromQuery] Guid candidateId, CancellationToken ct)
+    {
+        var submissions = await _submissionRepo.GetByCandidateAsync(candidateId, ct);
+        return Ok(submissions.Select(s => new
+        {
+            s.Id,
+            s.CandidateId,
+            s.QuestionnaireId,
+            s.SubmittedAt,
+        }));
+    }
 }
