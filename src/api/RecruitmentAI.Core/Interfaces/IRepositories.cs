@@ -49,6 +49,22 @@ public interface IClientFeedbackRepository : IRepository<ClientFeedback>
     Task<IReadOnlyList<ClientFeedback>> GetByRecruiterAsync(Guid recruiterId, CancellationToken ct = default);
 }
 
+public interface ISystemParameterRepository
+{
+    Task<IReadOnlyList<SystemParameter>> GetAllAsync(CancellationToken ct = default);
+    Task<SystemParameter?> GetByKeyAsync(string key, CancellationToken ct = default);
+    Task UpsertAsync(SystemParameter param, CancellationToken ct = default);
+    Task<bool> DeleteAsync(string key, CancellationToken ct = default);
+}
+
+public interface ITalentPoolRepository
+{
+    Task<IReadOnlyList<Candidate>> SearchAsync(
+        string? skillKeyword,
+        double? minScore,
+        CancellationToken ct = default);
+}
+
 public interface IBlobStorageService
 {
     Task<string> UploadAsync(string containerName, string fileName, Stream content, string contentType, CancellationToken ct = default);

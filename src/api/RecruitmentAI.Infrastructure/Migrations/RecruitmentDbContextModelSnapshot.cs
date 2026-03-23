@@ -42,6 +42,11 @@ namespace RecruitmentAI.Infrastructure.Migrations
                     b.Property<string>("ResumeBlobUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SkillTags")
+                        .IsRequired()
+                        .HasDefaultValue("[]")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("WorkspaceId")
                         .HasColumnType("uniqueidentifier");
 

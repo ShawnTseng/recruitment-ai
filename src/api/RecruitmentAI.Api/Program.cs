@@ -1,6 +1,7 @@
 using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
+using RecruitmentAI.Api.Telemetry;
 using RecruitmentAI.Core.Interfaces;
 using RecruitmentAI.Infrastructure.Data;
 using RecruitmentAI.Infrastructure.Repositories;
@@ -29,6 +30,8 @@ builder.Services.AddScoped<IRecruiterRepository, RecruiterRepository>();
 builder.Services.AddScoped<IEvaluationReportRepository, EvaluationReportRepository>();
 builder.Services.AddScoped<IInterviewGuideRepository, InterviewGuideRepository>();
 builder.Services.AddScoped<IClientFeedbackRepository, ClientFeedbackRepository>();
+builder.Services.AddScoped<ISystemParameterRepository, SystemParameterRepository>();
+builder.Services.AddScoped<ITalentPoolRepository, TalentPoolRepository>();
 builder.Services.AddScoped<IBlobStorageService, AzureBlobStorageService>();
 
 // -- Blob Storage ------------------------------------------------------------
@@ -113,6 +116,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+app.UsePiiSanitizer();
 app.UseCors("AllowFrontend");
 app.MapControllers();
 app.MapHealthChecks("/health");

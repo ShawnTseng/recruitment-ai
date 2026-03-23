@@ -102,3 +102,70 @@ public class ClientFeedbackRepository : Repository<ClientFeedback>, IClientFeedb
             .OrderByDescending(cf => cf.CreatedAt)
             .ToListAsync(ct);
 }
+
+public class SystemParameterRepository : ISystemParameterRepository
+{
+    private readonly RecruitmentDbContext _db;
+    public SystemParameterRepository(RecruitmentDbContext db) => _db = db;
+
+    public async Task<IReadOnlyList<SystemParameter>> GetAllAsync(CancellationToken ct = default)
+        => await _db.SystemParameters.OrderBy(sp => sp.Key).ToListAsync(ct);
+
+    public async Task<SystemParameter?> GetByKeyAsync(string key, CancellationToken ct = default)
+        => await _db.SystemParameters.FindAsync([key], ct);
+
+    public async Task UpsertAsync(SystemParameter param, CancellationToken ct = default)
+    {
+        var existing = await _db.SystemParameters.FindAsync([param.Key], ct);
+        if (existing is null)
+            _db.SystemParameters.Add(param);
+        else
+        {
+            existing.Value = param.Value;
+            existing.UpdatedBy = param.UpdatedBy;
+            existing.UpdatedAt = param.UpdatedAt;
+        }
+        await _db.SaveChangesAsync(ct);
+    }
+
+    public async Task<bool> DeleteAsync(string key, CancellationToken ct = default)
+    {
+        var existing = await _db.SystemParameters.FindAsync([key], ct);
+        if (existing is null) return false;
+        _db.SystemParameters.Remove(existing);
+        await _db.SaveChangesAsync(ct);
+        return true;
+    }
+}
+
+public class TalentPoolRepository : ITalentPoolRepository
+{
+    private readonly RecruitmentDbContext _db;
+    public TalentPoolRepository(RecruitmentDbContext db) => _db = db;
+
+    public async Task<IReadOnlyList<Candidate>> SearchAsync(
+        string? skillKeyword,
+        double? minScore,
+        CancellationToken ct = default)
+    {
+        var query = _db.Candidates
+            .Include(c => c.Submissions)
+                .ThenInclude(s => s.EvaluationReports)
+            .Include(c => c.ClientFeedbacks)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(skillKeyword))
+            query = query.Where(c => c.SkillTags.Contains(skillKeyword)
+                                  || c.Name.Contains(skillKeyword));
+
+        if (minScore.HasValue)
+            query = query.Where(c => c.Submissions
+                .SelectMany(s => s.EvaluationReports)
+                .Any(er => er.AiScore >= minScore.Value));
+
+        return await query
+            .OrderByDescending(c => c.CreatedAt)
+            .Take(100)
+            .ToListAsync(ct);
+    }
+}

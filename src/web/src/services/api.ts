@@ -225,3 +225,79 @@ export const feedbackApi = {
   getByRecruiter: (recruiterId: string) =>
     request<ClientFeedback[]>(`/api/feedback?recruiterId=${recruiterId}`),
 };
+
+// --- Manager ---
+
+export interface ManagerStats {
+  totalJobDescriptions: number;
+  totalCandidates: number;
+  totalSubmissions: number;
+  evaluatedSubmissions: number;
+  stage1PassCount: number;
+  stage1HoldCount: number;
+  stage1RejectCount: number;
+  stage1PassRate: number;
+  stage2CompletedCount: number;
+  totalFeedbacks: number;
+  hiredCount: number;
+  rejectedAtClientCount: number;
+  hireRate: number;
+  averageAiScore: number;
+}
+
+export const managerApi = {
+  getStats: () => request<ManagerStats>('/api/manager/stats'),
+};
+
+// --- System Parameters ---
+
+export interface SystemParameter {
+  key: string;
+  value: string;
+  updatedBy: string | null;
+  updatedAt: string;
+}
+
+export const systemParameterApi = {
+  getAll: () => request<SystemParameter[]>('/api/system-parameters'),
+
+  upsert: (key: string, data: { value: string; updatedBy?: string }) =>
+    request<SystemParameter>(`/api/system-parameters/${encodeURIComponent(key)}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+
+  delete: (key: string) =>
+    fetch(`${API_BASE}/api/system-parameters/${encodeURIComponent(key)}`, { method: 'DELETE' }),
+};
+
+// --- Talent Pool ---
+
+export interface TalentPoolCandidate {
+  id: string;
+  name: string;
+  email: string;
+  skillTags: string;
+  workspaceId: string;
+  createdAt: string;
+  totalSubmissions: number;
+  latestAiScore: number | null;
+  latestRecommendation: string | null;
+  lastOutcome: string | null;
+}
+
+export const talentPoolApi = {
+  search: (skills?: string, minScore?: number) => {
+    const params = new URLSearchParams();
+    if (skills) params.append('skills', skills);
+    if (minScore !== undefined) params.append('minScore', String(minScore));
+    const qs = params.toString() ? `?${params.toString()}` : '';
+    return request<TalentPoolCandidate[]>(`/api/talent-pool${qs}`);
+  },
+
+  updateSkills: (candidateId: string, skillTags: string) =>
+    request<void>(`/api/talent-pool/${candidateId}/skills`, {
+      method: 'PATCH',
+      body: JSON.stringify({ skillTags }),
+    }),
+};

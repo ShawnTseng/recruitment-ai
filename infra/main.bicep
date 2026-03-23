@@ -108,10 +108,28 @@ resource existingWebApp 'Microsoft.Web/sites@2023-12-01' existing = {
 resource webAppSettings 'Microsoft.Web/sites/config@2023-12-01' = {
   parent: existingWebApp
   name: 'appsettings'
-  dependsOn: [appService, keyVault]
+  dependsOn: [appService, keyVault, staticWebApp]
   properties: {
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.outputs.appInsightsConnectionString
     KeyVault__Uri: keyVault.outputs.keyVaultUri
+    // CORS: allow local dev; SWA linked backend handles production (server-side proxy)
+    Cors__AllowedOrigins__0: 'http://localhost:5173'
+    Cors__AllowedOrigins__1: 'https://${staticWebApp.outputs.staticWebAppDefaultHostName}'
+  }
+}
+
+// Link App Service as SWA backend so /api/* requests are proxied server-side (no CORS needed in prod)
+resource existingSwa 'Microsoft.Web/staticSites@2023-12-01' existing = {
+  name: '${prefix}-web'
+}
+
+resource swaLinkedBackend 'Microsoft.Web/staticSites/linkedBackends@2023-12-01' = {
+  parent: existingSwa
+  name: 'backend'
+  dependsOn: [staticWebApp, appService]
+  properties: {
+    backendResourceId: resourceId('Microsoft.Web/sites', webAppName)
+    region: location
   }
 }
 

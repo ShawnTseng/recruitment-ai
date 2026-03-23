@@ -7,6 +7,8 @@ public class Candidate
     public string Email { get; set; } = string.Empty;
     public string? ResumeBlobUrl { get; set; }
     public Guid WorkspaceId { get; set; }
+    /// <summary>JSON array of skill tag strings, e.g. ["React",".NET","Azure"]</summary>
+    public string SkillTags { get; set; } = "[]";
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<CandidateSubmission> Submissions { get; set; } = [];
