@@ -4,7 +4,6 @@ import {
   type ManagerStats, type ClientFeedback, type SystemParameter, type TalentPoolCandidate,
 } from '../services/api'
 
-const RECRUITER_ID = '00000000-0000-0000-0000-000000000001'
 type Tab = 'overview' | 'feedback' | 'params' | 'talent'
 
 interface ApiStatus { service: string; status: string; timestamp: string }
@@ -36,7 +35,7 @@ export default function Dashboard() {
     Promise.all([
       fetch(`${apiBase}/api/status`).then(r => r.ok ? r.json() as Promise<ApiStatus> : null).catch(() => null),
       managerApi.getStats().catch(() => null),
-      feedbackApi.getByRecruiter(RECRUITER_ID).catch(() => [] as ClientFeedback[]),
+      feedbackApi.getAll().catch(() => [] as ClientFeedback[]),
       systemParameterApi.getAll().catch(() => [] as SystemParameter[]),
     ]).then(([status, s, fbs, ps]) => {
       setApiStatus(status)

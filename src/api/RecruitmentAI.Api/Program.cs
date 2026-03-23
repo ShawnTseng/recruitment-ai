@@ -37,6 +37,7 @@ builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 builder.Services.AddScoped<ICandidateSubmissionRepository, CandidateSubmissionRepository>();
 builder.Services.AddScoped<IQuestionnaireRepository, QuestionnaireRepository>();
 builder.Services.AddScoped<IRecruiterRepository, RecruiterRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IEvaluationReportRepository, EvaluationReportRepository>();
 builder.Services.AddScoped<IInterviewGuideRepository, InterviewGuideRepository>();
 builder.Services.AddScoped<IClientFeedbackRepository, ClientFeedbackRepository>();
@@ -143,8 +144,36 @@ using (var scope = app.Services.CreateScope())
                 new AppUser { Id = Guid.NewGuid(), Username = "manager1",     PasswordHash = BCrypt.Net.BCrypt.HashPassword("MgrAI@2026#"),     DisplayName = "Manager",         Role = "Manager" },
                 new AppUser { Id = Guid.NewGuid(), Username = "am1",          PasswordHash = BCrypt.Net.BCrypt.HashPassword("AcctAI@2026#"),    DisplayName = "Account Manager", Role = "AccountManager" },
             ]);
+            // Seed matching Recruiter record (Id == WorkspaceId for simplicity)
+            db.Recruiters.Add(new Recruiter
+            {
+                Id = recruiterWsId,
+                Name = "India Recruiter",
+                Email = "recruiter1@company.com",
+                WorkspaceId = recruiterWsId,
+            });
             db.SaveChanges();
         }
+
+        // Auto-provision Recruiter records for any Recruiter AppUsers that don't have one yet
+        // (handles existing deployments where Recruiter table was empty)
+        var recruiterUsers = db.AppUsers
+            .Where(u => u.Role == "Recruiter" && u.WorkspaceId.HasValue)
+            .ToList();
+        foreach (var ru in recruiterUsers)
+        {
+            if (!db.Recruiters.Any(r => r.WorkspaceId == ru.WorkspaceId!.Value))
+            {
+                db.Recruiters.Add(new Recruiter
+                {
+                    Id = ru.WorkspaceId!.Value,
+                    Name = ru.DisplayName,
+                    Email = $"{ru.Username}@company.com",
+                    WorkspaceId = ru.WorkspaceId!.Value,
+                });
+            }
+        }
+        db.SaveChanges();
     }
     catch (Exception ex)
     {

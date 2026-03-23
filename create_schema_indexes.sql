@@ -1,0 +1,12 @@
+SET QUOTED_IDENTIFIER ON;
+ALTER TABLE [Candidates] ADD [SkillTags] nvarchar(max) NOT NULL DEFAULT N'[]';
+CREATE INDEX [IX_Candidates_WorkspaceId] ON [Candidates] ([WorkspaceId]);
+CREATE INDEX [IX_ClientFeedbacks_CandidateId] ON [ClientFeedbacks] ([CandidateId]);
+CREATE INDEX [IX_ClientFeedbacks_JobDescriptionId] ON [ClientFeedbacks] ([JobDescriptionId]);
+CREATE INDEX [IX_ClientFeedbacks_RecruiterId] ON [ClientFeedbacks] ([RecruiterId]);
+CREATE INDEX [IX_EvaluationReports_SubmissionId] ON [EvaluationReports] ([SubmissionId]);
+CREATE UNIQUE INDEX [IX_InterviewGuides_SubmissionId] ON [InterviewGuides] ([SubmissionId]);
+CREATE INDEX [IX_JobDescriptions_RecruiterId] ON [JobDescriptions] ([RecruiterId]);
+CREATE INDEX [IX_Questionnaires_JobDescriptionId] ON [Questionnaires] ([JobDescriptionId]);
+SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='Candidates';
+SELECT TABLE_NAME, COUNT(*) AS IndexCount FROM INFORMATION_SCHEMA.TABLES t JOIN sys.indexes i ON i.object_id = OBJECT_ID(t.TABLE_NAME) WHERE TABLE_TYPE='BASE TABLE' GROUP BY TABLE_NAME ORDER BY TABLE_NAME;

@@ -1,12 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 import {
   jobDescriptionApi, candidateApi, submissionApi, feedbackApi,
   type JobDescription, type Candidate, type TokenResponse, type ClientFeedback,
 } from '../services/api'
-
-const RECRUITER_ID = '00000000-0000-0000-0000-000000000001';
-const WORKSPACE_ID = '00000000-0000-0000-0000-000000000001';
 
 type Tab = 'jd' | 'candidates' | 'feedback';
 
@@ -52,17 +50,29 @@ function JdTab({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    jobDescriptionApi.getByRecruiter(RECRUITER_ID)
+    jobDescriptionApi.getAll()
       .then(setJds)
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
 
+  // Group JDs by client
+  const grouped = jds.reduce<Record<string, { name: string; jds: JobDescription[] }>>((acc, jd) => {
+    const key = jd.clientId ?? '__none__';
+    const label = jd.clientName ?? 'No Client';
+    if (!acc[key]) acc[key] = { name: label, jds: [] };
+    acc[key].jds.push(jd);
+    return acc;
+  }, {});
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
         <span style={{ color: '#5f6368', fontSize: '0.9rem' }}>{jds.length} job description(s)</span>
-        <button onClick={() => navigate('/recruiter/jd/new')} style={primaryBtn}>+ New JD</button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button onClick={() => navigate('/recruiter/clients')} style={secondaryBtn}>Manage Clients</button>
+          <button onClick={() => navigate('/recruiter/jd/new')} style={primaryBtn}>+ New JD</button>
+        </div>
       </div>
 
       {error && <div style={errorBox}>{error}</div>}
@@ -73,23 +83,30 @@ function JdTab({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
             <p style={{ color: '#5f6368', textAlign: 'center' }}>No job descriptions yet. Create one to get started.</p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gap: '10px' }}>
-            {jds.map(jd => (
-              <div key={jd.id} style={{ ...cardStyle, cursor: 'pointer' }} onClick={() => navigate(`/recruiter/jd/${jd.id}`)}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 style={{ margin: 0, fontSize: '1rem' }}>{jd.title}</h3>
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    {jd.parsedJson
-                      ? <span style={badge('#0d904f')}>Parsed</span>
-                      : <span style={badge('#f9ab00')}>Pending</span>}
-                    <span style={{ fontSize: '0.8rem', color: '#5f6368' }}>
-                      {new Date(jd.createdAt).toLocaleDateString()}
-                    </span>
+          Object.entries(grouped).map(([key, group]) => (
+            <div key={key} style={{ marginBottom: '24px' }}>
+              <h3 style={{ fontSize: '0.9rem', fontWeight: 600, color: '#5f6368', margin: '0 0 8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {group.name}
+              </h3>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {group.jds.map(jd => (
+                  <div key={jd.id} style={{ ...cardStyle, cursor: 'pointer' }} onClick={() => navigate(`/recruiter/jd/${jd.id}`)}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <h3 style={{ margin: 0, fontSize: '1rem' }}>{jd.title}</h3>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        {jd.parsedJson
+                          ? <span style={badge('#0d904f')}>Parsed</span>
+                          : <span style={badge('#f9ab00')}>Pending</span>}
+                        <span style={{ fontSize: '0.8rem', color: '#5f6368' }}>
+                          {new Date(jd.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))
         )}
     </div>
   );
@@ -98,7 +115,8 @@ function JdTab({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
 // ─── Candidates Tab ───────────────────────────────────────────────────────────
 
 function CandidatesTab() {
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const { user } = useAuth();
+  const workspaceId = user?.workspaceId ?? '';  const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -113,8 +131,8 @@ function CandidatesTab() {
 
   useEffect(() => {
     Promise.all([
-      candidateApi.getByWorkspace(WORKSPACE_ID),
-      jobDescriptionApi.getByRecruiter(RECRUITER_ID),
+      candidateApi.getByWorkspace(),
+      jobDescriptionApi.getAll(),
     ])
       .then(async ([cands, jds]) => {
         setCandidates(cands);
@@ -146,7 +164,7 @@ function CandidatesTab() {
     e.preventDefault();
     setError(null);
     try {
-      const c = await candidateApi.create({ name, email, workspaceId: WORKSPACE_ID });
+      const c = await candidateApi.create({ name, email, workspaceId });
       setCandidates(prev => [...prev, c]);
       setName(''); setEmail(''); setShowForm(false);
     } catch (err) {
@@ -256,12 +274,14 @@ function CandidatesTab() {
 // ─── Feedback Tab ─────────────────────────────────────────────────────────────
 
 function FeedbackTab() {
+  const { user } = useAuth();
+  const workspaceId = user?.workspaceId ?? '';
   const [feedbacks, setFeedbacks] = useState<ClientFeedback[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    feedbackApi.getByRecruiter(RECRUITER_ID)
+    feedbackApi.getByRecruiter(workspaceId)
       .then(setFeedbacks)
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));

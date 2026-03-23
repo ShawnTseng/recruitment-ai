@@ -14,7 +14,8 @@
     "@azure/msal-react": "^3.0.29",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.0"
+    "react-router-dom": "^7.5.0",
+    "recruitment-ai-web": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

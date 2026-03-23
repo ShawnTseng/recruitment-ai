@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Entities;
@@ -7,6 +9,7 @@ namespace RecruitmentAI.Api.Controllers;
 
 [ApiController]
 [Route("api/feedback")]
+[Authorize]
 public class FeedbackController : ControllerBase
 {
     private readonly IClientFeedbackRepository _feedbackRepo;
@@ -16,8 +19,12 @@ public class FeedbackController : ControllerBase
         _feedbackRepo = feedbackRepo;
     }
 
-    /// <summary>POST /api/feedback — Submit client feedback for a candidate outcome</summary>
+    private static FeedbackResponse ToResponse(ClientFeedback f) =>
+        new(f.Id, f.CandidateId, f.JobDescriptionId, f.RecruiterId, f.Outcome, f.Tags, f.Comments, f.CreatedAt);
+
+    /// <summary>POST /api/feedback — Submit client feedback</summary>
     [HttpPost]
+    [Authorize(Roles = "Recruiter,AccountManager,SuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateFeedbackRequest req, CancellationToken ct)
     {
         var validOutcomes = new[] { "Hired", "Rejected at Client", "Offer Declined", "In Progress" };
@@ -36,33 +43,29 @@ public class FeedbackController : ControllerBase
         };
 
         await _feedbackRepo.AddAsync(feedback, ct);
-
-        return Ok(new FeedbackResponse(
-            feedback.Id,
-            feedback.CandidateId,
-            feedback.JobDescriptionId,
-            feedback.RecruiterId,
-            feedback.Outcome,
-            feedback.Tags,
-            feedback.Comments,
-            feedback.CreatedAt
-        ));
+        return Ok(ToResponse(feedback));
     }
 
-    /// <summary>GET /api/feedback?recruiterId={id} — Get feedback by recruiter</summary>
+    /// <summary>GET /api/feedback — Manager/Admin: all feedback; Recruiter: own feedback (uses JWT workspaceId)</summary>
     [HttpGet]
-    public async Task<IActionResult> GetByRecruiter([FromQuery] Guid recruiterId, CancellationToken ct)
+    [Authorize(Roles = "Recruiter,Manager,AccountManager,SuperAdmin")]
+    public async Task<IActionResult> GetFeedback(CancellationToken ct)
     {
-        var feedbacks = await _feedbackRepo.GetByRecruiterAsync(recruiterId, ct);
-        return Ok(feedbacks.Select(f => new FeedbackResponse(
-            f.Id,
-            f.CandidateId,
-            f.JobDescriptionId,
-            f.RecruiterId,
-            f.Outcome,
-            f.Tags,
-            f.Comments,
-            f.CreatedAt
-        )));
+        var role = User.FindFirstValue(ClaimTypes.Role);
+        IReadOnlyList<ClientFeedback> feedbacks;
+
+        if (role is "Manager" or "AccountManager" or "SuperAdmin")
+        {
+            feedbacks = await _feedbackRepo.GetAllAsync(ct);
+        }
+        else
+        {
+            var workspaceIdStr = User.FindFirstValue("workspaceId");
+            if (!Guid.TryParse(workspaceIdStr, out var recruiterId))
+                return Forbid();
+            feedbacks = await _feedbackRepo.GetByRecruiterAsync(recruiterId, ct);
+        }
+
+        return Ok(feedbacks.OrderByDescending(f => f.CreatedAt).Select(ToResponse));
     }
 }

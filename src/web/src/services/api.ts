@@ -31,10 +31,20 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 export interface JobDescription {
   id: string;
   recruiterId: string;
+  clientId: string | null;
+  clientName: string | null;
   title: string;
   blobUrl: string | null;
   parsedJson: string | null;
   promptVersion: string | null;
+  createdAt: string;
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  description: string | null;
+  workspaceId: string;
   createdAt: string;
 }
 
@@ -107,28 +117,19 @@ export interface ClientFeedback {
 // --- Job Descriptions ---
 
 export const jobDescriptionApi = {
-  getByRecruiter: (recruiterId: string) =>
-    request<JobDescription[]>(`/api/job-descriptions?recruiterId=${recruiterId}`),
+  getAll: (clientId?: string) => {
+    const qs = clientId ? `?clientId=${clientId}` : '';
+    return request<JobDescription[]>(`/api/job-descriptions${qs}`);
+  },
 
   getById: (id: string) =>
     request<JobDescription>(`/api/job-descriptions/${id}`),
 
-  create: (recruiterId: string, data: { title: string; rawText?: string }) =>
-    request<JobDescription>(`/api/job-descriptions?recruiterId=${recruiterId}`, {
+  create: (data: { title: string; rawText: string; clientId?: string }) =>
+    request<JobDescription>('/api/job-descriptions', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
-
-  upload: async (recruiterId: string, title: string, file: File) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    const res = await fetch(
-      `${API_BASE}/api/job-descriptions/upload?recruiterId=${recruiterId}&title=${encodeURIComponent(title)}`,
-      { method: 'POST', body: formData }
-    );
-    if (!res.ok) throw new Error(`Upload failed: ${res.statusText}`);
-    return res.json() as Promise<JobDescription>;
-  },
 
   parse: (id: string) =>
     request<{ jobDescriptionId: string; parsedJson: string }>(
@@ -137,11 +138,37 @@ export const jobDescriptionApi = {
     ),
 };
 
+// --- Clients ---
+
+export const clientApi = {
+  getAll: () => request<Client[]>('/api/clients'),
+
+  getById: (id: string) => request<Client>(`/api/clients/${id}`),
+
+  create: (data: { name: string; description?: string }) =>
+    request<Client>('/api/clients', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+
+  update: (id: string, data: { name: string; description?: string }) =>
+    request<Client>(`/api/clients/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+
+  delete: (id: string) =>
+    request<void>(`/api/clients/${id}`, { method: 'DELETE' }),
+};
+
 // --- Candidates ---
 
 export const candidateApi = {
-  getByWorkspace: (workspaceId: string) =>
-    request<Candidate[]>(`/api/candidates?workspaceId=${workspaceId}`),
+  // workspaceId is optional — Interviewers/Managers get all candidates; Recruiters are filtered server-side by JWT
+  getByWorkspace: (workspaceId?: string) => {
+    const qs = workspaceId ? `?workspaceId=${workspaceId}` : '';
+    return request<Candidate[]>(`/api/candidates${qs}`);
+  },
 
   getById: (id: string) =>
     request<Candidate>(`/api/candidates/${id}`),
@@ -234,8 +261,11 @@ export const feedbackApi = {
       body: JSON.stringify(data),
     }),
 
-  getByRecruiter: (recruiterId: string) =>
-    request<ClientFeedback[]>(`/api/feedback?recruiterId=${recruiterId}`),
+  // Returns own feedback for Recruiters, all feedback for Manager/AccountManager/SuperAdmin
+  getAll: () => request<ClientFeedback[]>('/api/feedback'),
+
+  // Kept for backward compat — same endpoint, just alias
+  getByRecruiter: (_recruiterId: string) => request<ClientFeedback[]>('/api/feedback'),
 };
 
 // --- Manager ---

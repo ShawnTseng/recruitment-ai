@@ -1,0 +1,838 @@
+2026-03-23T02:04:36.7069658Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:04:47.2903802Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:05:24.7945943Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:05:24.8030744Z Container start method called.
+2026-03-23T02:05:24.8034596Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T02:05:24.8046657Z Establishing network.
+2026-03-23T02:05:24.8136203Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T02:09:06.9525296Z Image appsvc/dotnetcore:10.0_20260115.4.tuxprod is pulled from registry mcr.microsoft.com
+2026-03-23T02:09:06.9630203Z Container is starting.
+2026-03-23T02:09:07.0003341Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T02:09:07.0017496Z Establishing user namespace if not established already.
+2026-03-23T02:09:07.0028362Z Establishing network if not established already.
+2026-03-23T02:09:07.0055695Z Mounting volumes.
+2026-03-23T02:09:07.0083446Z Nested mountpoint 
+2026-03-23T02:09:07.0955226Z Nested mountpoint volatile/logs
+2026-03-23T02:09:07.1243569Z Nested mountpoint 
+2026-03-23T02:09:07.2906170Z Nested mountpoint 
+2026-03-23T02:09:07.3685504Z Nested mountpoint 
+2026-03-23T02:09:08.3789811Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T02:09:08.3799599Z Creating container.
+2026-03-23T02:09:08.3803808Z Creating pipes for streaming container io.
+2026-03-23T02:09:08.3883596Z Creating stdout named pipe at /podr/container/pipe/9b1bf4564d3a_recai-api/stdout_cdcb1353461f40b6bbacf1b4a4828cad.
+2026-03-23T02:09:08.4279997Z Successfully created stdout named pipe at: /podr/container/pipe/9b1bf4564d3a_recai-api/stdout_cdcb1353461f40b6bbacf1b4a4828cad.
+2026-03-23T02:09:08.4296728Z Opening named pipe /podr/container/pipe/9b1bf4564d3a_recai-api/stdout_cdcb1353461f40b6bbacf1b4a4828cad for reading in non-blocking mode.
+2026-03-23T02:09:08.4300591Z Successfully opened named pipe: /podr/container/pipe/9b1bf4564d3a_recai-api/stdout_cdcb1353461f40b6bbacf1b4a4828cad.
+2026-03-23T02:09:08.4510177Z Successfully removed non-blocking flag from /podr/container/pipe/9b1bf4564d3a_recai-api/stdout_cdcb1353461f40b6bbacf1b4a4828cad.
+2026-03-23T02:09:08.4903276Z Creating stderr named pipe at /podr/container/pipe/9b1bf4564d3a_recai-api/stderr_c38c3bff371641f1bb7b4352af6629cd.
+2026-03-23T02:09:08.4971617Z Successfully created stderr named pipe at: /podr/container/pipe/9b1bf4564d3a_recai-api/stderr_c38c3bff371641f1bb7b4352af6629cd.
+2026-03-23T02:09:08.4973667Z Opening named pipe /podr/container/pipe/9b1bf4564d3a_recai-api/stderr_c38c3bff371641f1bb7b4352af6629cd for reading in non-blocking mode.
+2026-03-23T02:09:08.4975836Z Successfully opened named pipe: /podr/container/pipe/9b1bf4564d3a_recai-api/stderr_c38c3bff371641f1bb7b4352af6629cd.
+2026-03-23T02:09:08.4977716Z Successfully removed non-blocking flag from /podr/container/pipe/9b1bf4564d3a_recai-api/stderr_c38c3bff371641f1bb7b4352af6629cd.
+2026-03-23T02:09:08.4980930Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: mcr.microsoft.com and fully qualified image name: mcr.microsoft.com/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T02:09:10.1996931Z Starting container: 9b1bf4564d3a_recai-api.
+2026-03-23T02:09:10.7333741Z Starting watchers and probes.
+2026-03-23T02:09:10.9121985Z Starting metrics collection.
+2026-03-23T02:09:10.9129054Z Container is running.
+2026-03-23T02:09:10.9131943Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:09:11.7165902Z Container start method finished after 226913 ms.
+2026-03-23T02:09:11.9665255Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:09:12.1626226Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T02:10:51.8866123Z Site startup probe succeeded after 99.5462331 seconds.
+2026-03-23T02:10:52.7295837Z State: Starting, Action: WarmUpProbeSucceeded, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site startup probe succeeded after 99.5462331 seconds., DetailsLevel: INFO
+2026-03-23T02:10:53.0501315Z Site started.
+2026-03-23T02:10:53.0700904Z State: Started, Action: None, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 03/23/2026 02:10:53 (UTC), DetailsLevel: INFO
+2026-03-23T02:10:53.9801510Z Site is running with patch version DOTNETCORE 10.0.2
+2026-03-23T02:11:06.6835761Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:11:47.2790468Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:12:47.0817470Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:12:47.0819948Z Container start method called.
+2026-03-23T02:12:47.0820781Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T02:12:47.0822594Z Establishing network.
+2026-03-23T02:12:47.0824452Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T02:12:48.1275487Z Image appsvc/dotnetcore:10.0_20260115.4.tuxprod is pulled from registry 10.1.0.5:13209
+2026-03-23T02:12:48.1277843Z Container is starting.
+2026-03-23T02:12:48.1279444Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T02:12:48.1288410Z Establishing user namespace if not established already.
+2026-03-23T02:12:48.1290790Z Establishing network if not established already.
+2026-03-23T02:12:48.1294588Z Mounting volumes.
+2026-03-23T02:12:48.1373439Z Nested mountpoint 
+2026-03-23T02:12:48.2571019Z Nested mountpoint volatile/logs
+2026-03-23T02:12:48.3153969Z Nested mountpoint 
+2026-03-23T02:12:48.3537627Z Nested mountpoint 
+2026-03-23T02:12:48.4725718Z Nested mountpoint 
+2026-03-23T02:12:52.3020816Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T02:12:52.4368356Z Creating container.
+2026-03-23T02:12:52.4376839Z Creating pipes for streaming container io.
+2026-03-23T02:12:52.5072498Z Creating stdout named pipe at /podr/container/pipe/9759d19fd884_recai-api/stdout_2e201b3d144c444ead5c39025f02dcfc.
+2026-03-23T02:12:52.5164800Z Successfully created stdout named pipe at: /podr/container/pipe/9759d19fd884_recai-api/stdout_2e201b3d144c444ead5c39025f02dcfc.
+2026-03-23T02:12:52.5260332Z Opening named pipe /podr/container/pipe/9759d19fd884_recai-api/stdout_2e201b3d144c444ead5c39025f02dcfc for reading in non-blocking mode.
+2026-03-23T02:12:52.5275763Z Successfully opened named pipe: /podr/container/pipe/9759d19fd884_recai-api/stdout_2e201b3d144c444ead5c39025f02dcfc.
+2026-03-23T02:12:52.5278946Z Successfully removed non-blocking flag from /podr/container/pipe/9759d19fd884_recai-api/stdout_2e201b3d144c444ead5c39025f02dcfc.
+2026-03-23T02:12:52.5373668Z Creating stderr named pipe at /podr/container/pipe/9759d19fd884_recai-api/stderr_e3b7e5cbd01644b09f49eefe1889b214.
+2026-03-23T02:12:52.5388477Z Successfully created stderr named pipe at: /podr/container/pipe/9759d19fd884_recai-api/stderr_e3b7e5cbd01644b09f49eefe1889b214.
+2026-03-23T02:12:52.5679719Z Opening named pipe /podr/container/pipe/9759d19fd884_recai-api/stderr_e3b7e5cbd01644b09f49eefe1889b214 for reading in non-blocking mode.
+2026-03-23T02:12:52.5751389Z Successfully opened named pipe: /podr/container/pipe/9759d19fd884_recai-api/stderr_e3b7e5cbd01644b09f49eefe1889b214.
+2026-03-23T02:12:52.6173953Z Successfully removed non-blocking flag from /podr/container/pipe/9759d19fd884_recai-api/stderr_e3b7e5cbd01644b09f49eefe1889b214.
+2026-03-23T02:12:52.6366663Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T02:12:56.2711799Z Starting container: 9759d19fd884_recai-api.
+2026-03-23T02:12:56.7205271Z Starting watchers and probes.
+2026-03-23T02:12:56.7316123Z Starting metrics collection.
+2026-03-23T02:12:56.7418087Z Container is running.
+2026-03-23T02:12:56.7541964Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:12:58.0239805Z Container start method finished after 10925 ms.
+2026-03-23T02:12:58.0262174Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:12:58.0262868Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T02:16:11.4695042Z Site startup probe succeeded after 193.4279736 seconds.
+2026-03-23T02:16:12.1696761Z State: Starting, Action: WarmUpProbeSucceeded, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site startup probe succeeded after 193.4279736 seconds., DetailsLevel: INFO
+2026-03-23T02:16:12.3570341Z State: Starting, Action: StartingAuthContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site startup probe succeeded after 193.4279736 seconds., DetailsLevel: INFO
+2026-03-23T02:16:32.1445068Z Site started.
+2026-03-23T02:16:32.1721096Z State: Started, Action: None, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 03/23/2026 02:16:32 (UTC), DetailsLevel: INFO
+2026-03-23T02:16:32.1949477Z Site is running with patch version DOTNETCORE 10.0.2
+2026-03-23T02:16:52.9067396Z State: Stopping, Action: StoppingSite, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 03/23/2026 02:10:53 (UTC), DetailsLevel: INFO
+2026-03-23T02:16:53.0537890Z State: Stopping, Action: StoppingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 03/23/2026 02:10:53 (UTC), DetailsLevel: INFO
+2026-03-23T02:16:53.0835451Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T02:16:53.5199402Z Stop and delete container. Retry count = 0
+2026-03-23T02:16:53.5509386Z Stopping container: 9b1bf4564d3a_recai-api.
+2026-03-23T02:17:00.6773518Z Deleting container: 9b1bf4564d3a_recai-api. Retry count = 0
+2026-03-23T02:17:02.7949693Z Container spec TerminationMessagePolicy  path 
+2026-03-23T02:17:02.9448422Z Container is terminated. Total time elapsed: 9841 ms.
+2026-03-23T02:17:03.0902557Z Site: recai-api stopped.
+2026-03-23T02:21:29.3696658Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:21:53.7671571Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:22:45.3077636Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T02:22:45.3083171Z Container start method called.
+2026-03-23T02:22:45.3271054Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T02:22:45.3289624Z Establishing network.
+2026-03-23T02:22:45.3558588Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T02:22:46.8391373Z Image appsvc/dotnetcore:10.0_20260115.4.tuxprod is pulled from registry 10.1.0.4:13209
+2026-03-23T02:22:46.8460123Z Container is starting.
+2026-03-23T02:22:46.8463682Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T02:22:46.8554217Z Establishing user namespace if not established already.
+2026-03-23T02:22:46.8557513Z Establishing network if not established already.
+2026-03-23T02:22:46.8561214Z Mounting volumes.
+2026-03-23T02:22:46.8565196Z Nested mountpoint 
+2026-03-23T02:22:47.0917745Z Nested mountpoint volatile/logs
+2026-03-23T02:22:47.1314132Z Nested mountpoint 
+2026-03-23T02:22:47.3422970Z Nested mountpoint 
+2026-03-23T02:22:47.5734615Z Nested mountpoint 
+2026-03-23T02:22:52.1197465Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T02:22:52.1205000Z Creating container.
+2026-03-23T02:22:52.1303277Z Creating pipes for streaming container io.
+2026-03-23T02:22:52.1421243Z Creating stdout named pipe at /podr/container/pipe/b8a74e7ff340_recai-api/stdout_d52fa339798048069ecff7b7f5b8be1c.
+2026-03-23T02:22:52.1719606Z Successfully created stdout named pipe at: /podr/container/pipe/b8a74e7ff340_recai-api/stdout_d52fa339798048069ecff7b7f5b8be1c.
+2026-03-23T02:22:52.1722247Z Opening named pipe /podr/container/pipe/b8a74e7ff340_recai-api/stdout_d52fa339798048069ecff7b7f5b8be1c for reading in non-blocking mode.
+2026-03-23T02:22:52.1724869Z Successfully opened named pipe: /podr/container/pipe/b8a74e7ff340_recai-api/stdout_d52fa339798048069ecff7b7f5b8be1c.
+2026-03-23T02:22:52.1726548Z Successfully removed non-blocking flag from /podr/container/pipe/b8a74e7ff340_recai-api/stdout_d52fa339798048069ecff7b7f5b8be1c.
+2026-03-23T02:22:52.2286537Z Creating stderr named pipe at /podr/container/pipe/b8a74e7ff340_recai-api/stderr_6cb257739eb7409e975c9fc1ca56d940.
+2026-03-23T02:22:52.2296496Z Successfully created stderr named pipe at: /podr/container/pipe/b8a74e7ff340_recai-api/stderr_6cb257739eb7409e975c9fc1ca56d940.
+2026-03-23T02:22:52.2298301Z Opening named pipe /podr/container/pipe/b8a74e7ff340_recai-api/stderr_6cb257739eb7409e975c9fc1ca56d940 for reading in non-blocking mode.
+2026-03-23T02:22:52.2300332Z Successfully opened named pipe: /podr/container/pipe/b8a74e7ff340_recai-api/stderr_6cb257739eb7409e975c9fc1ca56d940.
+2026-03-23T02:22:52.2301979Z Successfully removed non-blocking flag from /podr/container/pipe/b8a74e7ff340_recai-api/stderr_6cb257739eb7409e975c9fc1ca56d940.
+2026-03-23T02:22:52.3061681Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T02:22:56.4559141Z Starting container: b8a74e7ff340_recai-api.
+2026-03-23T02:22:56.7317906Z Starting watchers and probes.
+2026-03-23T02:22:56.7409388Z Starting metrics collection.
+2026-03-23T02:22:56.7411927Z Container is running.
+2026-03-23T02:22:56.7418430Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:22:58.0095350Z Container start method finished after 12678 ms.
+2026-03-23T02:22:58.0790395Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:22:58.0868160Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T02:26:48.7278353Z Site startup probe failed after 230.6142144 seconds.
+2026-03-23T02:26:50.2909084Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:26:50.5163398Z Failed to start site. Revert by stopping site.
+2026-03-23T02:26:50.6035791Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:26:50.6548711Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:26:50.6902244Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T02:26:50.9143215Z Stop and delete container. Retry count = 0
+2026-03-23T02:26:50.9258822Z Stopping container: b8a74e7ff340_recai-api.
+2026-03-23T02:26:57.7189716Z Deleting container: b8a74e7ff340_recai-api. Retry count = 0
+2026-03-23T02:26:59.9063607Z Container spec TerminationMessagePolicy  path 
+2026-03-23T02:26:59.9560199Z Container is terminated. Total time elapsed: 9237 ms.
+2026-03-23T02:26:59.9857340Z Site container: recai-api terminated during site startup.
+2026-03-23T02:27:00.0641279Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:27:00.1050146Z Site: recai-api stopped.
+2026-03-23T02:27:35.2028967Z State: Stopping, Action: StoppingSite, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 03/23/2026 02:16:32 (UTC), DetailsLevel: INFO
+2026-03-23T02:27:35.3361890Z State: Stopping, Action: StoppingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Site started at 03/23/2026 02:16:32 (UTC), DetailsLevel: INFO
+2026-03-23T02:27:35.3389590Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T02:27:35.5325149Z Stop and delete container. Retry count = 0
+2026-03-23T02:27:35.5328499Z Stopping container: 9759d19fd884_recai-api.
+2026-03-23T02:27:41.7709329Z Deleting container: 9759d19fd884_recai-api. Retry count = 0
+2026-03-23T02:27:42.6877405Z Container spec TerminationMessagePolicy  path 
+2026-03-23T02:27:42.6972393Z Container is terminated. Total time elapsed: 7348 ms.
+2026-03-23T02:27:42.6975255Z Site: recai-api stopped.
+2026-03-23T02:27:00.3213828Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:27:07.2116346Z Site container: recai-api_managedIdentity terminated during site startup.
+2026-03-23T02:27:07.2309692Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:27:08.8387405Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:27:13.5111195Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:27:13 (UTC), DetailsLevel: ERR
+2026-03-23T02:27:13.8947354Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:27:13 (UTC), DetailsLevel: ERR
+2026-03-23T02:28:00.0172394Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:27:13 (UTC), DetailsLevel: ERR
+2026-03-23T02:28:16.9411734Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:27:13 (UTC), DetailsLevel: ERR
+2026-03-23T02:28:54.9612196Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:27:13 (UTC), DetailsLevel: ERR
+2026-03-23T02:28:54.9615642Z Container start method called.
+2026-03-23T02:28:54.9616936Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T02:28:55.0663002Z Establishing network.
+2026-03-23T02:28:55.0676994Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T02:28:55.8070504Z Container is starting.
+2026-03-23T02:28:55.8151924Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T02:28:55.8160554Z Establishing user namespace if not established already.
+2026-03-23T02:28:55.8166431Z Establishing network if not established already.
+2026-03-23T02:28:55.8170654Z Mounting volumes.
+2026-03-23T02:28:55.8173683Z Nested mountpoint 
+2026-03-23T02:28:55.9934615Z Nested mountpoint volatile/logs
+2026-03-23T02:28:56.0397701Z Nested mountpoint 
+2026-03-23T02:28:56.1078431Z Nested mountpoint 
+2026-03-23T02:28:56.2877933Z Nested mountpoint 
+2026-03-23T02:28:58.1616402Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T02:28:58.1618528Z Creating container.
+2026-03-23T02:28:58.1620131Z Creating pipes for streaming container io.
+2026-03-23T02:28:58.1621868Z Creating stdout named pipe at /podr/container/pipe/5a2d193dc52a_recai-api/stdout_f31a482df47a4f71b9557059e2706075.
+2026-03-23T02:28:58.3290398Z Successfully created stdout named pipe at: /podr/container/pipe/5a2d193dc52a_recai-api/stdout_f31a482df47a4f71b9557059e2706075.
+2026-03-23T02:28:58.3294024Z Opening named pipe /podr/container/pipe/5a2d193dc52a_recai-api/stdout_f31a482df47a4f71b9557059e2706075 for reading in non-blocking mode.
+2026-03-23T02:28:58.3297991Z Successfully opened named pipe: /podr/container/pipe/5a2d193dc52a_recai-api/stdout_f31a482df47a4f71b9557059e2706075.
+2026-03-23T02:28:58.3306912Z Successfully removed non-blocking flag from /podr/container/pipe/5a2d193dc52a_recai-api/stdout_f31a482df47a4f71b9557059e2706075.
+2026-03-23T02:28:58.3311030Z Creating stderr named pipe at /podr/container/pipe/5a2d193dc52a_recai-api/stderr_07e7ad7749734f40bb9ceb1c2a5bc89a.
+2026-03-23T02:28:58.3778134Z Successfully created stderr named pipe at: /podr/container/pipe/5a2d193dc52a_recai-api/stderr_07e7ad7749734f40bb9ceb1c2a5bc89a.
+2026-03-23T02:28:58.3784049Z Opening named pipe /podr/container/pipe/5a2d193dc52a_recai-api/stderr_07e7ad7749734f40bb9ceb1c2a5bc89a for reading in non-blocking mode.
+2026-03-23T02:28:58.4260300Z Successfully opened named pipe: /podr/container/pipe/5a2d193dc52a_recai-api/stderr_07e7ad7749734f40bb9ceb1c2a5bc89a.
+2026-03-23T02:28:58.4339375Z Successfully removed non-blocking flag from /podr/container/pipe/5a2d193dc52a_recai-api/stderr_07e7ad7749734f40bb9ceb1c2a5bc89a.
+2026-03-23T02:28:58.4350779Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T02:29:01.4879024Z Starting container: 5a2d193dc52a_recai-api.
+2026-03-23T02:29:01.8788635Z Starting watchers and probes.
+2026-03-23T02:29:01.8965111Z Starting metrics collection.
+2026-03-23T02:29:01.9463916Z Container is running.
+2026-03-23T02:29:01.9883169Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:29:03.0475052Z Container start method finished after 8085 ms.
+2026-03-23T02:29:03.0479620Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:29:03.0480088Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:26:50, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T02:32:53.3925582Z Site startup probe failed after 230.2438546 seconds.
+2026-03-23T02:32:55.6167039Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:32:55.7778746Z Failed to start site. Revert by stopping site.
+2026-03-23T02:32:55.8162403Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:32:55.9192442Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:32:55.9195706Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T02:32:56.4007222Z Stop and delete container. Retry count = 0
+2026-03-23T02:32:56.4211410Z Stopping container: 5a2d193dc52a_recai-api.
+2026-03-23T02:33:03.1039580Z Deleting container: 5a2d193dc52a_recai-api. Retry count = 0
+2026-03-23T02:33:06.3710560Z Container spec TerminationMessagePolicy  path 
+2026-03-23T02:33:06.3743606Z Container is terminated. Total time elapsed: 10454 ms.
+2026-03-23T02:33:06.3824092Z Site container: recai-api terminated during site startup.
+2026-03-23T02:33:06.3900856Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:33:06.4123860Z Site: recai-api stopped.
+2026-03-23T02:40:02.5851722Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:33:21 (UTC), DetailsLevel: WARN
+2026-03-23T02:40:17.5036594Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:33:21 (UTC), DetailsLevel: WARN
+2026-03-23T02:40:54.3117874Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:33:21 (UTC), DetailsLevel: WARN
+2026-03-23T02:40:54.3308485Z Container start method called.
+2026-03-23T02:40:54.3312128Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T02:40:54.3316940Z Establishing network.
+2026-03-23T02:40:54.3321036Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T02:40:55.4049117Z Container is starting.
+2026-03-23T02:40:55.4057328Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T02:40:55.4143044Z Establishing user namespace if not established already.
+2026-03-23T02:40:55.4154360Z Establishing network if not established already.
+2026-03-23T02:40:55.4159154Z Mounting volumes.
+2026-03-23T02:40:55.4613612Z Nested mountpoint 
+2026-03-23T02:40:55.5596809Z Nested mountpoint volatile/logs
+2026-03-23T02:40:55.7739182Z Nested mountpoint 
+2026-03-23T02:40:55.8366496Z Nested mountpoint 
+2026-03-23T02:40:55.8858032Z Nested mountpoint 
+2026-03-23T02:40:58.1958257Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T02:40:58.1960387Z Creating container.
+2026-03-23T02:40:58.1962209Z Creating pipes for streaming container io.
+2026-03-23T02:40:58.2146277Z Creating stdout named pipe at /podr/container/pipe/bf1538b29a2b_recai-api/stdout_b821574e9d8847cf9b50061a8bef5b92.
+2026-03-23T02:40:58.2155769Z Successfully created stdout named pipe at: /podr/container/pipe/bf1538b29a2b_recai-api/stdout_b821574e9d8847cf9b50061a8bef5b92.
+2026-03-23T02:40:58.2157724Z Opening named pipe /podr/container/pipe/bf1538b29a2b_recai-api/stdout_b821574e9d8847cf9b50061a8bef5b92 for reading in non-blocking mode.
+2026-03-23T02:40:58.2159841Z Successfully opened named pipe: /podr/container/pipe/bf1538b29a2b_recai-api/stdout_b821574e9d8847cf9b50061a8bef5b92.
+2026-03-23T02:40:58.2161414Z Successfully removed non-blocking flag from /podr/container/pipe/bf1538b29a2b_recai-api/stdout_b821574e9d8847cf9b50061a8bef5b92.
+2026-03-23T02:40:58.2168724Z Creating stderr named pipe at /podr/container/pipe/bf1538b29a2b_recai-api/stderr_5b1ef52888534c61b18b1ac1d87c4242.
+2026-03-23T02:40:58.2243415Z Successfully created stderr named pipe at: /podr/container/pipe/bf1538b29a2b_recai-api/stderr_5b1ef52888534c61b18b1ac1d87c4242.
+2026-03-23T02:40:58.2249830Z Opening named pipe /podr/container/pipe/bf1538b29a2b_recai-api/stderr_5b1ef52888534c61b18b1ac1d87c4242 for reading in non-blocking mode.
+2026-03-23T02:40:58.2253062Z Successfully opened named pipe: /podr/container/pipe/bf1538b29a2b_recai-api/stderr_5b1ef52888534c61b18b1ac1d87c4242.
+2026-03-23T02:40:58.2254948Z Successfully removed non-blocking flag from /podr/container/pipe/bf1538b29a2b_recai-api/stderr_5b1ef52888534c61b18b1ac1d87c4242.
+2026-03-23T02:40:58.2544760Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T02:40:59.7000433Z Starting container: bf1538b29a2b_recai-api.
+2026-03-23T02:40:59.9016692Z Starting watchers and probes.
+2026-03-23T02:40:59.9209607Z Starting metrics collection.
+2026-03-23T02:40:59.9218682Z Container is running.
+2026-03-23T02:40:59.9494791Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:41:00.6099494Z Container start method finished after 6278 ms.
+2026-03-23T02:41:00.6103260Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:41:00.6103752Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:32:55, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T02:44:51.4534333Z Site startup probe failed after 230.5583133 seconds.
+2026-03-23T02:44:57.0910959Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:44:57.2296636Z Failed to start site. Revert by stopping site.
+2026-03-23T02:44:57.2588806Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:44:57.3193960Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:44:57.3575912Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T02:44:57.5835918Z Stop and delete container. Retry count = 0
+2026-03-23T02:44:57.5844121Z Stopping container: bf1538b29a2b_recai-api.
+2026-03-23T02:45:05.2269928Z Deleting container: bf1538b29a2b_recai-api. Retry count = 0
+2026-03-23T02:45:07.5883802Z Container spec TerminationMessagePolicy  path 
+2026-03-23T02:45:07.5887138Z Container is terminated. Total time elapsed: 10230 ms.
+2026-03-23T02:45:07.6261800Z Site container: recai-api terminated during site startup.
+2026-03-23T02:45:07.6263318Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:45:07.6362344Z Site: recai-api stopped.
+2026-03-23T02:49:59.6744142Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:45:15 (UTC), DetailsLevel: ERR
+2026-03-23T02:50:15.1019807Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:45:15 (UTC), DetailsLevel: ERR
+2026-03-23T02:50:49.4142435Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:45:15 (UTC), DetailsLevel: ERR
+2026-03-23T02:50:49.4731727Z Container start method called.
+2026-03-23T02:50:49.4733701Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T02:50:49.4735795Z Establishing network.
+2026-03-23T02:50:49.4738070Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T02:50:49.9761686Z Container is starting.
+2026-03-23T02:50:49.9764930Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T02:50:49.9767527Z Establishing user namespace if not established already.
+2026-03-23T02:50:49.9776498Z Establishing network if not established already.
+2026-03-23T02:50:49.9873797Z Mounting volumes.
+2026-03-23T02:50:49.9938850Z Nested mountpoint 
+2026-03-23T02:50:50.0131710Z Nested mountpoint volatile/logs
+2026-03-23T02:50:50.0586625Z Nested mountpoint 
+2026-03-23T02:50:50.2381163Z Nested mountpoint 
+2026-03-23T02:50:50.4374402Z Nested mountpoint 
+2026-03-23T02:50:52.9969638Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T02:50:53.0243440Z Creating container.
+2026-03-23T02:50:53.0266087Z Creating pipes for streaming container io.
+2026-03-23T02:50:53.0270236Z Creating stdout named pipe at /podr/container/pipe/a8bfcf315690_recai-api/stdout_5429ecedff204748ab6858c6a14396b9.
+2026-03-23T02:50:53.0274831Z Successfully created stdout named pipe at: /podr/container/pipe/a8bfcf315690_recai-api/stdout_5429ecedff204748ab6858c6a14396b9.
+2026-03-23T02:50:53.0467189Z Opening named pipe /podr/container/pipe/a8bfcf315690_recai-api/stdout_5429ecedff204748ab6858c6a14396b9 for reading in non-blocking mode.
+2026-03-23T02:50:53.0572928Z Successfully opened named pipe: /podr/container/pipe/a8bfcf315690_recai-api/stdout_5429ecedff204748ab6858c6a14396b9.
+2026-03-23T02:50:53.0577663Z Successfully removed non-blocking flag from /podr/container/pipe/a8bfcf315690_recai-api/stdout_5429ecedff204748ab6858c6a14396b9.
+2026-03-23T02:50:53.0850570Z Creating stderr named pipe at /podr/container/pipe/a8bfcf315690_recai-api/stderr_42f15429a9e14d61b7a55e8d1b6b59b5.
+2026-03-23T02:50:53.1154696Z Successfully created stderr named pipe at: /podr/container/pipe/a8bfcf315690_recai-api/stderr_42f15429a9e14d61b7a55e8d1b6b59b5.
+2026-03-23T02:50:53.1160062Z Opening named pipe /podr/container/pipe/a8bfcf315690_recai-api/stderr_42f15429a9e14d61b7a55e8d1b6b59b5 for reading in non-blocking mode.
+2026-03-23T02:50:53.1172573Z Successfully opened named pipe: /podr/container/pipe/a8bfcf315690_recai-api/stderr_42f15429a9e14d61b7a55e8d1b6b59b5.
+2026-03-23T02:50:53.1174375Z Successfully removed non-blocking flag from /podr/container/pipe/a8bfcf315690_recai-api/stderr_42f15429a9e14d61b7a55e8d1b6b59b5.
+2026-03-23T02:50:53.1177278Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T02:50:54.9309812Z Starting container: a8bfcf315690_recai-api.
+2026-03-23T02:50:55.0995422Z Starting watchers and probes.
+2026-03-23T02:50:55.1203773Z Starting metrics collection.
+2026-03-23T02:50:55.1307583Z Container is running.
+2026-03-23T02:50:55.1394519Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:50:55.6026164Z Container start method finished after 6119 ms.
+2026-03-23T02:50:55.6029464Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T02:50:55.6029799Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:44:57, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T02:54:45.7421987Z Site startup probe failed after 230.129869 seconds.
+2026-03-23T02:54:48.0034034Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:54:48.0930663Z Failed to start site. Revert by stopping site.
+2026-03-23T02:54:48.1699535Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:54:48.2504838Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T02:54:48.2778112Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T02:54:48.8632055Z Stop and delete container. Retry count = 0
+2026-03-23T02:54:48.8734711Z Stopping container: a8bfcf315690_recai-api.
+2026-03-23T02:54:54.5739021Z Deleting container: a8bfcf315690_recai-api. Retry count = 0
+2026-03-23T02:54:55.8681882Z Container spec TerminationMessagePolicy  path 
+2026-03-23T02:54:55.8873070Z Container is terminated. Total time elapsed: 7605 ms.
+2026-03-23T02:54:55.9068090Z Site container: recai-api terminated during site startup.
+2026-03-23T02:54:55.9071827Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T02:54:55.9656130Z Site: recai-api stopped.
+2026-03-23T03:06:17.3951031Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:55:06 (UTC), DetailsLevel: ERR
+2026-03-23T03:06:29.9860214Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:55:06 (UTC), DetailsLevel: ERR
+2026-03-23T03:07:00.4550234Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 02:55:06 (UTC), DetailsLevel: ERR
+2026-03-23T03:07:00.4555806Z Container start method called.
+2026-03-23T03:07:00.4856612Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T03:07:00.4861178Z Establishing network.
+2026-03-23T03:07:00.4863776Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T03:07:01.2178474Z Container is starting.
+2026-03-23T03:07:01.2195486Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T03:07:01.2484319Z Establishing user namespace if not established already.
+2026-03-23T03:07:01.2487181Z Establishing network if not established already.
+2026-03-23T03:07:01.2489183Z Mounting volumes.
+2026-03-23T03:07:01.2491532Z Nested mountpoint 
+2026-03-23T03:07:01.4372364Z Nested mountpoint volatile/logs
+2026-03-23T03:07:02.6119133Z Nested mountpoint 
+2026-03-23T03:07:02.8480213Z Nested mountpoint 
+2026-03-23T03:07:03.0357906Z Nested mountpoint 
+2026-03-23T03:07:04.7281319Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T03:07:04.7283553Z Creating container.
+2026-03-23T03:07:04.7285416Z Creating pipes for streaming container io.
+2026-03-23T03:07:04.7287034Z Creating stdout named pipe at /podr/container/pipe/037e83c49d71_recai-api/stdout_f9c05c3ff1f34e5ab7c9ea7d02444347.
+2026-03-23T03:07:04.7291032Z Successfully created stdout named pipe at: /podr/container/pipe/037e83c49d71_recai-api/stdout_f9c05c3ff1f34e5ab7c9ea7d02444347.
+2026-03-23T03:07:04.7292833Z Opening named pipe /podr/container/pipe/037e83c49d71_recai-api/stdout_f9c05c3ff1f34e5ab7c9ea7d02444347 for reading in non-blocking mode.
+2026-03-23T03:07:04.8044087Z Successfully opened named pipe: /podr/container/pipe/037e83c49d71_recai-api/stdout_f9c05c3ff1f34e5ab7c9ea7d02444347.
+2026-03-23T03:07:04.8072379Z Successfully removed non-blocking flag from /podr/container/pipe/037e83c49d71_recai-api/stdout_f9c05c3ff1f34e5ab7c9ea7d02444347.
+2026-03-23T03:07:04.8541052Z Creating stderr named pipe at /podr/container/pipe/037e83c49d71_recai-api/stderr_7553220ec57f4f279c29f997d9624964.
+2026-03-23T03:07:04.8561520Z Successfully created stderr named pipe at: /podr/container/pipe/037e83c49d71_recai-api/stderr_7553220ec57f4f279c29f997d9624964.
+2026-03-23T03:07:04.8565912Z Opening named pipe /podr/container/pipe/037e83c49d71_recai-api/stderr_7553220ec57f4f279c29f997d9624964 for reading in non-blocking mode.
+2026-03-23T03:07:04.8635788Z Successfully opened named pipe: /podr/container/pipe/037e83c49d71_recai-api/stderr_7553220ec57f4f279c29f997d9624964.
+2026-03-23T03:07:04.8657059Z Successfully removed non-blocking flag from /podr/container/pipe/037e83c49d71_recai-api/stderr_7553220ec57f4f279c29f997d9624964.
+2026-03-23T03:07:04.8761360Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T03:07:07.6757927Z Starting container: 037e83c49d71_recai-api.
+2026-03-23T03:07:08.0240037Z Starting watchers and probes.
+2026-03-23T03:07:08.0591898Z Starting metrics collection.
+2026-03-23T03:07:08.0706989Z Container is running.
+2026-03-23T03:07:08.0717868Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:07:08.2683860Z Container start method finished after 7803 ms.
+2026-03-23T03:07:08.3657735Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:07:08.3660615Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 02:54:47, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T03:10:58.7330322Z Site startup probe failed after 230.0484911 seconds.
+2026-03-23T03:10:59.6516156Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T03:10:59.7764173Z Failed to start site. Revert by stopping site.
+2026-03-23T03:10:59.7950565Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T03:10:59.8248969Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T03:10:59.8413836Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T03:11:00.0379446Z Stop and delete container. Retry count = 0
+2026-03-23T03:11:00.0482551Z Stopping container: 037e83c49d71_recai-api.
+2026-03-23T03:11:05.4809729Z Deleting container: 037e83c49d71_recai-api. Retry count = 0
+2026-03-23T03:11:06.4101557Z Container spec TerminationMessagePolicy  path 
+2026-03-23T03:11:06.4298623Z Container is terminated. Total time elapsed: 6586 ms.
+2026-03-23T03:11:06.4316203Z Site container: recai-api terminated during site startup.
+2026-03-23T03:11:06.4394830Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:11:06.4703183Z Site: recai-api stopped.
+2026-03-23T03:11:06.4888061Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:11:11.2002446Z Site container: recai-api_managedIdentity terminated during site startup.
+2026-03-23T03:11:11.2004746Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:11:11.8974261Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:11:14.6049993Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:11:14 (UTC), DetailsLevel: ERR
+2026-03-23T03:11:15.7898601Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:11:14 (UTC), DetailsLevel: ERR
+2026-03-23T03:12:24.9363707Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:11:14 (UTC), DetailsLevel: ERR
+2026-03-23T03:12:42.9060483Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:11:14 (UTC), DetailsLevel: ERR
+2026-03-23T03:13:22.4663380Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:11:14 (UTC), DetailsLevel: ERR
+2026-03-23T03:13:22.5351686Z Container start method called.
+2026-03-23T03:13:22.5728638Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T03:13:22.5733503Z Establishing network.
+2026-03-23T03:13:22.5736305Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T03:13:23.6476472Z Container is starting.
+2026-03-23T03:13:23.6490121Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T03:13:23.6494519Z Establishing user namespace if not established already.
+2026-03-23T03:13:23.6594515Z Establishing network if not established already.
+2026-03-23T03:13:23.6676702Z Mounting volumes.
+2026-03-23T03:13:23.6772793Z Nested mountpoint 
+2026-03-23T03:13:23.8097277Z Nested mountpoint volatile/logs
+2026-03-23T03:13:23.9566501Z Nested mountpoint 
+2026-03-23T03:13:23.9581952Z Nested mountpoint 
+2026-03-23T03:13:24.0980573Z Nested mountpoint 
+2026-03-23T03:13:26.8255485Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T03:13:26.8259560Z Creating container.
+2026-03-23T03:13:26.8270056Z Creating pipes for streaming container io.
+2026-03-23T03:13:27.0845859Z Creating stdout named pipe at /podr/container/pipe/1b0099248c09_recai-api/stdout_50e7a56878c043cba46b927d738b32b1.
+2026-03-23T03:13:27.0853198Z Successfully created stdout named pipe at: /podr/container/pipe/1b0099248c09_recai-api/stdout_50e7a56878c043cba46b927d738b32b1.
+2026-03-23T03:13:27.1309966Z Opening named pipe /podr/container/pipe/1b0099248c09_recai-api/stdout_50e7a56878c043cba46b927d738b32b1 for reading in non-blocking mode.
+2026-03-23T03:13:27.1317062Z Successfully opened named pipe: /podr/container/pipe/1b0099248c09_recai-api/stdout_50e7a56878c043cba46b927d738b32b1.
+2026-03-23T03:13:27.1319346Z Successfully removed non-blocking flag from /podr/container/pipe/1b0099248c09_recai-api/stdout_50e7a56878c043cba46b927d738b32b1.
+2026-03-23T03:13:27.1415900Z Creating stderr named pipe at /podr/container/pipe/1b0099248c09_recai-api/stderr_150d1815e73a4660a88c0f6d2e877409.
+2026-03-23T03:13:27.1419634Z Successfully created stderr named pipe at: /podr/container/pipe/1b0099248c09_recai-api/stderr_150d1815e73a4660a88c0f6d2e877409.
+2026-03-23T03:13:27.1421271Z Opening named pipe /podr/container/pipe/1b0099248c09_recai-api/stderr_150d1815e73a4660a88c0f6d2e877409 for reading in non-blocking mode.
+2026-03-23T03:13:27.1423212Z Successfully opened named pipe: /podr/container/pipe/1b0099248c09_recai-api/stderr_150d1815e73a4660a88c0f6d2e877409.
+2026-03-23T03:13:27.1899775Z Successfully removed non-blocking flag from /podr/container/pipe/1b0099248c09_recai-api/stderr_150d1815e73a4660a88c0f6d2e877409.
+2026-03-23T03:13:27.1965651Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T03:13:31.0343340Z Starting container: 1b0099248c09_recai-api.
+2026-03-23T03:13:31.6026888Z Starting watchers and probes.
+2026-03-23T03:13:31.6149984Z Starting metrics collection.
+2026-03-23T03:13:31.6419838Z Container is running.
+2026-03-23T03:13:31.6624521Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:13:32.5014384Z Container start method finished after 9965 ms.
+2026-03-23T03:13:32.5017924Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:13:32.5018430Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T03:16:32.8954990Z Site startup probe succeeded after 180.3322863 seconds.
+2026-03-23T03:16:33.6162777Z State: Starting, Action: WarmUpProbeSucceeded, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 180.3322863 seconds., DetailsLevel: INFO
+2026-03-23T03:16:33.7811924Z State: Starting, Action: StartingAuthContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 180.3322863 seconds., DetailsLevel: INFO
+2026-03-23T03:16:54.6218671Z Site is running with deployment version: 2f3cc20b-4960-49a5-b042-5bf3c09322d2
+2026-03-23T03:16:54.6712374Z Site started.
+2026-03-23T03:16:54.6805236Z State: Started, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 03:16:54 (UTC), DetailsLevel: INFO
+2026-03-23T03:16:54.9829894Z Site is running with patch version DOTNETCORE 10.0.2
+2026-03-23T03:17:09.1068199Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:17:16.0505612Z State: Starting, Action: EstablishingSiteNetworks, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: , DetailsLevel: WARN
+2026-03-23T03:17:16.1273802Z State: Stopping, Action: StoppingSite, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: , DetailsLevel: WARN
+2026-03-23T03:17:16.1278050Z State: Stopping, Action: StoppingSiteContainers, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: , DetailsLevel: WARN
+2026-03-23T03:17:16.1278314Z Site: recai-api stopped.
+2026-03-23T03:17:40.5023559Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 03:16:54 (UTC), DetailsLevel: INFO
+2026-03-23T03:17:40.5415706Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:10:59, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 03:16:54 (UTC), DetailsLevel: INFO
+2026-03-23T03:17:40.5601750Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T03:17:40.8419034Z Stop and delete container. Retry count = 0
+2026-03-23T03:17:40.8991341Z Stopping container: 1b0099248c09_recai-api.
+2026-03-23T03:17:50.1004803Z Deleting container: 1b0099248c09_recai-api. Retry count = 0
+2026-03-23T03:17:53.9182104Z Container spec TerminationMessagePolicy  path 
+2026-03-23T03:17:53.9582257Z Container is terminated. Total time elapsed: 13358 ms.
+2026-03-23T03:17:53.9675464Z Site: recai-api stopped.
+2026-03-23T03:18:28.1877735Z State: Starting, Action: EstablishingSiteNetworks, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site stopped at 03/23/2026 03:17:19 (UTC), DetailsLevel: WARN
+2026-03-23T03:18:45.0595738Z State: Starting, Action: StartingMsiContainer, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site stopped at 03/23/2026 03:17:19 (UTC), DetailsLevel: WARN
+2026-03-23T03:19:18.9174889Z State: Starting, Action: StartingSiteContainers, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site stopped at 03/23/2026 03:17:19 (UTC), DetailsLevel: WARN
+2026-03-23T03:19:18.9264222Z Container start method called.
+2026-03-23T03:19:18.9287147Z State: Starting, Action: PullingImage, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T03:19:18.9457355Z Establishing network.
+2026-03-23T03:19:18.9471398Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T03:19:19.4243210Z Container is starting.
+2026-03-23T03:19:19.4249998Z State: Starting, Action: MountingVolumes, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T03:19:19.4317901Z Establishing user namespace if not established already.
+2026-03-23T03:19:19.4343594Z Establishing network if not established already.
+2026-03-23T03:19:19.4416577Z Mounting volumes.
+2026-03-23T03:19:19.4422558Z Nested mountpoint 
+2026-03-23T03:19:19.5291726Z Nested mountpoint volatile/logs
+2026-03-23T03:19:19.8166323Z Nested mountpoint 
+2026-03-23T03:19:19.8646209Z Nested mountpoint 
+2026-03-23T03:19:20.0328663Z Nested mountpoint 
+2026-03-23T03:19:21.1883105Z State: Starting, Action: CreatingContainer, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T03:19:21.1895946Z Creating container.
+2026-03-23T03:19:21.1976133Z Creating pipes for streaming container io.
+2026-03-23T03:19:21.2082721Z Creating stdout named pipe at /podr/container/pipe/ebfa22aa83bb_recai-api/stdout_663740396aa24f95aaa9da4bb2351cc7.
+2026-03-23T03:19:21.2097914Z Successfully created stdout named pipe at: /podr/container/pipe/ebfa22aa83bb_recai-api/stdout_663740396aa24f95aaa9da4bb2351cc7.
+2026-03-23T03:19:21.2201910Z Opening named pipe /podr/container/pipe/ebfa22aa83bb_recai-api/stdout_663740396aa24f95aaa9da4bb2351cc7 for reading in non-blocking mode.
+2026-03-23T03:19:21.2393705Z Successfully opened named pipe: /podr/container/pipe/ebfa22aa83bb_recai-api/stdout_663740396aa24f95aaa9da4bb2351cc7.
+2026-03-23T03:19:21.2468692Z Successfully removed non-blocking flag from /podr/container/pipe/ebfa22aa83bb_recai-api/stdout_663740396aa24f95aaa9da4bb2351cc7.
+2026-03-23T03:19:21.2472403Z Creating stderr named pipe at /podr/container/pipe/ebfa22aa83bb_recai-api/stderr_0b9743e9ab61422985af9eecc9459be1.
+2026-03-23T03:19:21.2475939Z Successfully created stderr named pipe at: /podr/container/pipe/ebfa22aa83bb_recai-api/stderr_0b9743e9ab61422985af9eecc9459be1.
+2026-03-23T03:19:21.2477516Z Opening named pipe /podr/container/pipe/ebfa22aa83bb_recai-api/stderr_0b9743e9ab61422985af9eecc9459be1 for reading in non-blocking mode.
+2026-03-23T03:19:21.2480130Z Successfully opened named pipe: /podr/container/pipe/ebfa22aa83bb_recai-api/stderr_0b9743e9ab61422985af9eecc9459be1.
+2026-03-23T03:19:21.2482539Z Successfully removed non-blocking flag from /podr/container/pipe/ebfa22aa83bb_recai-api/stderr_0b9743e9ab61422985af9eecc9459be1.
+2026-03-23T03:19:21.4067904Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T03:19:23.0967667Z Starting container: ebfa22aa83bb_recai-api.
+2026-03-23T03:19:23.2748203Z Starting watchers and probes.
+2026-03-23T03:19:23.3007865Z Starting metrics collection.
+2026-03-23T03:19:23.3304220Z Container is running.
+2026-03-23T03:19:23.3315922Z State: Starting, Action: CreatingContainer, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:19:23.8191000Z Container start method finished after 4892 ms.
+2026-03-23T03:19:23.8193830Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:19:23.8194139Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T03:21:52.0714583Z Site startup probe succeeded after 148.2210593 seconds.
+2026-03-23T03:21:52.7215791Z State: Starting, Action: WarmUpProbeSucceeded, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site startup probe succeeded after 148.2210593 seconds., DetailsLevel: INFO
+2026-03-23T03:21:52.8685564Z State: Starting, Action: StartingAuthContainer, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site startup probe succeeded after 148.2210593 seconds., DetailsLevel: INFO
+2026-03-23T03:22:13.3528742Z Site is running with deployment version: 2f3cc20b-4960-49a5-b042-5bf3c09322d2
+2026-03-23T03:22:13.3624094Z Site started.
+2026-03-23T03:22:13.3641986Z State: Started, Action: None, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site started at 03/23/2026 03:22:13 (UTC), DetailsLevel: INFO
+2026-03-23T03:22:13.4832625Z Site is running with patch version DOTNETCORE 10.0.2
+2026-03-23T03:42:13.0330557Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:42:38.4858440Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:43:18.1708237Z Site container: recai-api_managedIdentity terminated during site startup.
+2026-03-23T03:43:18.3092307Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:43:18.4976086Z State: Starting, Action: StartingMsiContainer, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:43:18, LastErrorDetails: , Details: , DetailsLevel: WARN
+2026-03-23T03:43:20.1595767Z Site container: recai-api_managedIdentity terminated. Stopping the entire site.
+2026-03-23T03:43:20.1799225Z State: Stopping, Action: StoppingSite, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:43:18, LastErrorDetails: , Details: , DetailsLevel: WARN
+2026-03-23T03:43:20.3076763Z State: Stopping, Action: StoppingSiteContainers, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:43:18, LastErrorDetails: , Details: , DetailsLevel: WARN
+2026-03-23T03:43:20.3192726Z Site: recai-api stopped.
+2026-03-23T03:43:41.2852520Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:44:23.0754391Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:45:16.3075804Z Container get mounts received unexpected exception.
+2026-03-23T03:45:32.6457057Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T03:45:32.6461675Z Container start method called.
+2026-03-23T03:45:32.7902416Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T03:45:32.8210689Z Establishing network.
+2026-03-23T03:45:32.8223647Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T03:45:35.0901703Z Container is starting.
+2026-03-23T03:45:35.1099865Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T03:45:35.1107128Z Establishing user namespace if not established already.
+2026-03-23T03:45:35.1130164Z Establishing network if not established already.
+2026-03-23T03:45:35.2512322Z Mounting volumes.
+2026-03-23T03:45:35.4807171Z Nested mountpoint 
+2026-03-23T03:45:35.8478573Z Nested mountpoint volatile/logs
+2026-03-23T03:45:36.0434324Z Nested mountpoint 
+2026-03-23T03:45:36.7066673Z Nested mountpoint 
+2026-03-23T03:45:37.4415083Z Nested mountpoint 
+2026-03-23T03:45:44.8293862Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T03:45:44.8298393Z Creating container.
+2026-03-23T03:45:44.8300325Z Creating pipes for streaming container io.
+2026-03-23T03:45:44.8302036Z Creating stdout named pipe at /podr/container/pipe/c06eb6fea312_recai-api/stdout_0a015f81ad664e07ba9722e38277c868.
+2026-03-23T03:45:44.8416766Z Successfully created stdout named pipe at: /podr/container/pipe/c06eb6fea312_recai-api/stdout_0a015f81ad664e07ba9722e38277c868.
+2026-03-23T03:45:45.1333972Z Opening named pipe /podr/container/pipe/c06eb6fea312_recai-api/stdout_0a015f81ad664e07ba9722e38277c868 for reading in non-blocking mode.
+2026-03-23T03:45:45.1990078Z Successfully opened named pipe: /podr/container/pipe/c06eb6fea312_recai-api/stdout_0a015f81ad664e07ba9722e38277c868.
+2026-03-23T03:45:45.2474495Z Successfully removed non-blocking flag from /podr/container/pipe/c06eb6fea312_recai-api/stdout_0a015f81ad664e07ba9722e38277c868.
+2026-03-23T03:45:45.2482272Z Creating stderr named pipe at /podr/container/pipe/c06eb6fea312_recai-api/stderr_03148df4124a479e96293b8752758b3b.
+2026-03-23T03:45:45.2485774Z Successfully created stderr named pipe at: /podr/container/pipe/c06eb6fea312_recai-api/stderr_03148df4124a479e96293b8752758b3b.
+2026-03-23T03:45:45.2487352Z Opening named pipe /podr/container/pipe/c06eb6fea312_recai-api/stderr_03148df4124a479e96293b8752758b3b for reading in non-blocking mode.
+2026-03-23T03:45:45.2489447Z Successfully opened named pipe: /podr/container/pipe/c06eb6fea312_recai-api/stderr_03148df4124a479e96293b8752758b3b.
+2026-03-23T03:45:45.2491082Z Successfully removed non-blocking flag from /podr/container/pipe/c06eb6fea312_recai-api/stderr_03148df4124a479e96293b8752758b3b.
+2026-03-23T03:45:45.2493305Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T03:45:54.7077402Z Starting container: c06eb6fea312_recai-api.
+2026-03-23T03:45:54.9638380Z Starting watchers and probes.
+2026-03-23T03:45:54.9646565Z Starting metrics collection.
+2026-03-23T03:45:54.9740592Z Container is running.
+2026-03-23T03:45:54.9742157Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:45:55.5159881Z Container start method finished after 22869 ms.
+2026-03-23T03:45:55.5163138Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:45:55.6589868Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T03:50:56.5147853Z Site startup probe failed after 300.5717459 seconds.
+2026-03-23T03:51:00.0032068Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T03:51:00.0769525Z Failed to start site. Revert by stopping site.
+2026-03-23T03:51:00.1354144Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T03:51:00.2879491Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T03:51:00.2884608Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T03:51:00.3583913Z Stop and delete container. Retry count = 0
+2026-03-23T03:51:00.3785496Z Stopping container: c06eb6fea312_recai-api.
+2026-03-23T03:51:05.7960774Z Deleting container: c06eb6fea312_recai-api. Retry count = 0
+2026-03-23T03:51:06.9405050Z Container spec TerminationMessagePolicy  path 
+2026-03-23T03:51:06.9705281Z Container is terminated. Total time elapsed: 6652 ms.
+2026-03-23T03:51:06.9710323Z Site container: recai-api terminated during site startup.
+2026-03-23T03:51:06.9711859Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:51:07.0088745Z Site: recai-api stopped.
+2026-03-23T03:51:41.7322970Z State: Stopping, Action: StoppingSite, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site started at 03/23/2026 03:22:13 (UTC), DetailsLevel: INFO
+2026-03-23T03:51:41.7441994Z State: Stopping, Action: StoppingSiteContainers, LastError: SiteStartupCancelled, LastErrorTimestamp: 03/23/2026 03:17:16, LastErrorDetails: , Details: Site started at 03/23/2026 03:22:13 (UTC), DetailsLevel: INFO
+2026-03-23T03:51:41.7519841Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T03:51:41.8388251Z Stop and delete container. Retry count = 0
+2026-03-23T03:51:41.8496674Z Stopping container: ebfa22aa83bb_recai-api.
+2026-03-23T03:51:48.3919959Z Deleting container: ebfa22aa83bb_recai-api. Retry count = 0
+2026-03-23T03:51:49.6756280Z Container spec TerminationMessagePolicy  path 
+2026-03-23T03:51:49.6836607Z Container is terminated. Total time elapsed: 7923 ms.
+2026-03-23T03:51:49.6943455Z Site: recai-api stopped.
+2026-03-23T03:51:07.1087729Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:51:13.0841400Z Site container: recai-api_managedIdentity terminated during site startup.
+2026-03-23T03:51:13.0924014Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:51:14.6964514Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T03:51:19.1095152Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:51:19 (UTC), DetailsLevel: ERR
+2026-03-23T03:51:19.4369399Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:51:19 (UTC), DetailsLevel: ERR
+2026-03-23T03:52:56.7576470Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:51:19 (UTC), DetailsLevel: ERR
+2026-03-23T03:53:13.4589999Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:51:19 (UTC), DetailsLevel: ERR
+2026-03-23T03:53:55.9155896Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 03:51:19 (UTC), DetailsLevel: ERR
+2026-03-23T03:53:55.9626969Z Container start method called.
+2026-03-23T03:53:55.9646047Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T03:53:55.9658081Z Establishing network.
+2026-03-23T03:53:56.0611027Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T03:53:57.0389956Z Container is starting.
+2026-03-23T03:53:57.0391920Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T03:53:57.0394205Z Establishing user namespace if not established already.
+2026-03-23T03:53:57.0395896Z Establishing network if not established already.
+2026-03-23T03:53:57.0397892Z Mounting volumes.
+2026-03-23T03:53:57.0400432Z Nested mountpoint 
+2026-03-23T03:53:57.4983813Z Nested mountpoint volatile/logs
+2026-03-23T03:53:57.5478874Z Nested mountpoint 
+2026-03-23T03:53:57.9630031Z Nested mountpoint 
+2026-03-23T03:53:58.1296549Z Nested mountpoint 
+2026-03-23T03:54:00.8067715Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T03:54:00.8074594Z Creating container.
+2026-03-23T03:54:00.8852752Z Creating pipes for streaming container io.
+2026-03-23T03:54:00.8857709Z Creating stdout named pipe at /podr/container/pipe/799164b9a5f1_recai-api/stdout_b0535201d4414380a333ccebe583f4ef.
+2026-03-23T03:54:00.8958628Z Successfully created stdout named pipe at: /podr/container/pipe/799164b9a5f1_recai-api/stdout_b0535201d4414380a333ccebe583f4ef.
+2026-03-23T03:54:00.9235925Z Opening named pipe /podr/container/pipe/799164b9a5f1_recai-api/stdout_b0535201d4414380a333ccebe583f4ef for reading in non-blocking mode.
+2026-03-23T03:54:00.9241693Z Successfully opened named pipe: /podr/container/pipe/799164b9a5f1_recai-api/stdout_b0535201d4414380a333ccebe583f4ef.
+2026-03-23T03:54:00.9757714Z Successfully removed non-blocking flag from /podr/container/pipe/799164b9a5f1_recai-api/stdout_b0535201d4414380a333ccebe583f4ef.
+2026-03-23T03:54:01.0512476Z Creating stderr named pipe at /podr/container/pipe/799164b9a5f1_recai-api/stderr_07779ceb12eb4a1a9f10a7f3716ee64b.
+2026-03-23T03:54:01.1026222Z Successfully created stderr named pipe at: /podr/container/pipe/799164b9a5f1_recai-api/stderr_07779ceb12eb4a1a9f10a7f3716ee64b.
+2026-03-23T03:54:01.1117393Z Opening named pipe /podr/container/pipe/799164b9a5f1_recai-api/stderr_07779ceb12eb4a1a9f10a7f3716ee64b for reading in non-blocking mode.
+2026-03-23T03:54:01.1206273Z Successfully opened named pipe: /podr/container/pipe/799164b9a5f1_recai-api/stderr_07779ceb12eb4a1a9f10a7f3716ee64b.
+2026-03-23T03:54:01.1208960Z Successfully removed non-blocking flag from /podr/container/pipe/799164b9a5f1_recai-api/stderr_07779ceb12eb4a1a9f10a7f3716ee64b.
+2026-03-23T03:54:01.1398405Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T03:54:07.3344395Z Starting container: 799164b9a5f1_recai-api.
+2026-03-23T03:54:07.8076799Z Starting watchers and probes.
+2026-03-23T03:54:07.8357380Z Starting metrics collection.
+2026-03-23T03:54:07.8454341Z Container is running.
+2026-03-23T03:54:07.8457557Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:54:08.7774290Z Container start method finished after 12814 ms.
+2026-03-23T03:54:08.9553245Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T03:54:08.9556469Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T03:57:03.2308609Z Site startup probe succeeded after 174.1183009 seconds.
+2026-03-23T03:57:04.9166274Z State: Starting, Action: WarmUpProbeSucceeded, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 174.1183009 seconds., DetailsLevel: INFO
+2026-03-23T03:57:05.2550520Z State: Starting, Action: StartingAuthContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 174.1183009 seconds., DetailsLevel: INFO
+2026-03-23T03:57:30.3550945Z Site is running with deployment version: 2f3cc20b-4960-49a5-b042-5bf3c09322d2
+2026-03-23T03:57:30.4430077Z Site started.
+2026-03-23T03:57:30.4623620Z State: Started, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 03:57:30 (UTC), DetailsLevel: INFO
+2026-03-23T03:57:30.7792287Z Site is running with patch version DOTNETCORE 10.0.2
+2026-03-23T04:01:28.1979076Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T04:01:57.9589817Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T04:02:43.9182331Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T04:02:43.9213624Z Container start method called.
+2026-03-23T04:02:43.9216059Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T04:02:43.9219862Z Establishing network.
+2026-03-23T04:02:43.9403982Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T04:02:45.3933623Z Container is starting.
+2026-03-23T04:02:45.3941481Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T04:02:45.4134383Z Establishing user namespace if not established already.
+2026-03-23T04:02:45.4136300Z Establishing network if not established already.
+2026-03-23T04:02:45.4137637Z Mounting volumes.
+2026-03-23T04:02:45.4139399Z Nested mountpoint 
+2026-03-23T04:02:45.4614948Z Nested mountpoint volatile/logs
+2026-03-23T04:02:45.7200628Z Nested mountpoint 
+2026-03-23T04:02:46.6322004Z Nested mountpoint 
+2026-03-23T04:02:47.0012503Z Nested mountpoint 
+2026-03-23T04:02:51.5438512Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T04:02:51.5748483Z Creating container.
+2026-03-23T04:02:51.5848637Z Creating pipes for streaming container io.
+2026-03-23T04:02:51.5853776Z Creating stdout named pipe at /podr/container/pipe/4e31b2cdb011_recai-api/stdout_d311b3a4d95d4c7383b7567e86cce925.
+2026-03-23T04:02:51.6349783Z Successfully created stdout named pipe at: /podr/container/pipe/4e31b2cdb011_recai-api/stdout_d311b3a4d95d4c7383b7567e86cce925.
+2026-03-23T04:02:51.6895960Z Opening named pipe /podr/container/pipe/4e31b2cdb011_recai-api/stdout_d311b3a4d95d4c7383b7567e86cce925 for reading in non-blocking mode.
+2026-03-23T04:02:51.6935393Z Successfully opened named pipe: /podr/container/pipe/4e31b2cdb011_recai-api/stdout_d311b3a4d95d4c7383b7567e86cce925.
+2026-03-23T04:02:51.7411777Z Successfully removed non-blocking flag from /podr/container/pipe/4e31b2cdb011_recai-api/stdout_d311b3a4d95d4c7383b7567e86cce925.
+2026-03-23T04:02:51.7424197Z Creating stderr named pipe at /podr/container/pipe/4e31b2cdb011_recai-api/stderr_e8be81426bc04b3ea7be3466ac1b35d7.
+2026-03-23T04:02:51.7431680Z Successfully created stderr named pipe at: /podr/container/pipe/4e31b2cdb011_recai-api/stderr_e8be81426bc04b3ea7be3466ac1b35d7.
+2026-03-23T04:02:51.7433448Z Opening named pipe /podr/container/pipe/4e31b2cdb011_recai-api/stderr_e8be81426bc04b3ea7be3466ac1b35d7 for reading in non-blocking mode.
+2026-03-23T04:02:51.7435251Z Successfully opened named pipe: /podr/container/pipe/4e31b2cdb011_recai-api/stderr_e8be81426bc04b3ea7be3466ac1b35d7.
+2026-03-23T04:02:51.7793137Z Successfully removed non-blocking flag from /podr/container/pipe/4e31b2cdb011_recai-api/stderr_e8be81426bc04b3ea7be3466ac1b35d7.
+2026-03-23T04:02:51.8502876Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.5:13209 and fully qualified image name: 10.1.0.5:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T04:03:01.1759406Z Starting container: 4e31b2cdb011_recai-api.
+2026-03-23T04:03:01.9211884Z Starting watchers and probes.
+2026-03-23T04:03:01.9614815Z Starting metrics collection.
+2026-03-23T04:03:01.9897213Z Container is running.
+2026-03-23T04:03:02.0874687Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:03:03.6461316Z Container start method finished after 19724 ms.
+2026-03-23T04:03:03.8273103Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:03:03.8952254Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T04:04:58.5982747Z Site startup probe failed after 113.5171349 seconds.
+2026-03-23T04:05:16.2716758Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T04:05:17.2862885Z Failed to start site. Revert by stopping site.
+2026-03-23T04:05:17.4554436Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T04:05:17.7230057Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T04:05:17.7821611Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T04:05:19.3904004Z Stop and delete container. Retry count = 0
+2026-03-23T04:05:19.3931451Z Stopping container: 4e31b2cdb011_recai-api.
+2026-03-23T04:05:24.8484348Z Deleting container: 4e31b2cdb011_recai-api. Retry count = 0
+2026-03-23T04:05:28.2653390Z Container spec TerminationMessagePolicy  path 
+2026-03-23T04:05:28.4915698Z Container is terminated. Total time elapsed: 10691 ms.
+2026-03-23T04:05:28.4921912Z Site container: recai-api terminated during site startup.
+2026-03-23T04:05:28.5655394Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T04:05:28.5936353Z Site: recai-api stopped.
+2026-03-23T04:06:13.6572050Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 03:57:30 (UTC), DetailsLevel: INFO
+2026-03-23T04:06:13.8489383Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 03:50:59, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 03:57:30 (UTC), DetailsLevel: INFO
+2026-03-23T04:06:13.8854681Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T04:06:14.3270250Z Stop and delete container. Retry count = 0
+2026-03-23T04:06:14.3272804Z Stopping container: 799164b9a5f1_recai-api.
+2026-03-23T04:06:24.0849380Z Deleting container: 799164b9a5f1_recai-api. Retry count = 0
+2026-03-23T04:06:27.0260500Z Container spec TerminationMessagePolicy  path 
+2026-03-23T04:06:27.0360199Z Container is terminated. Total time elapsed: 13140 ms.
+2026-03-23T04:06:27.0362761Z Site: recai-api stopped.
+2026-03-23T04:07:51.7323433Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:05:49 (UTC), DetailsLevel: ERR
+2026-03-23T04:08:06.1096225Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:05:49 (UTC), DetailsLevel: ERR
+2026-03-23T04:08:46.9595622Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:05:49 (UTC), DetailsLevel: ERR
+2026-03-23T04:08:47.1271423Z Container start method called.
+2026-03-23T04:08:47.1356759Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T04:08:47.2324856Z Establishing network.
+2026-03-23T04:08:47.2329087Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T04:08:49.8551371Z Container is starting.
+2026-03-23T04:08:49.8555036Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T04:08:49.8679622Z Establishing user namespace if not established already.
+2026-03-23T04:08:49.8684034Z Establishing network if not established already.
+2026-03-23T04:08:49.8686457Z Mounting volumes.
+2026-03-23T04:08:49.8689023Z Nested mountpoint 
+2026-03-23T04:08:50.1932059Z Nested mountpoint volatile/logs
+2026-03-23T04:08:50.3110709Z Nested mountpoint 
+2026-03-23T04:08:50.5849475Z Nested mountpoint 
+2026-03-23T04:08:50.7501335Z Nested mountpoint 
+2026-03-23T04:08:54.7815938Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T04:08:54.8336346Z Creating container.
+2026-03-23T04:08:54.8545997Z Creating pipes for streaming container io.
+2026-03-23T04:08:54.9221018Z Creating stdout named pipe at /podr/container/pipe/ddbad64c2ea5_recai-api/stdout_43246176d591499ab083af85b9626545.
+2026-03-23T04:08:54.9519619Z Successfully created stdout named pipe at: /podr/container/pipe/ddbad64c2ea5_recai-api/stdout_43246176d591499ab083af85b9626545.
+2026-03-23T04:08:55.0010577Z Opening named pipe /podr/container/pipe/ddbad64c2ea5_recai-api/stdout_43246176d591499ab083af85b9626545 for reading in non-blocking mode.
+2026-03-23T04:08:55.0124043Z Successfully opened named pipe: /podr/container/pipe/ddbad64c2ea5_recai-api/stdout_43246176d591499ab083af85b9626545.
+2026-03-23T04:08:55.0287163Z Successfully removed non-blocking flag from /podr/container/pipe/ddbad64c2ea5_recai-api/stdout_43246176d591499ab083af85b9626545.
+2026-03-23T04:08:55.0396672Z Creating stderr named pipe at /podr/container/pipe/ddbad64c2ea5_recai-api/stderr_8378b635c43c4004ad7fc33b02b3aaa6.
+2026-03-23T04:08:55.0400593Z Successfully created stderr named pipe at: /podr/container/pipe/ddbad64c2ea5_recai-api/stderr_8378b635c43c4004ad7fc33b02b3aaa6.
+2026-03-23T04:08:55.0402439Z Opening named pipe /podr/container/pipe/ddbad64c2ea5_recai-api/stderr_8378b635c43c4004ad7fc33b02b3aaa6 for reading in non-blocking mode.
+2026-03-23T04:08:55.0404364Z Successfully opened named pipe: /podr/container/pipe/ddbad64c2ea5_recai-api/stderr_8378b635c43c4004ad7fc33b02b3aaa6.
+2026-03-23T04:08:55.0405895Z Successfully removed non-blocking flag from /podr/container/pipe/ddbad64c2ea5_recai-api/stderr_8378b635c43c4004ad7fc33b02b3aaa6.
+2026-03-23T04:08:55.0591818Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T04:09:00.6555607Z Starting container: ddbad64c2ea5_recai-api.
+2026-03-23T04:09:01.7331643Z Starting watchers and probes.
+2026-03-23T04:09:01.8325718Z Starting metrics collection.
+2026-03-23T04:09:01.8426961Z Container is running.
+2026-03-23T04:09:01.8549685Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:09:03.3526455Z Container start method finished after 16175 ms.
+2026-03-23T04:09:03.3710918Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:09:03.3711886Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T04:11:39.5236950Z Site startup probe succeeded after 155.9035709 seconds.
+2026-03-23T04:11:40.5789839Z State: Starting, Action: WarmUpProbeSucceeded, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 155.9035709 seconds., DetailsLevel: INFO
+2026-03-23T04:11:40.8781179Z State: Starting, Action: StartingAuthContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 155.9035709 seconds., DetailsLevel: INFO
+2026-03-23T04:12:04.5343043Z Site is running with deployment version: 20921af2-3ae8-47ec-9c6c-05d04c8e31dd
+2026-03-23T04:12:04.6122840Z Site started.
+2026-03-23T04:12:04.6710513Z State: Started, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 04:12:04 (UTC), DetailsLevel: INFO
+2026-03-23T04:12:05.2913830Z Site is running with patch version DOTNETCORE 10.0.2
+2026-03-23T04:12:17.7045434Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T04:12:36.5829420Z State: Starting, Action: StartingMsiContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T04:13:16.3899408Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-03-23T04:13:16.3903880Z Container start method called.
+2026-03-23T04:13:16.3904745Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T04:13:16.4089264Z Establishing network.
+2026-03-23T04:13:16.4561494Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T04:13:17.5799814Z Container is starting.
+2026-03-23T04:13:17.6164980Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T04:13:17.6193026Z Establishing user namespace if not established already.
+2026-03-23T04:13:17.6289404Z Establishing network if not established already.
+2026-03-23T04:13:17.6968044Z Mounting volumes.
+2026-03-23T04:13:17.6979913Z Nested mountpoint 
+2026-03-23T04:13:17.9668027Z Nested mountpoint volatile/logs
+2026-03-23T04:13:18.0234416Z Nested mountpoint 
+2026-03-23T04:13:18.2503480Z Nested mountpoint 
+2026-03-23T04:13:18.4212310Z Nested mountpoint 
+2026-03-23T04:13:20.6726065Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T04:13:20.7126278Z Creating container.
+2026-03-23T04:13:20.7153699Z Creating pipes for streaming container io.
+2026-03-23T04:13:20.7443129Z Creating stdout named pipe at /podr/container/pipe/1ab04a6afc1a_recai-api/stdout_19ebfd163c7547718a6f796a8da73ec0.
+2026-03-23T04:13:20.8032535Z Successfully created stdout named pipe at: /podr/container/pipe/1ab04a6afc1a_recai-api/stdout_19ebfd163c7547718a6f796a8da73ec0.
+2026-03-23T04:13:20.8039055Z Opening named pipe /podr/container/pipe/1ab04a6afc1a_recai-api/stdout_19ebfd163c7547718a6f796a8da73ec0 for reading in non-blocking mode.
+2026-03-23T04:13:20.8043395Z Successfully opened named pipe: /podr/container/pipe/1ab04a6afc1a_recai-api/stdout_19ebfd163c7547718a6f796a8da73ec0.
+2026-03-23T04:13:20.8131720Z Successfully removed non-blocking flag from /podr/container/pipe/1ab04a6afc1a_recai-api/stdout_19ebfd163c7547718a6f796a8da73ec0.
+2026-03-23T04:13:20.8343809Z Creating stderr named pipe at /podr/container/pipe/1ab04a6afc1a_recai-api/stderr_6bd96cfac0cc4834b3f4db3eb29f9019.
+2026-03-23T04:13:20.8431825Z Successfully created stderr named pipe at: /podr/container/pipe/1ab04a6afc1a_recai-api/stderr_6bd96cfac0cc4834b3f4db3eb29f9019.
+2026-03-23T04:13:20.8433975Z Opening named pipe /podr/container/pipe/1ab04a6afc1a_recai-api/stderr_6bd96cfac0cc4834b3f4db3eb29f9019 for reading in non-blocking mode.
+2026-03-23T04:13:20.8527738Z Successfully opened named pipe: /podr/container/pipe/1ab04a6afc1a_recai-api/stderr_6bd96cfac0cc4834b3f4db3eb29f9019.
+2026-03-23T04:13:20.8531945Z Successfully removed non-blocking flag from /podr/container/pipe/1ab04a6afc1a_recai-api/stderr_6bd96cfac0cc4834b3f4db3eb29f9019.
+2026-03-23T04:13:20.9202674Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T04:13:24.1867255Z Starting container: 1ab04a6afc1a_recai-api.
+2026-03-23T04:13:24.9511888Z Starting watchers and probes.
+2026-03-23T04:13:24.9687837Z Starting metrics collection.
+2026-03-23T04:13:24.9701997Z Container is running.
+2026-03-23T04:13:24.9770928Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:13:25.5664130Z Container start method finished after 9173 ms.
+2026-03-23T04:13:25.5670675Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:13:25.6037117Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T04:18:28.0748141Z Site startup probe failed after 302.4622695 seconds.
+2026-03-23T04:18:32.8257033Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T04:18:33.2542861Z Failed to start site. Revert by stopping site.
+2026-03-23T04:18:33.4989971Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T04:18:33.5690879Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-03-23T04:18:33.6267021Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T04:18:33.8343733Z Stop and delete container. Retry count = 0
+2026-03-23T04:18:33.9515279Z Stopping container: 1ab04a6afc1a_recai-api.
+2026-03-23T04:18:41.6578122Z Deleting container: 1ab04a6afc1a_recai-api. Retry count = 0
+2026-03-23T04:18:43.8903000Z Container spec TerminationMessagePolicy  path 
+2026-03-23T04:18:43.9366276Z Container is terminated. Total time elapsed: 10300 ms.
+2026-03-23T04:18:43.9372727Z Site container: recai-api terminated during site startup.
+2026-03-23T04:18:43.9386840Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T04:18:43.9884647Z Site: recai-api stopped.
+2026-03-23T04:19:26.0039407Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 04:12:04 (UTC), DetailsLevel: INFO
+2026-03-23T04:19:26.0534598Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:05:16, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 04:12:04 (UTC), DetailsLevel: INFO
+2026-03-23T04:19:26.0738037Z Container is terminating. Grace period: 5 seconds.
+2026-03-23T04:19:26.4307200Z Stop and delete container. Retry count = 0
+2026-03-23T04:19:26.5193112Z Stopping container: ddbad64c2ea5_recai-api.
+2026-03-23T04:19:33.3086044Z Deleting container: ddbad64c2ea5_recai-api. Retry count = 0
+2026-03-23T04:19:35.8932785Z Container spec TerminationMessagePolicy  path 
+2026-03-23T04:19:35.9037180Z Container is terminated. Total time elapsed: 9819 ms.
+2026-03-23T04:19:35.9040111Z Site: recai-api stopped.
+2026-03-23T04:18:44.1759831Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T04:18:56.2208073Z Site container: recai-api_managedIdentity terminated during site startup.
+2026-03-23T04:18:56.2596305Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T04:18:58.2583546Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site container: recai-api terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-03-23T04:19:03.7044511Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:19:03 (UTC), DetailsLevel: ERR
+2026-03-23T04:19:04.7710736Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:19:03 (UTC), DetailsLevel: ERR
+2026-03-23T04:20:08.1436386Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:19:03 (UTC), DetailsLevel: ERR
+2026-03-23T04:20:20.8714621Z State: Starting, Action: StartingMsiContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:19:03 (UTC), DetailsLevel: ERR
+2026-03-23T04:20:49.2302646Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site stopped at 03/23/2026 04:19:03 (UTC), DetailsLevel: ERR
+2026-03-23T04:20:49.2482652Z Container start method called.
+2026-03-23T04:20:49.2496254Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pulling image 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod for recai-api., DetailsLevel: INFO
+2026-03-23T04:20:49.2499663Z Establishing network.
+2026-03-23T04:20:49.2501871Z Pulling image: appsvc/dotnetcore:10.0_20260115.4.tuxprod.
+2026-03-23T04:20:49.6568506Z Container is starting.
+2026-03-23T04:20:49.6570032Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Mounting volumes for recai-api., DetailsLevel: INFO
+2026-03-23T04:20:49.6571903Z Establishing user namespace if not established already.
+2026-03-23T04:20:49.6573531Z Establishing network if not established already.
+2026-03-23T04:20:49.6575523Z Mounting volumes.
+2026-03-23T04:20:49.6577858Z Nested mountpoint 
+2026-03-23T04:20:49.7318464Z Nested mountpoint volatile/logs
+2026-03-23T04:20:49.7609917Z Nested mountpoint 
+2026-03-23T04:20:49.8023204Z Nested mountpoint 
+2026-03-23T04:20:49.8422358Z Nested mountpoint 
+2026-03-23T04:20:50.8094270Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for recai-api. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-03-23T04:20:50.8099849Z Creating container.
+2026-03-23T04:20:50.8120098Z Creating pipes for streaming container io.
+2026-03-23T04:20:50.8497264Z Creating stdout named pipe at /podr/container/pipe/8cd3d9d32b64_recai-api/stdout_1d3d94df00414b34acd642c121ccbb2b.
+2026-03-23T04:20:50.8786893Z Successfully created stdout named pipe at: /podr/container/pipe/8cd3d9d32b64_recai-api/stdout_1d3d94df00414b34acd642c121ccbb2b.
+2026-03-23T04:20:50.9071323Z Opening named pipe /podr/container/pipe/8cd3d9d32b64_recai-api/stdout_1d3d94df00414b34acd642c121ccbb2b for reading in non-blocking mode.
+2026-03-23T04:20:50.9075000Z Successfully opened named pipe: /podr/container/pipe/8cd3d9d32b64_recai-api/stdout_1d3d94df00414b34acd642c121ccbb2b.
+2026-03-23T04:20:50.9076696Z Successfully removed non-blocking flag from /podr/container/pipe/8cd3d9d32b64_recai-api/stdout_1d3d94df00414b34acd642c121ccbb2b.
+2026-03-23T04:20:50.9079820Z Creating stderr named pipe at /podr/container/pipe/8cd3d9d32b64_recai-api/stderr_b8fc94c86a1c4477ba0eecc6a1d85ca5.
+2026-03-23T04:20:50.9082610Z Successfully created stderr named pipe at: /podr/container/pipe/8cd3d9d32b64_recai-api/stderr_b8fc94c86a1c4477ba0eecc6a1d85ca5.
+2026-03-23T04:20:50.9084370Z Opening named pipe /podr/container/pipe/8cd3d9d32b64_recai-api/stderr_b8fc94c86a1c4477ba0eecc6a1d85ca5 for reading in non-blocking mode.
+2026-03-23T04:20:50.9086333Z Successfully opened named pipe: /podr/container/pipe/8cd3d9d32b64_recai-api/stderr_b8fc94c86a1c4477ba0eecc6a1d85ca5.
+2026-03-23T04:20:50.9087836Z Successfully removed non-blocking flag from /podr/container/pipe/8cd3d9d32b64_recai-api/stderr_b8fc94c86a1c4477ba0eecc6a1d85ca5.
+2026-03-23T04:20:50.9089945Z Creating container with image: appsvc/dotnetcore:10.0_20260115.4.tuxprod from registry: 10.1.0.4:13209 and fully qualified image name: 10.1.0.4:13209/appsvc/dotnetcore:10.0_20260115.4.tuxprod
+2026-03-23T04:20:52.5568518Z Starting container: 8cd3d9d32b64_recai-api.
+2026-03-23T04:20:52.9257256Z Starting watchers and probes.
+2026-03-23T04:20:52.9351154Z Starting metrics collection.
+2026-03-23T04:20:52.9443479Z Container is running.
+2026-03-23T04:20:52.9550062Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:20:53.6443560Z Container start method finished after 4394 ms.
+2026-03-23T04:20:53.7441604Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Container recai-api successfully created and is running., DetailsLevel: INFO
+2026-03-23T04:20:53.7444403Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-03-23T04:24:11.5142649Z Site startup probe succeeded after 197.7502642 seconds.
+2026-03-23T04:24:11.9837726Z State: Starting, Action: WarmUpProbeSucceeded, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site startup probe succeeded after 197.7502642 seconds., DetailsLevel: INFO
+2026-03-23T04:24:12.1117043Z Site is running with deployment version: 20921af2-3ae8-47ec-9c6c-05d04c8e31dd
+2026-03-23T04:24:12.1403623Z Site started.
+2026-03-23T04:24:12.1690361Z State: Started, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 03/23/2026 04:18:32, LastErrorDetails: Container did not start within expected time limit of 300s. Please inspect your container logs for more details., Details: Site started at 03/23/2026 04:24:12 (UTC), DetailsLevel: INFO
+2026-03-23T04:24:12.3073535Z Site is running with patch version DOTNETCORE 10.0.2

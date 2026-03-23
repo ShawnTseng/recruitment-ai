@@ -9,6 +9,7 @@ public class RecruitmentDbContext : DbContext
 
     public DbSet<AppUser> AppUsers => Set<AppUser>();
     public DbSet<Recruiter> Recruiters => Set<Recruiter>();
+    public DbSet<Client> Clients => Set<Client>();
     public DbSet<JobDescription> JobDescriptions => Set<JobDescription>();
     public DbSet<Candidate> Candidates => Set<Candidate>();
     public DbSet<Questionnaire> Questionnaires => Set<Questionnaire>();
@@ -32,8 +33,17 @@ public class RecruitmentDbContext : DbContext
         modelBuilder.Entity<Candidate>()
             .HasIndex(c => c.WorkspaceId);
 
+        modelBuilder.Entity<Client>()
+            .HasIndex(c => c.WorkspaceId);
+
         modelBuilder.Entity<JobDescription>()
             .HasIndex(jd => jd.RecruiterId);
+
+        modelBuilder.Entity<JobDescription>()
+            .HasOne(jd => jd.Client)
+            .WithMany(c => c.JobDescriptions)
+            .HasForeignKey(jd => jd.ClientId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         modelBuilder.Entity<InterviewGuide>()
             .HasOne(ig => ig.Submission)

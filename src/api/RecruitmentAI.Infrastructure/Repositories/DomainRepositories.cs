@@ -11,12 +11,20 @@ public class JobDescriptionRepository : Repository<JobDescription>, IJobDescript
 
     public async Task<IReadOnlyList<JobDescription>> GetAllByWorkspaceAsync(Guid workspaceId, CancellationToken ct = default)
         => await _db.JobDescriptions
+            .Include(jd => jd.Client)
             .Where(jd => jd.Recruiter.WorkspaceId == workspaceId)
             .ToListAsync(ct);
 
     public async Task<IReadOnlyList<JobDescription>> GetByRecruiterAsync(Guid recruiterId, CancellationToken ct = default)
         => await _db.JobDescriptions
+            .Include(jd => jd.Client)
             .Where(jd => jd.RecruiterId == recruiterId)
+            .ToListAsync(ct);
+
+    public async Task<IReadOnlyList<JobDescription>> GetByClientAsync(Guid clientId, Guid workspaceId, CancellationToken ct = default)
+        => await _db.JobDescriptions
+            .Include(jd => jd.Client)
+            .Where(jd => jd.ClientId == clientId && jd.Recruiter.WorkspaceId == workspaceId)
             .ToListAsync(ct);
 }
 
@@ -71,6 +79,10 @@ public class RecruiterRepository : Repository<Recruiter>, IRecruiterRepository
     public async Task<Recruiter?> GetByEmailAsync(string email, CancellationToken ct = default)
         => await _db.Recruiters
             .FirstOrDefaultAsync(r => r.Email == email, ct);
+
+    public async Task<Recruiter?> GetByWorkspaceIdAsync(Guid workspaceId, CancellationToken ct = default)
+        => await _db.Recruiters
+            .FirstOrDefaultAsync(r => r.WorkspaceId == workspaceId, ct);
 }
 
 public class EvaluationReportRepository : Repository<EvaluationReport>, IEvaluationReportRepository
@@ -168,4 +180,19 @@ public class TalentPoolRepository : ITalentPoolRepository
             .Take(100)
             .ToListAsync(ct);
     }
+}
+
+public class ClientRepository : Repository<Client>, IClientRepository
+{
+    public ClientRepository(RecruitmentDbContext db) : base(db) { }
+
+    public async Task<IReadOnlyList<Client>> GetByWorkspaceAsync(Guid workspaceId, CancellationToken ct = default)
+        => await _db.Clients
+            .Where(c => c.WorkspaceId == workspaceId)
+            .OrderBy(c => c.Name)
+            .ToListAsync(ct);
+
+    public async Task<Client?> GetByIdAndWorkspaceAsync(Guid id, Guid workspaceId, CancellationToken ct = default)
+        => await _db.Clients
+            .FirstOrDefaultAsync(c => c.Id == id && c.WorkspaceId == workspaceId, ct);
 }

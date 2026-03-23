@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Entities;
@@ -7,6 +9,7 @@ namespace RecruitmentAI.Api.Controllers;
 
 [ApiController]
 [Route("api/candidates")]
+[Authorize]
 public class CandidatesController : ControllerBase
 {
     private readonly ICandidateRepository _candidateRepo;
@@ -34,14 +37,32 @@ public class CandidatesController : ControllerBase
         _blobService = blobService;
     }
 
-    /// <summary>GET /api/candidates?workspaceId={id}</summary>
+    private static CandidateResponse ToResponse(Candidate c) =>
+        new(c.Id, c.Name, c.Email, c.ResumeBlobUrl, c.WorkspaceId, c.CreatedAt);
+
+    /// <summary>GET /api/candidates?workspaceId={id}
+    /// Recruiters pass their workspaceId. Interviewers/Managers get all (workspaceId ignored).</summary>
     [HttpGet]
-    public async Task<IActionResult> GetByWorkspace([FromQuery] Guid workspaceId, CancellationToken ct)
+    [Authorize(Roles = "Recruiter,Interviewer,Manager,SuperAdmin")]
+    public async Task<IActionResult> GetCandidates([FromQuery] Guid? workspaceId, CancellationToken ct)
     {
-        var candidates = await _candidateRepo.GetAllByWorkspaceAsync(workspaceId, ct);
-        var response = candidates.Select(c => new CandidateResponse(
-            c.Id, c.Name, c.Email, c.ResumeBlobUrl, c.WorkspaceId, c.CreatedAt));
-        return Ok(response);
+        var role = User.FindFirstValue(ClaimTypes.Role);
+
+        IReadOnlyList<Candidate> candidates;
+        if (role is "Interviewer" or "Manager" or "SuperAdmin")
+        {
+            candidates = await _candidateRepo.GetAllAsync(ct);
+        }
+        else
+        {
+            // Recruiter: use JWT workspaceId for isolation
+            var wsStr = User.FindFirstValue("workspaceId");
+            var wsId = workspaceId ?? (Guid.TryParse(wsStr, out var id) ? id : Guid.Empty);
+            if (wsId == Guid.Empty) return Forbid();
+            candidates = await _candidateRepo.GetAllByWorkspaceAsync(wsId, ct);
+        }
+
+        return Ok(candidates.Select(ToResponse));
     }
 
     /// <summary>GET /api/candidates/{id}</summary>
@@ -50,12 +71,12 @@ public class CandidatesController : ControllerBase
     {
         var candidate = await _candidateRepo.GetByIdAsync(id, ct);
         if (candidate is null) return NotFound();
-        return Ok(new CandidateResponse(
-            candidate.Id, candidate.Name, candidate.Email, candidate.ResumeBlobUrl, candidate.WorkspaceId, candidate.CreatedAt));
+        return Ok(ToResponse(candidate));
     }
 
     /// <summary>POST /api/candidates</summary>
     [HttpPost]
+    [Authorize(Roles = "Recruiter,SuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateCandidateRequest request, CancellationToken ct)
     {
         var candidate = new Candidate
@@ -67,8 +88,7 @@ public class CandidatesController : ControllerBase
         };
 
         await _candidateRepo.AddAsync(candidate, ct);
-        return CreatedAtAction(nameof(GetById), new { id = candidate.Id },
-            new CandidateResponse(candidate.Id, candidate.Name, candidate.Email, candidate.ResumeBlobUrl, candidate.WorkspaceId, candidate.CreatedAt));
+        return CreatedAtAction(nameof(GetById), new { id = candidate.Id }, ToResponse(candidate));
     }
 
     /// <summary>POST /api/candidates/{id}/resume — Upload resume</summary>

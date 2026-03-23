@@ -10,6 +10,7 @@ public interface IWorkspaceRepository<T> : IRepository<T> where T : class
 public interface IJobDescriptionRepository : IWorkspaceRepository<JobDescription>
 {
     Task<IReadOnlyList<JobDescription>> GetByRecruiterAsync(Guid recruiterId, CancellationToken ct = default);
+    Task<IReadOnlyList<JobDescription>> GetByClientAsync(Guid clientId, Guid workspaceId, CancellationToken ct = default);
 }
 
 public interface ICandidateRepository : IWorkspaceRepository<Candidate>
@@ -32,6 +33,13 @@ public interface IQuestionnaireRepository : IRepository<Questionnaire>
 public interface IRecruiterRepository : IRepository<Recruiter>
 {
     Task<Recruiter?> GetByEmailAsync(string email, CancellationToken ct = default);
+    Task<Recruiter?> GetByWorkspaceIdAsync(Guid workspaceId, CancellationToken ct = default);
+}
+
+public interface IClientRepository : IRepository<Client>
+{
+    Task<IReadOnlyList<Client>> GetByWorkspaceAsync(Guid workspaceId, CancellationToken ct = default);
+    Task<Client?> GetByIdAndWorkspaceAsync(Guid id, Guid workspaceId, CancellationToken ct = default);
 }
 
 public interface IEvaluationReportRepository : IRepository<EvaluationReport>

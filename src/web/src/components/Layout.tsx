@@ -1,15 +1,29 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+
+const roleNav: Record<string, { path: string; label: string }[]> = {
+  Recruiter: [{ path: '/recruiter', label: 'My Portal' }],
+  Interviewer: [{ path: '/interviewer', label: 'Interviews' }],
+  Manager: [{ path: '/manager', label: 'Dashboard' }],
+  AccountManager: [{ path: '/manager', label: 'Dashboard' }],
+  SuperAdmin: [
+    { path: '/recruiter', label: 'Recruiter' },
+    { path: '/interviewer', label: 'Interviewer' },
+    { path: '/manager', label: 'Manager' },
+  ],
+};
 
 export default function Layout() {
   const location = useLocation();
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const navItems = [
-    { path: '/recruiter', label: 'Recruiter' },
-    { path: '/interviewer', label: 'Interviewer' },
-    { path: '/manager', label: 'Manager' },
-  ];
+  const navItems = user ? (roleNav[user.role] ?? []) : [];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -27,9 +41,7 @@ export default function Layout() {
         </Link>
         <nav style={{ display: 'flex', gap: '4px', marginLeft: 'auto', alignItems: 'center' }}>
           {navItems.map(item => {
-            const isActive = item.path === '/'
-              ? location.pathname === '/'
-              : location.pathname.startsWith(item.path);
+            const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
             return (
               <Link key={item.path} to={item.path} style={{
                 color: 'white',
@@ -49,7 +61,7 @@ export default function Layout() {
                 {user.displayName} <span style={{ opacity: 0.7, fontSize: '0.75rem' }}>({user.role})</span>
               </span>
               <button
-                onClick={logout}
+                onClick={handleLogout}
                 style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.4)', color: 'white', padding: '6px 12px', borderRadius: 4, fontSize: '0.8rem', cursor: 'pointer' }}
               >
                 Sign out

@@ -5,8 +5,6 @@ import {
   type InterviewGuide, type EvaluationReport, type Candidate,
 } from '../services/api'
 
-const WORKSPACE_ID = '00000000-0000-0000-0000-000000000001';
-
 interface GuideData {
   confirmedStrengths: Array<{ area: string; evidence: string }>
   areasToProbe: Array<{ area: string; concern: string }>
@@ -46,7 +44,7 @@ export function InterviewerLanding() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    candidateApi.getByWorkspace(WORKSPACE_ID)
+    candidateApi.getByWorkspace()
       .then(async (candidates) => {
         const items: QueueItem[] = [];
         await Promise.all(candidates.map(async c => {

@@ -130,6 +130,32 @@ namespace RecruitmentAI.Infrastructure.Migrations
                     b.ToTable("CandidateSubmissions");
                 });
 
+            modelBuilder.Entity("RecruitmentAI.Core.Entities.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("WorkspaceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkspaceId");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("RecruitmentAI.Core.Entities.ClientFeedback", b =>
                 {
                     b.Property<Guid>("Id")
@@ -236,6 +262,9 @@ namespace RecruitmentAI.Infrastructure.Migrations
                     b.Property<string>("BlobUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -257,6 +286,8 @@ namespace RecruitmentAI.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("RecruiterId");
 
@@ -437,11 +468,18 @@ namespace RecruitmentAI.Infrastructure.Migrations
 
             modelBuilder.Entity("RecruitmentAI.Core.Entities.JobDescription", b =>
                 {
+                    b.HasOne("RecruitmentAI.Core.Entities.Client", "Client")
+                        .WithMany("JobDescriptions")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("RecruitmentAI.Core.Entities.Recruiter", "Recruiter")
                         .WithMany("JobDescriptions")
                         .HasForeignKey("RecruiterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
 
                     b.Navigation("Recruiter");
                 });
@@ -469,6 +507,11 @@ namespace RecruitmentAI.Infrastructure.Migrations
                     b.Navigation("EvaluationReports");
 
                     b.Navigation("InterviewGuide");
+                });
+
+            modelBuilder.Entity("RecruitmentAI.Core.Entities.Client", b =>
+                {
+                    b.Navigation("JobDescriptions");
                 });
 
             modelBuilder.Entity("RecruitmentAI.Core.Entities.JobDescription", b =>
