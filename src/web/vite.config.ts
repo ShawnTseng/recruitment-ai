@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://recai-api.azurewebsites.net',
+        target: 'http://localhost:5290',
         changeOrigin: true,
       },
     },
