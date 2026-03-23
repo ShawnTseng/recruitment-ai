@@ -45,8 +45,9 @@ public class AuthController : ControllerBase
 
     private string GenerateJwt(AppUser user)
     {
-        var secret = _config["Jwt:SecretKey"]
-            ?? throw new InvalidOperationException("Jwt:SecretKey is not configured.");
+        var secret = _config["Jwt:SecretKey"];
+        if (string.IsNullOrWhiteSpace(secret))
+            throw new InvalidOperationException("Jwt:SecretKey is not configured.");
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -91,7 +91,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // -- Authentication & Authorization ----------------------------------------
-var jwtSecret = builder.Configuration["Jwt:SecretKey"] ?? string.Empty;
+var jwtSecret = builder.Configuration["Jwt:SecretKey"];
+if (string.IsNullOrWhiteSpace(jwtSecret))
+    throw new InvalidOperationException("Jwt:SecretKey is not configured. Set it in appsettings, user-secrets, or Key Vault.");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
