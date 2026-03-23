@@ -7,6 +7,7 @@ public class RecruitmentDbContext : DbContext
 {
     public RecruitmentDbContext(DbContextOptions<RecruitmentDbContext> options) : base(options) { }
 
+    public DbSet<AppUser> AppUsers => Set<AppUser>();
     public DbSet<Recruiter> Recruiters => Set<Recruiter>();
     public DbSet<JobDescription> JobDescriptions => Set<JobDescription>();
     public DbSet<Candidate> Candidates => Set<Candidate>();

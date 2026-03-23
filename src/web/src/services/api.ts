@@ -1,8 +1,20 @@
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
+function getAuthHeader(): Record<string, string> {
+  try {
+    const stored = sessionStorage.getItem('recai_auth');
+    if (!stored) return {};
+    const { token } = JSON.parse(stored) as { token: string };
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  } catch {
+    return {};
+  }
+}
+
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    ...getAuthHeader(),
     ...(options?.headers as Record<string, string>),
   };
 

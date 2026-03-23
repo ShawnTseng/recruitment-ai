@@ -16,6 +16,8 @@ app-manifest.json
 # Logs
 *-logs/
 *-logs.zip
+logs*.zip
+logs_out*/
 
 # Node
 node_modules/

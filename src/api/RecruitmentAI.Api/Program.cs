@@ -1,20 +1,30 @@
 using Azure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.SemanticKernel;
 using RecruitmentAI.Api.Telemetry;
+using RecruitmentAI.Core.Entities;
 using RecruitmentAI.Core.Interfaces;
 using RecruitmentAI.Infrastructure.Data;
 using RecruitmentAI.Infrastructure.Repositories;
 using RecruitmentAI.Infrastructure.Services;
 using RecruitmentAI.Plugins;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // -- Azure Key Vault Configuration -------------------------------------------
-var keyVaultUri = builder.Configuration["KeyVault:Uri"];
-if (!string.IsNullOrEmpty(keyVaultUri))
+// In Azure App Service, secrets are injected via Key Vault References in App Settings
+// (set in Bicep). AddAzureKeyVault is only used for local dev where KV is reachable
+// via Azure CLI credentials. In production, this block is skipped via ASPNETCORE_ENVIRONMENT.
+if (builder.Environment.IsDevelopment())
 {
-    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUri), new DefaultAzureCredential());
+    var keyVaultUri = builder.Configuration["KeyVault:Uri"];
+    if (!string.IsNullOrEmpty(keyVaultUri) && Uri.TryCreate(keyVaultUri, UriKind.Absolute, out var kvUri))
+    {
+        builder.Configuration.AddAzureKeyVault(kvUri, new DefaultAzureCredential());
+    }
 }
 
 // -- Database ----------------------------------------------------------------
@@ -79,6 +89,22 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "RecruitmentAI API", Version = "v1" });
 });
 
+// -- Authentication & Authorization ----------------------------------------
+var jwtSecret = builder.Configuration["Jwt:SecretKey"] ?? string.Empty;
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero,
+        };
+    });
+builder.Services.AddAuthorization();
+
 // -- CORS --------------------------------------------------------------------
 builder.Services.AddCors(options =>
 {
@@ -101,7 +127,31 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<RecruitmentDbContext>();
-    db.Database.Migrate();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        db.Database.Migrate();
+
+        // Seed default users on first deploy
+        if (!db.AppUsers.Any())
+        {
+            var recruiterWsId = Guid.NewGuid();
+            db.AppUsers.AddRange([
+                new AppUser { Id = Guid.NewGuid(), Username = "admin",        PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@2026#"),    DisplayName = "Administrator",   Role = "SuperAdmin" },
+                new AppUser { Id = Guid.NewGuid(), Username = "recruiter1",   PasswordHash = BCrypt.Net.BCrypt.HashPassword("RecAI@2026#"),     DisplayName = "India Recruiter", Role = "Recruiter",     WorkspaceId = recruiterWsId },
+                new AppUser { Id = Guid.NewGuid(), Username = "interviewer1", PasswordHash = BCrypt.Net.BCrypt.HashPassword("InterAI@2026#"),   DisplayName = "TW Interviewer",  Role = "Interviewer" },
+                new AppUser { Id = Guid.NewGuid(), Username = "manager1",     PasswordHash = BCrypt.Net.BCrypt.HashPassword("MgrAI@2026#"),     DisplayName = "Manager",         Role = "Manager" },
+                new AppUser { Id = Guid.NewGuid(), Username = "am1",          PasswordHash = BCrypt.Net.BCrypt.HashPassword("AcctAI@2026#"),    DisplayName = "Account Manager", Role = "AccountManager" },
+            ]);
+            db.SaveChanges();
+        }
+    }
+    catch (Exception ex)
+    {
+        // Log but don't crash — app can still serve non-DB endpoints
+        // and health check will report unhealthy until DB is reachable.
+        logger.LogError(ex, "Database migration failed on startup. The app will continue, but DB-dependent endpoints may fail.");
+    }
 }
 
 // -- Middleware ---------------------------------------------------------------
@@ -118,8 +168,10 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UsePiiSanitizer();
 app.UseCors("AllowFrontend");
-app.MapControllers();
-app.MapHealthChecks("/health");
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers().RequireAuthorization();
+app.MapHealthChecks("/health").AllowAnonymous();
 
 app.Run();
 

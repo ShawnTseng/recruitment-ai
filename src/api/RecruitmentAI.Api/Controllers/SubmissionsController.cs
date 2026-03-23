@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Interfaces;
@@ -17,6 +18,7 @@ public class SubmissionsController : ControllerBase
 
     /// <summary>GET /api/submissions/by-token/{token} — Get questionnaire for a candidate (no auth required)</summary>
     [HttpGet("by-token/{token}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetByToken(string token, CancellationToken ct)
     {
         var submission = await _submissionRepo.GetByTokenAsync(token, ct);
@@ -31,6 +33,7 @@ public class SubmissionsController : ControllerBase
 
     /// <summary>POST /api/submissions/by-token/{token}/answer — Submit answers (no auth required)</summary>
     [HttpPost("by-token/{token}/answer")]
+    [AllowAnonymous]
     public async Task<IActionResult> SubmitAnswers(string token, [FromBody] SubmitAnswersRequest request, CancellationToken ct)
     {
         var submission = await _submissionRepo.GetByTokenAsync(token, ct);

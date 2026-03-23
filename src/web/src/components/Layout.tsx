@@ -1,7 +1,9 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Layout() {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const navItems = [
     { path: '/recruiter', label: 'Recruiter' },
@@ -41,6 +43,19 @@ export default function Layout() {
               </Link>
             );
           })}
+          {user && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 16, paddingLeft: 16, borderLeft: '1px solid rgba(255,255,255,0.3)' }}>
+              <span style={{ fontSize: '0.85rem', opacity: 0.9 }}>
+                {user.displayName} <span style={{ opacity: 0.7, fontSize: '0.75rem' }}>({user.role})</span>
+              </span>
+              <button
+                onClick={logout}
+                style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.4)', color: 'white', padding: '6px 12px', borderRadius: 4, fontSize: '0.8rem', cursor: 'pointer' }}
+              >
+                Sign out
+              </button>
+            </div>
+          )}
         </nav>
       </header>
       <main style={{ flex: 1, padding: '24px', maxWidth: '1200px', width: '100%', margin: '0 auto' }}>

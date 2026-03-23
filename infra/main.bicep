@@ -108,10 +108,16 @@ resource existingWebApp 'Microsoft.Web/sites@2023-12-01' existing = {
 resource webAppSettings 'Microsoft.Web/sites/config@2023-12-01' = {
   parent: existingWebApp
   name: 'appsettings'
-  dependsOn: [appService]
+  dependsOn: [appService, sqlConnectionSecret, openAiEndpointSecret, storageEndpointSecret]
   properties: {
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.outputs.appInsightsConnectionString
     KeyVault__Uri: keyVault.outputs.keyVaultUri
+    WEBSITES_CONTAINER_START_TIME_LIMIT: '300'
+    // Key Vault References — secrets resolved by App Service platform, not SDK
+    ConnectionStrings__DefaultConnection: '@Microsoft.KeyVault(VaultName=${kvName};SecretName=ConnectionStrings--DefaultConnection)'
+    AzureOpenAI__Endpoint: '@Microsoft.KeyVault(VaultName=${kvName};SecretName=AzureOpenAI--Endpoint)'
+    BlobStorage__Endpoint: '@Microsoft.KeyVault(VaultName=${kvName};SecretName=BlobStorage--Endpoint)'
+    Jwt__SecretKey: '@Microsoft.KeyVault(VaultName=${kvName};SecretName=Jwt--SecretKey)'
     // CORS: allow local dev; SWA linked backend handles production (server-side proxy)
     Cors__AllowedOrigins__0: 'http://localhost:5173'
     Cors__AllowedOrigins__1: 'https://${staticWebApp.outputs.staticWebAppDefaultHostName}'
@@ -130,6 +136,22 @@ resource swaLinkedBackend 'Microsoft.Web/staticSites/linkedBackends@2023-12-01' 
   properties: {
     backendResourceId: resourceId('Microsoft.Web/sites', webAppName)
     region: location
+  }
+}
+
+// Easy Auth V2: disable platform auth so App Service JWT middleware handles auth
+resource webAppAuthSettings 'Microsoft.Web/sites/config@2023-12-01' = {
+  parent: existingWebApp
+  name: 'authsettingsV2'
+  dependsOn: [swaLinkedBackend]
+  properties: {
+    globalValidation: {
+      requireAuthentication: false
+      unauthenticatedClientAction: 'AllowAnonymous'
+    }
+    platform: {
+      enabled: false
+    }
   }
 }
 

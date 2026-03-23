@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import LoginPage from './pages/LoginPage'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import RecruiterDashboard from './pages/RecruiterDashboard'
@@ -9,7 +11,22 @@ import RecruiterReportView from './pages/RecruiterReportView'
 import InterviewerPortal, { InterviewerLanding } from './pages/InterviewerPortal'
 import NotFound from './pages/NotFound'
 
-function App() {
+function AppRoutes() {
+  const { user } = useAuth();
+
+  // Public candidate questionnaire — no login required
+  if (window.location.pathname.startsWith('/candidate/')) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/candidate/:token" element={<CandidateQuestionnaire />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
+
+  if (!user) return <LoginPage />;
+
   return (
     <BrowserRouter>
       <Routes>
@@ -27,7 +44,15 @@ function App() {
         <Route path="/candidate/:token" element={<CandidateQuestionnaire />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  );
 }
 
 export default App
