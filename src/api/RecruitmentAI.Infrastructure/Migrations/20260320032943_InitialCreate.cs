@@ -118,19 +118,19 @@ namespace RecruitmentAI.Infrastructure.Migrations
                         column: x => x.CandidateId,
                         principalTable: "Candidates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ClientFeedbacks_JobDescriptions_JobDescriptionId",
                         column: x => x.JobDescriptionId,
                         principalTable: "JobDescriptions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ClientFeedbacks_Recruiters_RecruiterId",
                         column: x => x.RecruiterId,
                         principalTable: "Recruiters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

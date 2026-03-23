@@ -80,7 +80,11 @@ else
 }
 
 // -- Application Insights ----------------------------------------------------
-builder.Services.AddApplicationInsightsTelemetry();
+var aiConnStr = builder.Configuration["ApplicationInsights:ConnectionString"];
+if (!string.IsNullOrEmpty(aiConnStr))
+{
+    builder.Services.AddApplicationInsightsTelemetry();
+}
 
 // -- Controllers & Swagger ---------------------------------------------------
 builder.Services.AddControllers();
@@ -186,13 +190,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 // -- Middleware ---------------------------------------------------------------
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// Enable Swagger in all envs for easy testing
 app.UseSwagger();
 app.UseSwaggerUI();
 

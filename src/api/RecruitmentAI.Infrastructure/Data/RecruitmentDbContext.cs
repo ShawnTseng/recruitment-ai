@@ -49,5 +49,25 @@ public class RecruitmentDbContext : DbContext
             .HasOne(ig => ig.Submission)
             .WithOne(cs => cs.InterviewGuide)
             .HasForeignKey<InterviewGuide>(ig => ig.SubmissionId);
+
+        // ClientFeedback has three FKs — SQL Server disallows multiple cascade paths
+        // (Recruiter → JD → ClientFeedback + Recruiter → ClientFeedback)
+        modelBuilder.Entity<ClientFeedback>()
+            .HasOne(cf => cf.Candidate)
+            .WithMany(c => c.ClientFeedbacks)
+            .HasForeignKey(cf => cf.CandidateId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ClientFeedback>()
+            .HasOne(cf => cf.JobDescription)
+            .WithMany(jd => jd.ClientFeedbacks)
+            .HasForeignKey(cf => cf.JobDescriptionId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ClientFeedback>()
+            .HasOne(cf => cf.Recruiter)
+            .WithMany(r => r.ClientFeedbacks)
+            .HasForeignKey(cf => cf.RecruiterId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
