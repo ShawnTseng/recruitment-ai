@@ -108,7 +108,7 @@ resource existingWebApp 'Microsoft.Web/sites@2023-12-01' existing = {
 resource webAppSettings 'Microsoft.Web/sites/config@2023-12-01' = {
   parent: existingWebApp
   name: 'appsettings'
-  dependsOn: [appService, keyVault, staticWebApp]
+  dependsOn: [appService]
   properties: {
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.outputs.appInsightsConnectionString
     KeyVault__Uri: keyVault.outputs.keyVaultUri
@@ -126,7 +126,7 @@ resource existingSwa 'Microsoft.Web/staticSites@2023-12-01' existing = {
 resource swaLinkedBackend 'Microsoft.Web/staticSites/linkedBackends@2023-12-01' = {
   parent: existingSwa
   name: 'backend'
-  dependsOn: [staticWebApp, appService]
+  dependsOn: [appService]
   properties: {
     backendResourceId: resourceId('Microsoft.Web/sites', webAppName)
     region: location
@@ -141,7 +141,7 @@ resource existingKv 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
 resource sqlConnectionSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   parent: existingKv
   name: 'ConnectionStrings--DefaultConnection'
-  dependsOn: [keyVault, sql]
+  dependsOn: [keyVault]
   properties: {
     value: 'Server=tcp:${sql.outputs.sqlServerFqdn},1433;Initial Catalog=${sql.outputs.sqlDatabaseName};Persist Security Info=False;User ID=${sqlAdminLogin};Password=${sqlAdminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
   }
@@ -150,7 +150,7 @@ resource sqlConnectionSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
 resource openAiEndpointSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   parent: existingKv
   name: 'AzureOpenAI--Endpoint'
-  dependsOn: [keyVault, openAi]
+  dependsOn: [keyVault]
   properties: {
     value: openAi.outputs.openAiEndpoint
   }
@@ -159,7 +159,7 @@ resource openAiEndpointSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
 resource storageEndpointSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   parent: existingKv
   name: 'BlobStorage--Endpoint'
-  dependsOn: [keyVault, storage]
+  dependsOn: [keyVault]
   properties: {
     value: storage.outputs.blobEndpoint
   }

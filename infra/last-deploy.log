@@ -1,0 +1,439 @@
+WARNING: D:\_playground\recruitment-ai\infra\main.bicep(111,15) : Warning no-unnecessary-dependson: Remove unnecessary dependsOn entry 'appService'. [https://aka.ms/bicep/linter-diagnostics#no-unnecessary-dependson]
+
+
+{
+  "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/recai-deploy-20260323-1003",
+  "location": null,
+  "name": "recai-deploy-20260323-1003",
+  "properties": {
+    "correlationId": "97cdf72e-0198-429a-ae30-22db8d4eff7b",
+    "debugSetting": null,
+    "dependencies": [
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-insights",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-insights",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-service",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-service",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-keyvault",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-keyvault",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-static-web-app",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-static-web-app",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-insights",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-insights",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-keyvault",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-keyvault",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-static-web-app",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-static-web-app",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/sites/recai-api/config/appsettings",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "recai-api/appsettings",
+        "resourceType": "Microsoft.Web/sites/config"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-service",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-service",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/staticSites/recai-web/linkedBackends/backend",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "recai-web/backend",
+        "resourceType": "Microsoft.Web/staticSites/linkedBackends"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-keyvault",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-keyvault",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-sql",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-sql",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-sql",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-sql",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/secrets/ConnectionStrings--DefaultConnection",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "recai-kv/ConnectionStrings--DefaultConnection",
+        "resourceType": "Microsoft.KeyVault/vaults/secrets"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-keyvault",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-keyvault",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-openai",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-openai",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-openai",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-openai",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/secrets/AzureOpenAI--Endpoint",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "recai-kv/AzureOpenAI--Endpoint",
+        "resourceType": "Microsoft.KeyVault/vaults/secrets"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-keyvault",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-keyvault",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-storage",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-storage",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-storage",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-storage",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/secrets/BlobStorage--Endpoint",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "recai-kv/BlobStorage--Endpoint",
+        "resourceType": "Microsoft.KeyVault/vaults/secrets"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-insights",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-insights",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-insights",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-insights",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-service",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "deploy-app-service",
+        "resourceType": "Microsoft.Resources/deployments"
+      },
+      {
+        "dependsOn": [
+          {
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-service",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-service",
+            "resourceType": "Microsoft.Resources/deployments"
+          },
+          {
+            "apiVersion": "2025-04-01",
+            "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-app-service",
+            "resourceGroup": "rg-recruitment-ai",
+            "resourceName": "deploy-app-service",
+            "resourceType": "Microsoft.Resources/deployments"
+          }
+        ],
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Resources/deployments/deploy-keyvault",
+        "resourceGroup": "rg-recruitment-ai",
+        "resourceName": "deploy-keyvault",
+        "resourceType": "Microsoft.Resources/deployments"
+      }
+    ],
+    "duration": "PT2M56.1587247S",
+    "error": null,
+    "mode": "Incremental",
+    "onErrorDeployment": null,
+    "outputResources": [
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.CognitiveServices/accounts/recai-oai",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.CognitiveServices/accounts/recai-oai/deployments/gpt-4o",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Insights/components/recai-insights",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/providers/Microsoft.Authorization/roleAssignments/28985cba-9065-5f90-9d5e-7a57cf1ed71e",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/secrets/AzureOpenAI--Endpoint",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/secrets/BlobStorage--Endpoint",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.KeyVault/vaults/recai-kv/secrets/ConnectionStrings--DefaultConnection",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.OperationalInsights/workspaces/recai-log",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Sql/servers/recai-sql",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Sql/servers/recai-sql/databases/recai-db",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Sql/servers/recai-sql/firewallRules/AllowAzureServices",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Storage/storageAccounts/recaistorage",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Storage/storageAccounts/recaistorage/blobServices/default",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Storage/storageAccounts/recaistorage/blobServices/default/containers/job-descriptions",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Storage/storageAccounts/recaistorage/blobServices/default/containers/resumes",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/serverfarms/recai-plan",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/sites/recai-api",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/sites/recai-api/config/appsettings",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/staticSites/recai-web",
+        "resourceGroup": "rg-recruitment-ai"
+      },
+      {
+        "id": "/subscriptions/e575758c-e47d-4e0f-996a-859324248eba/resourceGroups/rg-recruitment-ai/providers/Microsoft.Web/staticSites/recai-web/linkedBackends/backend",
+        "resourceGroup": "rg-recruitment-ai"
+      }
+    ],
+    "outputs": {
+      "apiUrl": {
+        "type": "String",
+        "value": "https://recai-api.azurewebsites.net"
+      },
+      "keyVaultUri": {
+        "type": "String",
+        "value": "https://recai-kv.vault.azure.net/"
+      },
+      "openAiEndpoint": {
+        "type": "String",
+        "value": "https://recai-oai.openai.azure.com/"
+      },
+      "sqlServerFqdn": {
+        "type": "String",
+        "value": "recai-sql.database.windows.net"
+      },
+      "storageEndpoint": {
+        "type": "String",
+        "value": "https://recaistorage.blob.core.windows.net/"
+      },
+      "webUrl": {
+        "type": "String",
+        "value": "https://calm-pebble-072f5e100.6.azurestaticapps.net"
+      }
+    },
+    "parameters": {
+      "environment": {
+        "type": "String",
+        "value": "dev"
+      },
+      "location": {
+        "type": "String",
+        "value": "eastasia"
+      },
+      "openAiLocation": {
+        "type": "String",
+        "value": "japaneast"
+      },
+      "prefix": {
+        "type": "String",
+        "value": "recai"
+      },
+      "sqlAdminLogin": {
+        "type": "String",
+        "value": "recaiadmin"
+      },
+      "sqlAdminPassword": {
+        "type": "SecureString"
+      }
+    },
+    "parametersLink": null,
+    "providers": [
+      {
+        "id": null,
+        "namespace": "Microsoft.Web",
+        "providerAuthorizationConsentState": null,
+        "registrationPolicy": null,
+        "registrationState": null,
+        "resourceTypes": [
+          {
+            "aliases": null,
+            "apiProfiles": null,
+            "apiVersions": null,
+            "capabilities": null,
+            "defaultApiVersion": null,
+            "locationMappings": null,
+            "locations": [
+              null
+            ],
+            "properties": null,
+            "resourceType": "sites/config",
+            "zoneMappings": null
+          },
+          {
+            "aliases": null,
+            "apiProfiles": null,
+            "apiVersions": null,
+            "capabilities": null,
+            "defaultApiVersion": null,
+            "locationMappings": null,
+            "locations": [
+              null
+            ],
+            "properties": null,
+            "resourceType": "staticSites/linkedBackends",
+            "zoneMappings": null
+          }
+        ]
+      },
+      {
+        "id": null,
+        "namespace": "Microsoft.KeyVault",
+        "providerAuthorizationConsentState": null,
+        "registrationPolicy": null,
+        "registrationState": null,
+        "resourceTypes": [
+          {
+            "aliases": null,
+            "apiProfiles": null,
+            "apiVersions": null,
+            "capabilities": null,
+            "defaultApiVersion": null,
+            "locationMappings": null,
+            "locations": [
+              null
+            ],
+            "properties": null,
+            "resourceType": "vaults/secrets",
+            "zoneMappings": null
+          }
+        ]
+      },
+      {
+        "id": null,
+        "namespace": "Microsoft.Resources",
+        "providerAuthorizationConsentState": null,
+        "registrationPolicy": null,
+        "registrationState": null,
+        "resourceTypes": [
+          {
+            "aliases": null,
+            "apiProfiles": null,
+            "apiVersions": null,
+            "capabilities": null,
+            "defaultApiVersion": null,
+            "locationMappings": null,
+            "locations": [
+              null
+            ],
+            "properties": null,
+            "resourceType": "deployments",
+            "zoneMappings": null
+          }
+        ]
+      }
+    ],
+    "provisioningState": "Succeeded",
+    "templateHash": "1104047849984112211",
+    "templateLink": null,
+    "timestamp": "2026-03-23T02:06:19.123704+00:00",
+    "validatedResources": null
+  },
+  "resourceGroup": "rg-recruitment-ai",
+  "tags": null,
+  "type": "Microsoft.Resources/deployments"
+}

@@ -32,7 +32,7 @@ flowchart LR
 
 ## 客戶 Feedback 管理
 
-客戶 Feedback 由 **Recruiter 從客戶處收集後手動登錄**（非由客戶直接填寫）。
+客戶 Feedback 由**負責該客戶的人員手動登錄**（不一定是 Recruiter，也可能是負責該客戶的 Account Manager 或業務人員）。
 
 ### Feedback 輸入表單
 
@@ -40,7 +40,8 @@ flowchart LR
 |---|---|---|
 | Outcome | 下拉選單 | Hired / Rejected at Client / Offer Declined |
 | Rejection Category | 多選標籤 | Technical skill gap / Communication / Salary expectation / Culture fit / Over-qualified / Other |
-| Client Comments | 自由文字 | 客戶原話或 Recruiter 轉述摘要 |
+| Client Comments | 自由文字 | 客戶原話或負責人員轉述摘要 |
+| Submitted By | 自動帶入 | 登錄此筆 Feedback 的人員（Recruiter 或 Account Manager）|
 | Linked Candidate | 自動關聯 | 對應的候選人記錄 |
 | Linked JD | 自動關聯 | 對應的職缺 |
 
@@ -71,7 +72,7 @@ Manager 可在後台調整以下參數，**無需修改程式碼**：
 | **Prompt 版本管理** | 各 Plugin 的 Prompt 版本切換，支援 A/B 測試比較 |
 | **通知設定** | 各關卡完成時的通知對象與管道（Email / 系統通知） |
 | **Feedback 標籤庫** | 新增 / 修改客戶 Feedback 分類標籤 |
-| **Recruiter 帳號管理** | 新增 Recruiter 帳號、設定存取權限與工作空間 |
+| **Recruiter 帳號管理** | 新增 Recruiter / Account Manager 帳號、設定存取權限與工作空間 |
 
 ---
 

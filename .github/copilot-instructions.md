@@ -10,12 +10,12 @@ This is an **AI-powered recruitment screening system** for a company whose core 
 
 ## Tech Stack
 
-- **Backend**: ASP.NET Core Web API (.NET 8+), Semantic Kernel
+- **Backend**: ASP.NET Core Web API (.NET 10), Semantic Kernel
 - **Frontend**: React + Vite (TypeScript) SPA
 - **AI**: Azure OpenAI (GPT-4o) via Semantic Kernel Plugins
 - **Database**: Azure SQL (Entity Framework Core)
-- **File Storage**: Azure Blob Storage (JD / Resume uploads)
-- **Auth**: Azure Entra ID (internal users), short-lived Token links (candidates — no login)
+- **File Storage**: Azure Blob Storage (JD / Resume / Interview Transcript uploads)
+- **Auth**: Azure Entra ID (all internal users — Recruiter, Interviewer, Manager, Account Manager, Super Admin)
 - **Hosting**: Azure App Service (API), Azure Static Web Apps (frontend)
 - **IaC**: Bicep (modular, one module per Azure service)
 - **Secrets**: Azure Key Vault (never hardcode secrets)
@@ -44,12 +44,14 @@ This is an **AI-powered recruitment screening system** for a company whose core 
 
 - **JD**: Job Description file uploaded by a Recruiter
 - **QA**: AI-generated evaluation questionnaire based on the JD (all in English)
-- **Stage 1**: Async written questionnaire screening
-- **Stage 2**: Live technical interview (Taiwan team)
+- **Stage 1**: Async written questionnaire screening (Recruiter collects answers, feeds to AI Agent)
+- **Stage 2**: Live technical interview (Taiwan team); interview is recorded and transcript uploaded
 - **Recruiter**: India-based user who manages candidates and questionnaires; each has an isolated workspace
-- **Candidate**: Applicant who submits written answers via a token link (no account needed)
+- **Candidate**: Applicant whose answers are collected by Recruiter; candidates do NOT access this system
 - **Technical Interviewer**: Taiwan-based engineer who conducts Stage 2 interviews
+- **Account Manager**: Business person responsible for client relationship; can submit client feedback
 - **Manager**: Oversees analytics, system parameters, and client feedback
+- **Super Admin**: Full access to all features, pages, and workspaces
 - **Talent Pool**: Long-term candidate profile database for future re-engagement
 - **Rubric**: Scoring criteria per question (Technical Depth / Specificity / Relevance)
 
@@ -69,17 +71,17 @@ All AI operations are encapsulated in SK plugins. Each plugin has one responsibi
 - Use `async/await` throughout; never use `.Result` or `.Wait()`
 - Repository pattern for all data access; no direct `DbContext` usage in controllers
 - Each SK Plugin is a separate class with a single `KernelFunction`-annotated method
-- Multi-tenant isolation: always filter queries by `workspaceId` (Recruiter workspace)
-- Use `[Authorize]` on all API endpoints except the candidate answer submission endpoint (which uses token validation)
+- Multi-tenant isolation: always filter queries by `workspaceId` (Recruiter workspace); Super Admin bypasses this filter
+- Use `[Authorize]` with Role-based access control on all API endpoints
 - Access all secrets via `IConfiguration` backed by Azure Key Vault provider — never hardcode
 
 ## Security Rules
 
 - Never log PII (candidate emails, names, phone numbers) to Application Insights
 - Validate file uploads: check MIME type, file extension, and size limit before processing
-- Candidate token links must be short-lived (configurable expiry) and single-use
 - All API responses must not expose internal IDs, stack traces, or connection strings
 - `workspace_id` isolation must be enforced at the repository layer, not just the controller layer
+- Super Admin role must be explicitly verified server-side; never trust client-provided role claims alone
 
 ## Testing Approach
 

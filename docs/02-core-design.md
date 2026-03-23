@@ -33,9 +33,11 @@ Layer 2：Recruiter 客製化
 
 ## 防 AI 作答機制
 
+> **流程說明**：候選人的問卷回答由 **Recruiter 收集後** 上傳至系統，再交由 AI Agent 評估。AI 不直接與候選人互動，無自動追問功能。追問邏輯內嵌於問卷設計中（多層次問題結構）。
+
 | 策略 | 具體做法 |
 |---|---|
-| **追問具體細節** | Agent 對模糊答案自動追問（例：「你說你負責架構設計，當時團隊幾人？為什麼選這個方案？」） |
+| **多層次問題設計** | 問卷預先設計追問層次（Basic / Advanced / Deep），要求候選人在同一表單中回答細節，例如：「你說負責架構設計，請說明當時團隊規模、選型原因與遇到的挑戰」 |
 | **時間與版本錨定** | 要求候選人說明使用的技術版本與時間點，AI 難以生成時間軸一致的回答 |
 | **履歷交叉比對** | Agent 將履歷聲明與問卷回答交叉比對，標記前後不一致處 |
 | **「踩過什麼坑」框架** | 問題問失敗與教訓而非最佳實踐，AI 無法偽造個人踩坑記憶 |
@@ -44,13 +46,34 @@ Layer 2：Recruiter 客製化
 
 ---
 
-## 多 Recruiter 架構設計
+## 使用者角色與帳號管理
 
-### 當前階段：獨立模式
+### 角色定義
+
+| 角色 | 說明 | 可存取範圍 |
+|---|---|---|
+| **Super Admin** | 超級管理者（例：系統擁有者） | 所有功能、所有頁面、所有 Recruiter 工作空間 |
+| **Manager** | 管理者 | 跨 Recruiter 全域唯讀視角、系統參數管理、Feedback 管理、報告匯出 |
+| **Recruiter** | 印度端招募人員 | 僅限自己的工作空間（JD、問卷、候選人） |
+| **Technical Interviewer** | 台灣技術面試官 | 指派給自己的面試任務 |
+| **Account Manager** | 負責客戶關係的業務人員 | 登錄客戶 Feedback（僅限相關候選人） |
+
+### 身份驗證設計
+
+本系統使用 **Azure Entra ID（外部識別提供者）** 進行身份驗證，無需自行管理帳號密碼：
+
+- 登入入口：使用組織 Microsoft 帳號（公司 Email）一鍵登入，無需記憶額外密碼
+- 新增使用者：Manager 或 Super Admin 在後台建立帳號，並指派角色與工作空間
+- 角色授權：JWT Token 中包含角色聲明（Claims），API 層以 `[Authorize(Roles = "...")]` 驗證
+- Super Admin 不受 `workspace_id` 隔離限制，可存取所有資料
+
+> **為何不用自建帳號密碼？** Azure Entra ID 免去密碼儲存、加密、重設等安全複雜度，且組織成員已有現成帳號，只需邀請加入即可。適合內部系統首選。
+
+### 多 Recruiter 工作空間隔離
 
 - 每位 Recruiter 有獨立的工作空間（JD 清單、問卷範本、候選人資料）
-- 資料以 `workspace_id` 隔離，API 層強制驗證
-- Manager 擁有跨所有 Recruiter 的唯讀全域視角
+- 資料以 `workspace_id` 隔離，**Repository 層**強制過濾（非僅控制器層）
+- Manager 與 Super Admin 擁有跨工作空間的全域視角
 
 ### 未來可擴展：共用模式
 
@@ -65,12 +88,12 @@ Layer 2：Recruiter 客製化
 ## 版本控管與持續改善循環
 
 ```
-新 JD → 生成 QA → 候選人作答 → AI 評估 → 人工確認
-                                              ↓
-                                 記錄評估結果（通過 / 拒絕）
-                                              ↓
-                              客戶 Feedback → Recruiter 登錄
-                                              ↓
+新 JD → 生成 QA → 候選人作答 → Recruiter 上傳回答 → AI 評估 → 人工確認
+                                                                  ↓
+                                                     記錄評估結果（通過 / 拒絕）
+                                                                  ↓
+                              客戶 Feedback → Recruiter / Account Manager 登錄
+                                                                  ↓
                          Feedback Loop Plugin 分析模式
                                               ↓
                自動建議更新 Prompt 版本 → Manager 審核 → 套用
