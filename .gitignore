@@ -13,11 +13,13 @@ infra/last-deploy.log
 auth-off.json
 app-manifest.json
 
-# Logs
+# Azure App Service / Kudu deployment artefacts
+fresh*/
 *-logs/
-*-logs.zip
-logs*.zip
-logs_out*/
+LogFiles/
+
+# Zip archives
+*.zip
 
 # Node
 node_modules/

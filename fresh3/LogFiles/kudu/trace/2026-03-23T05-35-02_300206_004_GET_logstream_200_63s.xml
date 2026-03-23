@@ -1,6 +1,0 @@
-<step title="Incoming Request" date="2026-03-23T05:35:02.533" instance="300206" url="/logstream" method="GET" type="request" pid="865,1,19" Host="recai-api.scm.azurewebsites.net" User-Agent="AZURECLI/2.55.0 (MSI)" Accept-Encoding="identity" Authorization="Bas..." x-ms-client-request-id="0c4a26f1-267a-11f1-b4ae-cc1531e6f423" X-ARR-LOG-ID="0c4a26f1-267a-11f1-b4ae-cc1531e6f423" CLIENT-IP="36.225.149.46:42184" X-SITE-DEPLOYMENT-ID="recai-api" WAS-DEFAULT-HOSTNAME="recai-api.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/logstream" X-Client-IP="36.225.149.46" X-Client-Port="42184" >
-  <step title="Cleanup Xml Logs" date="2026-03-23T05:35:02.591" /><!-- duration: 286ms -->
-  <step title="LogStreamHandlerMiddleware.Invoke" date="2026-03-23T05:35:03.400" /><!-- duration: 1818ms -->
-  <step title="Error occurred" date="2026-03-23T05:36:05.223" type="error" text="LogStreamManager: ProcessRequest end" /><!-- duration: 49ms -->
-  <step title="Outgoing response" date="2026-03-23T05:36:05.398" type="response" statusCode="200" statusText="OK" /><!-- duration: 38ms -->
-</step><!-- duration: 62982ms -->
