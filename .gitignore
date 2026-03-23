@@ -1,26 +1,21 @@
 # .NET
 bin/
 obj/
+.vs/
 *.user
 *.suo
-*.userosscache
-*.sln.docstates
-.vs/
 *.csproj.user
-publish/
-publish2/
-publish_output/
-publish_deploy/
-publish_deploy.zip
-deploy.zip
-deploy2.zip
-api-deploy.zip
-latest-logs/
-latest-logs.zip
-app-logs/
-app-logs.zip
+
+# Publish & deploy artifacts
+publish*/
+*deploy*.zip
+infra/last-deploy.log
 auth-off.json
 app-manifest.json
+
+# Logs
+*-logs/
+*-logs.zip
 
 # Node
 node_modules/
@@ -43,7 +38,7 @@ Desktop.ini
 # Azure
 .azure/
 
-# Build outputs
+# Misc build outputs
 out/
 build/
 *.tgz
