@@ -9,10 +9,12 @@ obj/
 *.csproj.user
 publish/
 publish2/
+publish_output/
 publish_deploy/
 publish_deploy.zip
 deploy.zip
 deploy2.zip
+api-deploy.zip
 latest-logs/
 latest-logs.zip
 app-logs/
