@@ -1,6 +1,6 @@
 # AI-Powered Recruitment Screening System
 
-> 協助企業找到合適工程師的 AI 招募篩選平台
+> An AI-powered recruitment screening platform for matching engineers to enterprise clients
 
 ## Tech Stack
 

@@ -1,48 +1,48 @@
-# 08 — 業務價值衡量（Business Value Dashboard）
+# 08 — Business Value Measurement (Business Value Dashboard)
 
-## 衡量原則
+## Measurement Principles
 
-以**時間成本節省**為主要量化依據。系統無法取得財務媒合收入數字，因此效益以 Recruiter 工時節省為核心指標。
+**Time cost savings** is the primary quantitative basis. The system cannot access financial matching revenue figures, so value is measured primarily around Recruiter time savings.
 
 ---
 
-## 效率指標：時間成本節省
+## Efficiency Metrics: Time Cost Savings
 
-### 基礎假設（由 Manager 輸入，可在系統參數中調整）
+### Base Assumptions (input by Manager, adjustable in system parameters)
 
-| 參數 | 預設值 | 說明 |
+| Parameter | Default Value | Description |
 |---|---|---|
-| 傳統人工初篩每人耗時 | 30 分鐘 | 審閱履歷 + 電話初篩 |
-| 使用系統後每人耗時 | 8 分鐘 | 審閱 AI 報告 + 確認決策 |
-| Recruiter 時薪 | Manager 輸入 | 用於折算金額估算 |
-| 月候選人數 | 由系統統計 | 自動帶入 |
+| Manual initial screening time per candidate | 30 minutes | Review resume + phone screen |
+| Time per candidate using the system | 8 minutes | Review AI report + confirm decision |
+| Recruiter hourly rate | Manager input | Used to convert to monetary estimate |
+| Monthly candidate count | Auto-populated from system | Auto-populated |
 
-### 計算公式
+### Calculation Formula
 
 ```
-每月節省工時 = (30 min − 8 min) × 本月篩選候選人數
-            = 22 min × 候選人數
+Monthly Time Saved = (30 min − 8 min) × monthly candidates screened
+                   = 22 min × candidate count
 
-每月節省金額（估算）= 每月節省工時 × Recruiter 時薪
+Monthly Savings Estimate = Monthly Time Saved × Recruiter hourly rate
 ```
 
-**範例**：100 人/月、時薪 $X → **節省 36.7 小時 × $X**
+**Example**: 100 candidates/month, hourly rate $X → **save 36.7 hours × $X**
 
 ---
 
-## 品質指標
+## Quality Metrics
 
-| Metric | 說明 | 計算方式 |
+| Metric | Description | Calculation |
 |---|---|---|
-| **AI 推薦準確率** | AI 推薦通過 → 最終客戶錄用的比率 | 客戶錄用數 ÷ Stage 1 AI Pass 數 |
-| **Recruiter 覆核一致率** | Recruiter 接受 AI Pass/Reject 建議不修改的比率 | — |
-| **客戶滿意度趨勢** | Feedback 正評比例的月度變化 | 正評 Feedback ÷ 總 Feedback 數 |
-| **误判率 False Positive** | AI 推薦通過但後來客戶拒絕的比率 | — |
-| **誤判率 False Negative** | AI 推薦拒絕但 Recruiter 覆核後推進且成功錄用 | — |
+| **AI Recommendation Accuracy** | Ratio of AI-recommended passes → final client hire | Client hires ÷ Stage 1 AI Pass count |
+| **Recruiter Review Agreement Rate** | Rate at which Recruiter accepts AI Pass/Reject without modification | — |
+| **Client Satisfaction Trend** | Monthly change in positive feedback ratio | Positive Feedback ÷ Total Feedback count |
+| **False Positive Rate** | Rate of AI-recommended passes that client later rejects | — |
+| **False Negative Rate** | Rate of AI-recommended rejects that Recruiter overrides and proceeds to successful hire | — |
 
 ---
 
-## AI 模型準確率成長預期
+## AI Model Accuracy Growth Projection
 
 ```mermaid
 graph LR
@@ -51,30 +51,30 @@ graph LR
     C --> D["Month 12+\n~85%+\n(stable baseline)"]
 ```
 
-> 此為預期趨勢，實際數字由系統追蹤。當準確率停滯時，觸發 Prompt 審查流程。
+> This is a projected trend; actual numbers are tracked by the system. When accuracy plateaus, trigger a Prompt review process.
 
 ---
 
-## Dashboard 呈現內容
+## Dashboard Content
 
-Manager 在後台可查看：
+Manager can view in the backend:
 
-| 視圖 | 說明 |
+| View | Description |
 |---|---|
-| **This Month Summary** | 本月節省工時、處理候選人數、AI 準確率 |
-| **Cumulative Savings** | 系統上線以來累計節省工時（小時數） |
-| **Trend Charts** | Pass rate / AI accuracy / Time-to-Stage 月度趨勢 |
-| **Comparison** | 與上月 / 上季的對比 |
-| **System Operating Cost** | 本月 Azure 實際費用（來自 Cost Management API） |
-| **Cost per Candidate** | 本月平均每位候選人的 AI + 基礎架構分攤成本 |
+| **This Month Summary** | Monthly time saved, candidates processed, AI accuracy |
+| **Cumulative Savings** | Total time saved since system launch (in hours) |
+| **Trend Charts** | Monthly trends of pass rate / AI accuracy / Time-to-Stage |
+| **Comparison** | Comparison with prior month / prior quarter |
+| **System Operating Cost** | Actual Azure cost for this month (from Cost Management API) |
+| **Cost per Candidate** | Average AI + infrastructure cost allocated per candidate this month |
 
 ---
 
-## 資料來源整合需求
+## Data Source Integration Requirements
 
-| 指標 | 資料來源 | 備註 |
+| Metric | Data Source | Notes |
 |---|---|---|
-| 候選人處理數量 | 系統內部 DB | 自動統計 |
-| Recruiter 工時節省 | 系統公式計算 | 需 Manager 輸入時薪基準 |
-| 客戶錄用結果 | Recruiter 手動登錄 Feedback | 見 [05-manager-dashboard.md](05-manager-dashboard.md) |
-| Azure 費用 | Azure Cost Management API | 需申請相應 API 存取權限 |
+| Candidate processing count | Internal system DB | Auto-calculated |
+| Recruiter time savings | System formula calculation | Requires Manager to input hourly rate baseline |
+| Client hire results | Manual feedback logged by Recruiter | See [05-manager-dashboard.md](05-manager-dashboard.md) |
+| Azure costs | Azure Cost Management API | Requires appropriate API access permissions |

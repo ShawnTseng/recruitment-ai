@@ -1,6 +1,6 @@
-# 06 — 系統架構與 Azure 部署
+# 06 — System Architecture & Azure Deployment
 
-## 系統架構圖
+## System Architecture Diagram
 
 ```mermaid
 flowchart TD
@@ -60,40 +60,40 @@ flowchart TD
 
 ---
 
-## Azure 服務清單
+## Azure Services List
 
-| 服務 | 用途 | 建議 SKU（初期） |
+| Service | Purpose | Recommended SKU (Initial) |
 |---|---|---|
-| **Azure Static Web Apps** | React + Vite SPA 前端 Hosting | Standard（~$9/月） |
-| **Azure App Service** | ASP.NET Core Web API | B1（MVP ~$13/月）→ B2（正式 ~$75/月） |
-| **Azure OpenAI** | GPT-4o 推論 | Pay-per-use |
-| **Azure SQL Database** | 候選人、報告、範本、Feedback 資料 | Basic 5 DTU（~$5/月）→ 後期升級 |
-| **Azure Blob Storage** | JD / Resume 檔案上傳 | LRS（~$0.02/GB/月） |
-| **Azure Key Vault** | API 金鑰、連線字串加密儲存 | Standard（~$1/月） |
-| **Application Insights** | 後端監控、API latency、token 用量追蹤 | Free tier（5GB/月免費） |
-| **Azure Entra ID** | 內部使用者（Recruiter/Interviewer/Manager/Account Manager）SSO | Free tier |
+| **Azure Static Web Apps** | React + Vite SPA frontend hosting | Standard (~$9/month) |
+| **Azure App Service** | ASP.NET Core Web API | B1 (MVP ~$13/month) → B2 (Production ~$75/month) |
+| **Azure OpenAI** | GPT-4o inference | Pay-per-use |
+| **Azure SQL Database** | Candidate, report, template, feedback data | Basic 5 DTU (~$5/month) → upgrade later |
+| **Azure Blob Storage** | JD / Resume file uploads | LRS (~$0.02/GB/month) |
+| **Azure Key Vault** | API keys and connection strings encrypted storage | Standard (~$1/month) |
+| **Application Insights** | Backend monitoring, API latency, token usage tracking | Free tier (5GB/month free) |
+| **Azure Entra ID** | Internal user SSO (Recruiter/Interviewer/Manager/Account Manager) | Free tier |
 
-> 詳細成本估算見 [07-cost-estimation.md](07-cost-estimation.md)
+> For detailed cost estimates, see [07-cost-estimation.md](07-cost-estimation.md)
 
 ---
 
-## Semantic Kernel Plugin 職責
+## Semantic Kernel Plugin Responsibilities
 
-| Plugin | 輸入 | 輸出 |
+| Plugin | Input | Output |
 |---|---|---|
-| `JdParserPlugin` | JD 文字 / 檔案 | 技術要求結構化清單、JD 向量 |
-| `QaGeneratorPlugin` | JD 分析結果 + Resume（選填）+ Prompt 版本 | 英文問卷題目清單 |
-| `AnswerEvaluatorPlugin` | 候選人回答 + JD 要求 + Rubric | 各題分數、Red Flags、信心分數 |
-| `ReportGeneratorPlugin` | 評估結果 + Resume + JD | Stage 1 / Stage 2 報告（Markdown / PDF） |
-| `BusinessValuePlugin` | 當月統計數據 + Recruiter 時薪設定 | 效率與品質指標 |
-| `FeedbackLoopPlugin` | 客戶 Feedback 歷史 + 當前 Prompt 版本 | 改善建議、新 Prompt 草稿 |
+| `JdParserPlugin` | JD text / file | Structured tech requirements list, JD vector |
+| `QaGeneratorPlugin` | JD analysis result + Resume (optional) + Prompt version | English questionnaire question list |
+| `AnswerEvaluatorPlugin` | Candidate answers + JD requirements + Rubric | Per-question scores, Red Flags, confidence score |
+| `ReportGeneratorPlugin` | Evaluation results + Resume + JD | Stage 1 / Stage 2 reports (Markdown / PDF) |
+| `BusinessValuePlugin` | Monthly statistics + Recruiter hourly rate setting | Efficiency and quality metrics |
+| `FeedbackLoopPlugin` | Client feedback history + current Prompt version | Improvement suggestions, new Prompt drafts |
 
 ---
 
-## 資料庫綱要（草案）
+## Database Schema (Draft)
 
 ```sql
--- 核心表
+-- Core Tables
 JobDescriptions      (id, recruiter_id, title, raw_text, parsed_json, prompt_version, created_at)
 Candidates           (id, name, email, resume_blob_url, workspace_id, created_at)
 Questionnaires       (id, jd_id, template_version, questions_json, created_at)
@@ -102,7 +102,7 @@ EvaluationReports    (id, candidate_answer_id, stage, ai_score, recommendation, 
 InterviewGuides      (id, candidate_answer_id, guide_json, created_at)
 InterviewTranscripts (id, candidate_id, transcript_blob_url, uploaded_by, created_at)
 
--- 管理表
+-- Management Tables
 ClientFeedback       (id, candidate_id, jd_id, submitted_by, outcome, tags, comments, created_at)
 PromptVersions       (id, plugin_name, version, prompt_text, is_active, created_at)
 SystemParameters     (key, value, updated_by, updated_at)
@@ -111,14 +111,14 @@ Users                (id, name, email, workspace_id, role, created_at)
 
 ---
 
-## 安全性設計
+## Security Design
 
-| 面向 | 做法 |
+| Aspect | Approach |
 |---|---|
-| **身份驗證** | 所有內部使用者（Recruiter / Interviewer / Manager / Account Manager / Super Admin）使用 Azure Entra ID SSO；候選人不使用本系統 |
-| **機密管理** | 所有 API Key 及連線字串存於 Azure Key Vault，不寫入程式碼或環境變數 |
-| **資料隔離** | 每個 Recruiter 資料以 `workspace_id` 隔離，Repository 層強制過濾；Super Admin 不受限制 |
-| **檔案上傳安全** | 驗證副檔名與 MIME type，設定最大檔案大小，後端掃描惡意內容 |
-| **HTTPS Only** | 所有 API 通訊強制 HTTPS，HSTS 啟用 |
-| **PII 保護** | Application Insights 不記錄候選人姓名、Email 等個人識別資訊 |
-| **授權** | 所有 API Endpoint 加上 `[Authorize]`，以 Role-based 存取控制區分功能範圍 |
+| **Authentication** | All internal users (Recruiter / Interviewer / Manager / Account Manager / Super Admin) use Azure Entra ID SSO; candidates do not access this system |
+| **Secret Management** | All API keys and connection strings stored in Azure Key Vault; never written to code or environment variables |
+| **Data Isolation** | Each Recruiter's data is isolated by `workspace_id`, enforced at the Repository layer; Super Admin is not restricted |
+| **File Upload Security** | Validate file extension and MIME type, set maximum file size, backend scans for malicious content |
+| **HTTPS Only** | All API communication enforced over HTTPS, HSTS enabled |
+| **PII Protection** | Application Insights does not log candidate names, emails, or other personally identifiable information |
+| **Authorization** | All API endpoints use `[Authorize]` with role-based access control to differentiate feature scopes |

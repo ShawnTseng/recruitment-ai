@@ -1,59 +1,59 @@
-# 11 — 待決策事項
+# 11 — Open Decisions
 
-> 決策確認後請更新對應的規格文件，並在下方「已確認決策記錄」中標記。
-
----
-
-## 技術面
-
-| # | 問題 | 影響文件 | 優先級 |
-|---|---|---|---|
-| T1 | ~~前端框架確認~~ → **已決定：React + Vite (TypeScript)** | 06 | ✅ |
-| T2 | ~~資料庫選擇~~ → **已決定：Azure SQL (EF Core)** | 06 | ✅ |
-| T3 | 候選人作答介面：Token-link 免登入方式的 Token 有效期多長？ | 03 | 中 |
-| T4 | 履歷上傳後是否需要 PII 去識別化處理？（依地區法規不同） | 06 | 中 |
-| T5 | PDF 報告匯出：Server-side 生成還是 Client-side？建議使用哪個套件？ | 03, 04 | 低 |
-
-## 流程面
-
-| # | 問題 | 影響文件 | 優先級 |
-|---|---|---|---|
-| P1 | 問卷範本跨 Recruiter 共用功能的時間規劃（初期各自獨立已確認） | 02 | 中 |
-| P2 | 是否有第三階段（客戶端面試）需要系統支援？ | 04 | 中 |
-| P3 | 候選人是否可以查看自己的評估結果？ | 03 | 低 |
-| P4 | 退件後的候選人是否可以重新申請同一職缺？間隔多久？ | 03 | 低 |
-
-## 資料與合規面
-
-| # | 問題 | 影響文件 | 優先級 |
-|---|---|---|---|
-| D1 | **候選人資料保留年限與刪除政策** — 需依個資法 / GDPR 訂定 | 09 | 高 |
-| D2 | 知情同意聲明文字是否需要法務審核後才能上線？ | 03 | 高 |
-| D3 | 台灣個資法 vs. 印度 PDPB（個人資料保護法案）的差異是否影響資料儲存地點？ | 06, 09 | 中 |
-
-## 業務面
-
-| # | 問題 | 影響文件 | 優先級 |
-|---|---|---|---|
-| B1 | Business Value Dashboard 中 Recruiter 時薪基準值由誰設定和維護？ | 08 | 低 |
-| B2 | Premium Talent Pool 跨客戶共享是否需要調整客戶合約條款？ | 09 | 低 |
+> Once a decision is confirmed, update the corresponding spec document and mark it in the "Confirmed Decisions Log" below.
 
 ---
 
-## 已確認決策記錄
+## Technical
 
-| 問題 | 決策 | 確認日期 |
+| # | Question | Affected Docs | Priority |
+|---|---|---|---|
+| T1 | ~~Frontend framework~~ → **Decided: React + Vite (TypeScript)** | 06 | ✅ |
+| T2 | ~~Database choice~~ → **Decided: Azure SQL (EF Core)** | 06 | ✅ |
+| T3 | Candidate answer interface: how long should token-link no-login tokens be valid? | 03 | Medium |
+| T4 | Should resumes be PII-anonymized after upload? (varies by regional regulations) | 06 | Medium |
+| T5 | PDF report export: server-side generation or client-side? Recommended library? | 03, 04 | Low |
+
+## Process
+
+| # | Question | Affected Docs | Priority |
+|---|---|---|---|
+| P1 | Timeline for cross-Recruiter questionnaire template sharing (initially isolated, confirmed) | 02 | Medium |
+| P2 | Is there a third stage (client-side interview) requiring system support? | 04 | Medium |
+| P3 | Should candidates be able to view their own evaluation results? | 03 | Low |
+| P4 | Can rejected candidates reapply for the same position? After how long? | 03 | Low |
+
+## Data & Compliance
+
+| # | Question | Affected Docs | Priority |
+|---|---|---|---|
+| D1 | **Candidate data retention period and deletion policy** — must comply with personal data law / GDPR | 09 | High |
+| D2 | Does the informed consent statement text need legal review before going live? | 03 | High |
+| D3 | Do differences between Taiwan Personal Data Protection Act and India PDPB affect data storage location? | 06, 09 | Medium |
+
+## Business
+
+| # | Question | Affected Docs | Priority |
+|---|---|---|---|
+| B1 | Who sets and maintains the Recruiter hourly rate baseline in the Business Value Dashboard? | 08 | Low |
+| B2 | Does Premium Talent Pool cross-client sharing require adjustments to client contract terms? | 09 | Low |
+
+---
+
+## Confirmed Decisions Log
+
+| Question | Decision | Date Confirmed |
 |---|---|---|
-| 問卷語言 | 全英文（專注印度市場） | 2026-03-20 |
-| 作答時程限制 | 無系統強制截止，由 Recruiter 自訂 | 2026-03-20 |
-| 招募管理工具整合 | 本公司無現有工具，本系統為主要平台 | 2026-03-20 |
-| 業務價值計算基礎 | 以時間成本為主，不依賴媒合收入數字 | 2026-03-20 |
-| 客戶 Feedback 收集 | 由 Recruiter 從客戶處收集後手動登錄 | 2026-03-20 |
-| 多 Recruiter 初期模式 | 各自獨立，架構需支援未來共用擴展 | 2026-03-20 |
-| 開發工具 | GitHub Copilot + VS Code | 2026-03-20 |
-| 部署平台 | Azure | 2026-03-20 |
-| 前端框架 (T1) | React + Vite (TypeScript) | 2026-03-20 |
-| 資料庫 (T2) | Azure SQL (EF Core) | 2026-03-20 |
-| IaC 工具 | Bicep (modular) | 2026-03-20 |
+| Questionnaire language | All English (focused on India market) | 2026-03-20 |
+| Answer timeline restrictions | No system-enforced deadline; Recruiter self-coordinates | 2026-03-20 |
+| Recruitment management tool integration | Company has no existing tools; this system is the primary platform | 2026-03-20 |
+| Business value calculation basis | Time cost as primary metric, not dependent on matching revenue figures | 2026-03-20 |
+| Client feedback collection | Collected by Recruiter from clients and manually logged | 2026-03-20 |
+| Multi-Recruiter initial mode | Each isolated independently; architecture must support future shared expansion | 2026-03-20 |
+| Development tools | GitHub Copilot + VS Code | 2026-03-20 |
+| Deployment platform | Azure | 2026-03-20 |
+| Frontend framework (T1) | React + Vite (TypeScript) | 2026-03-20 |
+| Database (T2) | Azure SQL (EF Core) | 2026-03-20 |
+| IaC tool | Bicep (modular) | 2026-03-20 |
 | Azure Region | East Asia (OpenAI: East US) | 2026-03-20 |
-| Git 平台 | GitHub + GitHub Actions | 2026-03-20 |
+| Git platform | GitHub + GitHub Actions | 2026-03-20 |

@@ -1,42 +1,42 @@
-# 09 — 人才庫規劃（Talent Pool）
+# 09 — Talent Pool Design
 
-## 設計目標
+## Design Goals
 
-人才庫將本系統轉化為長期的**工程師資料資產**，為公司帶來可複利的競爭優勢：
+The Talent Pool transforms this system into a long-term **engineering candidate data asset**, providing the company with a compounding competitive advantage:
 
-> 同業可以複製招募流程，但無法複製已沉澱多年的人才庫資料。
-
----
-
-## 資料來源
-
-每位進入系統的候選人，無論最終是否錄用，其評估資料均保存為長期記錄：
-
-| 資料類型 | 說明 |
-|---|---|
-| 基本資料 | 姓名、聯絡方式、技術棧標籤 |
-| 評估記錄 | Stage 1 & Stage 2 報告（若有） |
-| JD 符合度記錄 | 每次應徵的 JD vs. 評估分數 |
-| 錄用結果 | 是否成功媒合、客戶 Feedback |
-| 成長軌跡 | 若同一候選人多次應徵，跨次比較技術評估差異 |
+> Competitors can copy the recruitment process, but cannot copy years of accumulated talent pool data.
 
 ---
 
-## 核心功能
+## Data Sources
 
-### 搜尋與篩選
+Every candidate who enters the system, regardless of whether they are ultimately hired, has their evaluation data retained as a long-term record:
 
-| 搜尋條件 | 說明 |
+| Data Type | Description |
 |---|---|
-| 技術棧關鍵字 | Angular / .NET / Azure / React 等 |
-| 過去評估分數 | Stage 1 AI 分數 ≥ N |
-| 語意搜尋（JD 比對） | 上傳新 JD，找出人才庫中最符合的候選人 |
-| 通過 / 錄用狀態 | 篩選曾被客戶錄用的優質候選人 |
-| 最後活躍時間 | 避免聯繫過於久遠的記錄 |
+| Basic Info | Name, contact information, tech stack tags |
+| Evaluation Records | Stage 1 & Stage 2 reports (if applicable) |
+| JD Fit Records | JD vs. evaluation score for each application |
+| Hire Outcome | Whether successfully matched, client feedback |
+| Growth Trajectory | If the same candidate applies multiple times, cross-application comparison of technical evaluation differences |
 
-### 再接觸機制
+---
 
-當有新 JD 時：
+## Core Features
+
+### Search & Filter
+
+| Search Criteria | Description |
+|---|---|
+| Tech stack keywords | Angular / .NET / Azure / React, etc. |
+| Past evaluation scores | Stage 1 AI score ≥ N |
+| Semantic search (JD matching) | Upload a new JD to find the best-matching candidates in the talent pool |
+| Pass / hire status | Filter for candidates previously hired by clients |
+| Last active time | Avoid contacting records that are too outdated |
+
+### Re-engagement Mechanism
+
+When a new JD is uploaded:
 
 ```mermaid
 flowchart LR
@@ -47,30 +47,30 @@ flowchart LR
     D -->|Skip| F["Log reason\nfor future tuning"]
 ```
 
-### Premium Talent Pool（選配）
+### Premium Talent Pool (Optional)
 
-若客戶授權，可將「曾通過某客戶面試的優質人才」標記為 Premium Pool，優先推薦給其他有相似需求的客戶。
-
----
-
-## 資料保留政策
-
-> **⚠ 政策尚未確定（見 [11-open-decisions.md](11-open-decisions.md)）**
-
-需確認的項目：
-
-- 候選人資料保留年限（例如 2 年？5 年？無限期？）
-- 無活動後的自動歸檔 / 匿名化流程
-- 候選人要求刪除個人資料的處理流程（GDPR / 個資法合規）
-- 跨地區法規差異（台灣個資法 vs. 印度 PDPB）
+With client authorization, candidates who "passed a particular client's interview" can be tagged as Premium Pool and prioritized for recommendation to other clients with similar requirements.
 
 ---
 
-## 未來擴展構想
+## Data Retention Policy
 
-| 功能 | 說明 |
+> **⚠ Policy not yet finalized (see [11-open-decisions.md](11-open-decisions.md))**
+
+Items to confirm:
+
+- Candidate data retention period (e.g. 2 years? 5 years? Indefinite?)
+- Auto-archive / anonymization process after inactivity
+- Process for handling candidate requests to delete personal data (GDPR / personal data law compliance)
+- Regional regulatory differences (Taiwan Personal Data Protection Act vs. India PDPB)
+
+---
+
+## Future Expansion Ideas
+
+| Feature | Description |
 |---|---|
-| **技術趨勢分析** | 人才庫中某技術棧的人才密度隨時間變化，提供市場洞察 |
-| **薪資期望追蹤** | 不同技術棧人才的薪資期望分佈 |
-| **需求缺口偵測** | 哪類 JD 目前人才庫覆蓋率低，建議主動招募 |
-| **候選人成長追蹤** | 多次應徵的候選人技術成長軌跡，供未來優先評估 |
+| **Technology trend analysis** | Talent density for certain tech stacks in the pool over time, providing market insights |
+| **Salary expectation tracking** | Distribution of salary expectations across different tech stacks |
+| **Demand gap detection** | Identify which JD types have low talent pool coverage, suggest proactive sourcing |
+| **Candidate growth tracking** | Technical growth trajectory for candidates who apply multiple times, for future priority evaluation |

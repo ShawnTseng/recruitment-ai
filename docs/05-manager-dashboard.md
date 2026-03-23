@@ -1,8 +1,8 @@
-# 05 — 管理者後台（Manager Dashboard）
+# 05 — Manager Dashboard
 
-## 招募管道分析
+## Recruitment Funnel Analytics
 
-### 招募漏斗視覺化
+### Recruitment Funnel Visualization
 
 ```mermaid
 flowchart LR
@@ -13,39 +13,39 @@ flowchart LR
     E --> F("Client\nHired\n12")
 ```
 
-> 以上為範例數字；實際數值由系統即時統計。
+> Numbers above are examples; actual figures are calculated in real-time by the system.
 
-### 關鍵指標
+### Key Metrics
 
-| Metric | 說明 |
+| Metric | Description |
 |---|---|
-| Stage 1 Pass Rate | 送出問卷 → Stage 1 通過的比率 |
-| Stage 1 → Hire Conversion | Stage 1 通過 → 最終客戶錄用的比率（衡量篩選品質） |
-| Stage 2 Pass Rate | 技術面試通過率 |
-| AI vs. Human Agreement Rate | AI 推薦結果與 Recruiter / 面試官最終決定的一致率 |
-| Time-to-Stage | 各階段平均處理天數 |
-| Rejection Reason Distribution | 拒絕原因分類分佈（Stage 1 / Stage 2 / Client) |
+| Stage 1 Pass Rate | Ratio of questionnaires sent → Stage 1 passed |
+| Stage 1 → Hire Conversion | Ratio of Stage 1 pass → final client hire (measures screening quality) |
+| Stage 2 Pass Rate | Technical interview pass rate |
+| AI vs. Human Agreement Rate | Consistency between AI recommendations and final Recruiter / Interviewer decisions |
+| Time-to-Stage | Average processing days per stage |
+| Rejection Reason Distribution | Categorized distribution of rejection reasons (Stage 1 / Stage 2 / Client) |
 
-可按以下維度切片：**按 Recruiter** / **按 JD 類型** / **按時間段**
+Sliceable by: **By Recruiter** / **By JD Type** / **By Time Period**
 
 ---
 
-## 客戶 Feedback 管理
+## Client Feedback Management
 
-客戶 Feedback 由**負責該客戶的人員手動登錄**（不一定是 Recruiter，也可能是負責該客戶的 Account Manager 或業務人員）。
+Client feedback is **manually logged by the person responsible for that client** (not necessarily the Recruiter — could also be the Account Manager or business person responsible for the client).
 
-### Feedback 輸入表單
+### Feedback Input Form
 
-| 欄位 | 類型 | 說明 |
+| Field | Type | Description |
 |---|---|---|
-| Outcome | 下拉選單 | Hired / Rejected at Client / Offer Declined |
-| Rejection Category | 多選標籤 | Technical skill gap / Communication / Salary expectation / Culture fit / Over-qualified / Other |
-| Client Comments | 自由文字 | 客戶原話或負責人員轉述摘要 |
-| Submitted By | 自動帶入 | 登錄此筆 Feedback 的人員（Recruiter 或 Account Manager）|
-| Linked Candidate | 自動關聯 | 對應的候選人記錄 |
-| Linked JD | 自動關聯 | 對應的職缺 |
+| Outcome | Dropdown | Hired / Rejected at Client / Offer Declined |
+| Rejection Category | Multi-select tags | Technical skill gap / Communication / Salary expectation / Culture fit / Over-qualified / Other |
+| Client Comments | Free text | Direct client quotes or summary paraphrased by the responsible person |
+| Submitted By | Auto-populated | Person logging this feedback (Recruiter or Account Manager) |
+| Linked Candidate | Auto-linked | Corresponding candidate record |
+| Linked JD | Auto-linked | Corresponding job opening |
 
-### Feedback → QA 改善迴路
+### Feedback → QA Improvement Loop
 
 ```mermaid
 flowchart TD
@@ -60,28 +60,28 @@ flowchart TD
 
 ---
 
-## 系統參數管理
+## System Parameter Management
 
-Manager 可在後台調整以下參數，**無需修改程式碼**：
+Manager can adjust the following parameters in the backend **without modifying code**:
 
-| 參數類別 | 可調整項目 |
+| Parameter Category | Adjustable Items |
 |---|---|
-| **QA 生成** | 每份問卷題數上限、追問深度（0–3 層）、問題類型比例（情境 / 技術 / 行為） |
-| **評分 Rubric 權重** | Technical Depth / Specificity / Relevance 各維度權重 |
-| **AI 信心閾值** | 低於此分自動標記「需人工 Review」 |
-| **Prompt 版本管理** | 各 Plugin 的 Prompt 版本切換，支援 A/B 測試比較 |
-| **通知設定** | 各關卡完成時的通知對象與管道（Email / 系統通知） |
-| **Feedback 標籤庫** | 新增 / 修改客戶 Feedback 分類標籤 |
-| **Recruiter 帳號管理** | 新增 Recruiter / Account Manager 帳號、設定存取權限與工作空間 |
+| **QA Generation** | Maximum questions per questionnaire, follow-up depth (0–3 levels), question type ratio (situational / technical / behavioral) |
+| **Scoring Rubric Weights** | Technical Depth / Specificity / Relevance dimension weights |
+| **AI Confidence Threshold** | Scores below this threshold are automatically flagged for "manual review" |
+| **Prompt Version Management** | Switch Prompt versions for each Plugin, supporting A/B testing comparison |
+| **Notification Settings** | Notification recipients and channels on stage completion (Email / system notification) |
+| **Feedback Tag Library** | Add / modify client feedback category tags |
+| **Recruiter Account Management** | Add Recruiter / Account Manager accounts, configure access permissions and workspaces |
 
 ---
 
-## 可匯出報告
+## Exportable Reports
 
-| 報告名稱 | 說明 |
+| Report Name | Description |
 |---|---|
-| Monthly Recruitment Summary | 本月整體招募數據（漏斗、通過率、時程） |
-| Recruiter Performance Report | 各 Recruiter 篩選效率與準確率比較 |
-| AI Accuracy Report | AI 評估準確率月度趨勢，含校準案例分析 |
-| Client Feedback Summary | 客戶反饋彙整，按 JD 類型與拒絕原因分類 |
-| Business Value Report | 時間成本節省、效率提升指標（詳見 [08-business-value.md](08-business-value.md)） |
+| Monthly Recruitment Summary | Overall monthly recruitment data (funnel, pass rates, timelines) |
+| Recruiter Performance Report | Comparison of screening efficiency and accuracy across Recruiters |
+| AI Accuracy Report | Monthly trend of AI evaluation accuracy, with calibration case analysis |
+| Client Feedback Summary | Consolidated client feedback, categorized by JD type and rejection reason |
+| Business Value Report | Time cost savings, efficiency improvement metrics (see [08-business-value.md](08-business-value.md)) |

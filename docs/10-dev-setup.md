@@ -1,126 +1,126 @@
-# 10 — 開發環境設定
+# 10 — Development Environment Setup
 
-## 前置條件
+## Prerequisites
 
-| 工具 | 版本 | 用途 |
+| Tool | Version | Purpose |
 |---|---|---|
-| VS Code | Latest | 主要 IDE |
-| GitHub Copilot 訂閱 | Active | AI 輔助開發 |
-| .NET SDK | 8.0+ | 後端 ASP.NET Core 開發 |
-| Node.js | 20 LTS | 前端 React + Vite 開發 |
-| Azure CLI | Latest | Azure 資源管理與部署 |
-| Git | Latest | 版本控管 |
+| VS Code | Latest | Primary IDE |
+| GitHub Copilot subscription | Active | AI-assisted development |
+| .NET SDK | 8.0+ | Backend ASP.NET Core development |
+| Node.js | 20 LTS | Frontend React + Vite development |
+| Azure CLI | Latest | Azure resource management and deployment |
+| Git | Latest | Version control |
 
 ---
 
-## VS Code 套件安裝
+## VS Code Extension Installation
 
-### 自動安裝（推薦）
+### Auto-install (Recommended)
 
-開啟本專案後，VS Code 會提示安裝 `.vscode/extensions.json` 中推薦的套件，點擊 **Install All** 即可。
+After opening this project, VS Code will prompt you to install recommended extensions from `.vscode/extensions.json`. Click **Install All**.
 
-### 重要套件說明
+### Key Extensions
 
-| 套件名稱 | Extension ID | 用途 |
+| Extension Name | Extension ID | Purpose |
 |---|---|---|
-| **Markdown Preview Mermaid Support** | `bierner.markdown-mermaid` | **在 VS Code 內預覽 Mermaid 圖表** |
-| GitHub Copilot | `GitHub.copilot` | AI 程式碼補全 |
-| GitHub Copilot Chat | `GitHub.copilot-chat` | AI 對話式開發助理 |
-| C# Dev Kit | `ms-dotnettools.csdevkit` | C# / .NET 開發（含 IntelliSense、debug） |
-| ESLint | `dbaeumer.vscode-eslint` | TypeScript / React 程式碼品質檢查 |
-| Prettier | `esbenp.prettier-vscode` | 程式碼格式化（TypeScript / CSS） |
-| Azure Resources | `ms-azuretools.vscode-azureresourcegroups` | Azure 資源管理 |
-| Azure App Service | `ms-azuretools.vscode-azureappservice` | App Service 部署 |
-| REST Client | `humao.rest-client` | API 測試（`.http` 檔案） |
-| GitLens | `eamodio.gitlens` | Git 歷史、blame、PR 整合 |
+| **Markdown Preview Mermaid Support** | `bierner.markdown-mermaid` | **Preview Mermaid diagrams within VS Code** |
+| GitHub Copilot | `GitHub.copilot` | AI code completion |
+| GitHub Copilot Chat | `GitHub.copilot-chat` | AI conversational development assistant |
+| C# Dev Kit | `ms-dotnettools.csdevkit` | C# / .NET development (IntelliSense, debug) |
+| ESLint | `dbaeumer.vscode-eslint` | TypeScript / React code quality |
+| Prettier | `esbenp.prettier-vscode` | Code formatting (TypeScript / CSS) |
+| Azure Resources | `ms-azuretools.vscode-azureresourcegroups` | Azure resource management |
+| Azure App Service | `ms-azuretools.vscode-azureappservice` | App Service deployment |
+| REST Client | `humao.rest-client` | API testing (`.http` files) |
+| GitLens | `eamodio.gitlens` | Git history, blame, PR integration |
 
 ---
 
-## 在 VS Code 中預覽 Mermaid 圖
+## Previewing Mermaid Diagrams in VS Code
 
-安裝 `bierner.markdown-mermaid` 後：
+After installing `bierner.markdown-mermaid`:
 
-1. 開啟任何含 Mermaid 的 `.md` 檔案
-2. 按 **Ctrl+Shift+V**（或 **Ctrl+K, V** 開啟側邊預覽）
-3. Markdown 預覽視窗中的 ` ```mermaid ` 區塊會自動渲染為圖表
+1. Open any `.md` file containing Mermaid
+2. Press **Ctrl+Shift+V** (or **Ctrl+K, V** for side-by-side preview)
+3. ` ```mermaid ` blocks in the Markdown preview will automatically render as diagrams
 
-**支援的圖表類型**：`flowchart`、`sequenceDiagram`、`classDiagram`、`gantt`、`xychart-beta`、`erDiagram` 等
+**Supported diagram types**: `flowchart`, `sequenceDiagram`, `classDiagram`, `gantt`, `xychart-beta`, `erDiagram`, etc.
 
-> **注意**：`funnel` 等較新的圖表類型在 VS Code 原生預覽中可能不支援，請優先使用 `flowchart` 或 `graph`。
+> **Note**: Newer diagram types like `funnel` may not be supported in VS Code native preview. Prefer `flowchart` or `graph`.
 
 ---
 
-## GitHub Copilot 充分利用指南
+## Getting the Most Out of GitHub Copilot
 
-### 1. 專案層級指引（.github/copilot-instructions.md）
+### 1. Project-Level Instructions (.github/copilot-instructions.md)
 
-本專案已建立 `.github/copilot-instructions.md`，提供 Copilot 了解：
+This project has `.github/copilot-instructions.md` which gives Copilot context about:
 
-- 專案業務背景與術語
-- 技術棧與架構慣例
-- Semantic Kernel Plugin 命名與設計原則
-- 安全性要求
+- Business background and terminology
+- Tech stack and architecture conventions
+- Semantic Kernel Plugin naming and design principles
+- Security requirements
 
-Copilot Chat 使用 `@workspace` 時，此檔案內容會自動納入背景知識。
+When using Copilot Chat with `@workspace`, this file is automatically included as background knowledge.
 
-### 2. 常用 Copilot Chat 語法
+### 2. Common Copilot Chat Syntax
 
-| 語法 | 說明 |
+| Syntax | Description |
 |---|---|
-| `@workspace` | 讓 Copilot 理解整個 codebase 上下文 |
-| `#file:docs/03-stage1-screening.md` | 引用規格文件作為上下文 |
-| `#selection` | 針對當前選取的程式碼操作 |
-| `/explain` | 解釋選取的程式碼邏輯 |
-| `/fix` | 修正 bug 或問題 |
-| `/tests` | 為選取的方法生成 xUnit 測試 |
-| `/doc` | 為函式生成 XML 文件註解 |
+| `@workspace` | Give Copilot context of the entire codebase |
+| `#file:docs/03-stage1-screening.md` | Reference spec document as context |
+| `#selection` | Operate on currently selected code |
+| `/explain` | Explain the logic of selected code |
+| `/fix` | Fix a bug or issue |
+| `/tests` | Generate xUnit tests for selected method |
+| `/doc` | Generate XML documentation comment for function |
 
-### 3. 推薦開發工作流程
+### 3. Recommended Development Workflow
 
 ```
-1. 設計階段
-   → 開啟對應規格文件（如 03-stage1-screening.md）
-   → 使用 Copilot Chat: "@workspace 依照 #file:docs/03-stage1-screening.md
-      的規格，幫我設計 AnswerEvaluatorPlugin 的介面"
+1. Design Phase
+   → Open relevant spec document (e.g. 03-stage1-screening.md)
+   → Use Copilot Chat: "@workspace based on #file:docs/03-stage1-screening.md
+      spec, help me design the AnswerEvaluatorPlugin interface"
 
-2. 實作階段
-   → Copilot Edits（Ctrl+Shift+I）進行跨多個檔案的同步修改
-   → 讓 Copilot 同時修改 Plugin 類別、介面、DI 註冊、測試檔案
+2. Implementation Phase
+   → Copilot Edits (Ctrl+Shift+I) for synchronous changes across multiple files
+   → Let Copilot modify Plugin class, interface, DI registration, and test files simultaneously
 
-3. 測試階段
-   → 選取 Plugin 類別 → /tests 生成 xUnit 測試
-   → 包含 SK Kernel mock 與 happy path / edge case
+3. Testing Phase
+   → Select Plugin class → /tests to generate xUnit tests
+   → Include SK Kernel mock and happy path / edge case
 
 4. Commit
-   → VS Code Source Control 面板 → 點擊 Copilot 按鈕自動生成 Commit message
-   → 格式：Conventional Commits（feat: / fix: / docs: / test:）
+   → VS Code Source Control panel → click Copilot button to auto-generate commit message
+   → Format: Conventional Commits (feat: / fix: / docs: / test:)
 ```
 
-### 4. 善用 GitHub 生態整合
+### 4. Leveraging GitHub Ecosystem Integration
 
-| 功能 | 說明 |
+| Feature | Description |
 |---|---|
-| **GitHub Issues** | 用 Copilot Chat `@github` 建立、查詢和連結 Issue |
-| **Pull Request** | Copilot 自動生成 PR description，並提供 code review 建議 |
-| **GitHub Projects** | 搭配 GitHub Projects 做 Sprint 管理，Copilot 可查詢進度 |
-| **GitHub Actions** | CI/CD 流程：Build → Test → Deploy to Azure（見下方） |
+| **GitHub Issues** | Use Copilot Chat `@github` to create, query, and link Issues |
+| **Pull Request** | Copilot auto-generates PR description and provides code review suggestions |
+| **GitHub Projects** | Pair with GitHub Projects for Sprint management; Copilot can query progress |
+| **GitHub Actions** | CI/CD pipeline: Build → Test → Deploy to Azure (see below) |
 
 ---
 
-## Azure 部署流程
+## Azure Deployment Process
 
-### 初次建立 Azure 資源（使用 Bicep IaC）
+### Initial Azure Resource Creation (Using Bicep IaC)
 
-本專案的 Azure 資源透過 Bicep 管理，位於 `infra/` 目錄。
+Azure resources in this project are managed via Bicep in the `infra/` directory.
 
 ```bash
-# 1. 登入 Azure
+# 1. Login to Azure
 az login
 
-# 2. 建立 Resource Group（建議放在 East Asia）
+# 2. Create Resource Group (recommend East Asia)
 az group create --name rg-recruitment-ai --location eastasia
 
-# 3. 部署所有 Azure 資源（Bicep）
+# 3. Deploy all Azure resources (Bicep)
 az deployment group create \
   --resource-group rg-recruitment-ai \
   --template-file infra/main.bicep \
@@ -128,27 +128,27 @@ az deployment group create \
                sqlAdminLogin=recaiadmin \
                sqlAdminPassword="<your-secure-password>"
 
-# 4. 完成後確認資源是否建立成功
+# 4. Verify resources were created successfully
 az resource list --resource-group rg-recruitment-ai --output table
 ```
 
-> **備註**：Azure OpenAI 部署於 `japaneast`（支援 GPT-4o），其他資源部署於 `eastasia`。
+> **Note**: Azure OpenAI is deployed to `japaneast` (supports GPT-4o); other resources deploy to `eastasia`.
 
-### 手動補充：Key Vault Secrets
+### Manual Step: Key Vault Secrets
 
-Bicep 部署完成後，以下機密需手動設定（Bicep 不處理外部服務的 API Key）：
+After Bicep deployment, the following secrets must be set manually (Bicep does not handle external service API keys):
 
 ```bash
-# 取得 Key Vault 名稱
+# Get Key Vault name
 KV_NAME=$(az keyvault list --resource-group rg-recruitment-ai --query "[0].name" -o tsv)
 
-# 儲存 Azure OpenAI API Key
+# Store Azure OpenAI API Key
 az keyvault secret set \
   --vault-name $KV_NAME \
   --name "AzureOpenAI--ApiKey" \
   --value "<your-openai-api-key>"
 
-# 取得 OpenAI Endpoint（用於 App Service 設定）
+# Get OpenAI Endpoint (for App Service settings)
 az cognitiveservices account show \
   --name recai-oai \
   --resource-group rg-recruitment-ai \
@@ -157,21 +157,21 @@ az cognitiveservices account show \
 
 ### CI/CD with GitHub Actions
 
-`.github/workflows/deploy.yml` 負責（待實作）：
+`.github/workflows/deploy.yml` handles (pending implementation):
 
-1. `dotnet test` — 執行所有 xUnit 測試
+1. `dotnet test` — run all xUnit tests
 2. `dotnet publish` → Deploy to Azure App Service
 3. `vite build` → Deploy React SPA to Azure Static Web Apps
 4. EF Core migration on release branch merge
 
 ---
 
-## 開發慣例
+## Development Conventions
 
-| 項目 | 規範 |
+| Item | Convention |
 |---|---|
-| Branch 命名 | `feature/stage1-qa-generator`、`fix/report-pdf-export` |
-| Commit 訊息 | Conventional Commits：`feat:`、`fix:`、`docs:`、`test:` |
-| PR 規範 | 每個 PR 連結對應 GitHub Issue，附 Copilot 生成的 description |
-| 測試要求 | 每個 SK Plugin 需有對應的 xUnit integration test |
-| Secrets | 所有金鑰只能存在 Key Vault 或 GitHub Actions Secrets，不得 hardcode |
+| Branch naming | `feature/stage1-qa-generator`, `fix/report-pdf-export` |
+| Commit messages | Conventional Commits: `feat:`, `fix:`, `docs:`, `test:` |
+| PR rules | Each PR links to a corresponding GitHub Issue with a Copilot-generated description |
+| Test requirements | Each SK Plugin must have a corresponding xUnit integration test |
+| Secrets | All keys must only be in Key Vault or GitHub Actions Secrets; never hardcoded |

@@ -1,90 +1,90 @@
-# 07 — Azure 成本估算與控管
+# 07 — Azure Cost Estimation & Control
 
-## Azure 服務月費（固定費用）
+## Azure Service Monthly Fees (Fixed Costs)
 
-| 服務 | SKU | 月費估算 |
+| Service | SKU | Monthly Estimate |
 |---|---|---|
 | Azure Static Web Apps | Standard | ~$9 |
-| Azure App Service | B1（MVP） | ~$13 |
-| Azure App Service | B2（正式） | ~$75 |
+| Azure App Service | B1 (MVP) | ~$13 |
+| Azure App Service | B2 (Production) | ~$75 |
 | Azure SQL Database | Basic 5 DTU | ~$5 |
 | Azure Blob Storage | 50 GB LRS | ~$1 |
 | Azure Key Vault | Standard | ~$1 |
 | Application Insights | Free tier | $0 |
 | Azure Entra ID | Free tier | $0 |
-| **小計（MVP B1）** | | **~$29 / 月** |
-| **小計（正式 B2）** | | **~$91 / 月** |
+| **Subtotal (MVP B1)** | | **~$29 / month** |
+| **Subtotal (Production B2)** | | **~$91 / month** |
 
 ---
 
-## Azure OpenAI 費用（依用量計費）
+## Azure OpenAI Fees (Usage-Based)
 
-GPT-4o 參考定價（以 Azure 實際定價頁面為準，定價可能隨時調整）：
+GPT-4o reference pricing (refer to Azure actual pricing page; pricing subject to change):
 
-- Input tokens：**$2.50 / 1M tokens**
-- Output tokens：**$10.00 / 1M tokens**
+- Input tokens: **$2.50 / 1M tokens**
+- Output tokens: **$10.00 / 1M tokens**
 
-### 每位候選人 AI 費用估算
+### AI Cost Estimate Per Candidate
 
-| 步驟 | Input tokens | Output tokens | 估算費用 |
+| Step | Input tokens | Output tokens | Estimated Cost |
 |---|---|---|---|
-| JD 解析 | ~2,000 | ~500 | ~$0.010 |
-| QA 生成（10 題） | ~3,000 | ~1,500 | ~$0.023 |
-| 回答評估（3 題） | ~3,600 | ~1,500 | ~$0.024 |
-| Stage 1 報告生成 | ~5,000 | ~1,500 | ~$0.028 |
-| **Stage 1 合計** | | | **~$0.085 / 人** |
-| Stage 2 引導報告（額外） | ~6,000 | ~1,500 | ~$0.030 |
-| **Stage 1 + Stage 2** | | | **~$0.115 / 人** |
+| JD parsing | ~2,000 | ~500 | ~$0.010 |
+| QA generation (10 questions) | ~3,000 | ~1,500 | ~$0.023 |
+| Answer evaluation (3 questions) | ~3,600 | ~1,500 | ~$0.024 |
+| Stage 1 report generation | ~5,000 | ~1,500 | ~$0.028 |
+| **Stage 1 Total** | | | **~$0.085 / person** |
+| Stage 2 guidance report (additional) | ~6,000 | ~1,500 | ~$0.030 |
+| **Stage 1 + Stage 2** | | | **~$0.115 / person** |
 
-> 以上為保守估算；實際用量依問卷題數、回答長度與 Prompt 複雜度而異。
+> Above are conservative estimates; actual usage varies by number of questions, answer length, and Prompt complexity.
 
 ---
 
-## 月費場景試算
+## Monthly Cost Scenarios
 
-| 場景 | 月候選人數 | AI 費用估算 | 固定基礎架構 | **月費合計** |
+| Scenario | Monthly Candidates | AI Cost Estimate | Fixed Infrastructure | **Monthly Total** |
 |---|---|---|---|---|
-| **小規模（MVP）** | 50 | ~$4 | ~$29 | **~$33** |
-| **小規模（正式）** | 50 | ~$4 | ~$91 | **~$95** |
-| **中規模** | 200 | ~$17 | ~$91 | **~$108** |
-| **大規模** | 500 | ~$43 | ~$91 | **~$134** |
-| **大規模+** | 2,000 | ~$170 | ~$150+ | **~$320** |
+| **Small scale (MVP)** | 50 | ~$4 | ~$29 | **~$33** |
+| **Small scale (Production)** | 50 | ~$4 | ~$91 | **~$95** |
+| **Medium scale** | 200 | ~$17 | ~$91 | **~$108** |
+| **Large scale** | 500 | ~$43 | ~$91 | **~$134** |
+| **Large scale+** | 2,000 | ~$170 | ~$150+ | **~$320** |
 
-> **結論**：基礎架構佔主要固定成本。AI 費用在小規模時極低（<$20/月），隨規模線性增長但佔比仍可控。
+> **Conclusion**: Infrastructure accounts for the major fixed cost. AI costs are extremely low at small scale (<$20/month) and grow linearly with scale but remain manageable.
 
 ---
 
-## 成本控管策略
+## Cost Control Strategies
 
-| 策略 | 說明 | 節省潛力 |
+| Strategy | Description | Savings Potential |
 |---|---|---|
-| **JD 解析結果快取** | 同一份 JD 僅解析一次，結果存入 DB，重複使用不重新呼叫 AI | 中 |
-| **Token 上限設定** | 每個 Prompt 設定最大輸入 / 輸出 token 數，防止意外超用 | 中 |
-| **Prompt 最佳化** | 定期審查各 Plugin Prompt，去除冗餘指令以降低 token 消耗 | 中 |
-| **Azure Cost Budget Alert** | 設定每月消費預算上限（如 $150），80% / 100% 時通知 Manager | 高（風控） |
-| **Application Insights 監控** | 追蹤每個 Plugin 的 token 使用量，識別異常高消費請求 | 中 |
-| **分層記憶體快取** | 常用問卷範本快取於記憶體，減少資料庫查詢 | 低 |
-| **Azure Reserved Instances** | 若 App Service 使用穩定，購買 1 年保留實例省 ~40% | 高（長期） |
+| **JD parsing result caching** | Parse each JD only once; store results in DB for reuse without re-calling AI | Medium |
+| **Token limit settings** | Set maximum input/output token counts for each Prompt to prevent accidental overuse | Medium |
+| **Prompt optimization** | Regularly review Plugin Prompts, remove redundant instructions to reduce token consumption | Medium |
+| **Azure Cost Budget Alert** | Set monthly spending budget (e.g. $150), notify Manager at 80% / 100% | High (risk control) |
+| **Application Insights monitoring** | Track token usage per Plugin, identify abnormally high-cost requests | Medium |
+| **Tiered memory caching** | Cache frequently used questionnaire templates in memory to reduce DB queries | Low |
+| **Azure Reserved Instances** | If App Service usage is stable, purchase 1-year reserved instance to save ~40% | High (long-term) |
 
 ---
 
-## 監控設定建議
+## Monitoring Setup Recommendations
 
 ### Azure Cost Management
 
 ```
 Azure Portal → Cost Management + Billing → Budgets
-→ 設定月度預算（建議初期 $150）
-→ 80% 警示：Email 通知 Manager
-→ 100% 警示：Email + 可選自動暫停非核心資源
+→ Set monthly budget (recommend $150 for initial phase)
+→ 80% alert: Email notification to Manager
+→ 100% alert: Email + optional auto-suspend non-critical resources
 ```
 
-### Application Insights 自訂指標
+### Application Insights Custom Metrics
 
-在 Backend 記錄以下 custom metrics，供 Manager Dashboard 使用：
+Record the following custom metrics in the Backend for use in the Manager Dashboard:
 
 ```csharp
-// 範例：記錄每次 Plugin 呼叫的 token 用量
+// Example: record token usage per Plugin call
 telemetryClient.TrackMetric("tokens.input.JdParserPlugin", inputTokens);
 telemetryClient.TrackMetric("tokens.output.QaGeneratorPlugin", outputTokens);
 telemetryClient.TrackMetric("cost.per.candidate", estimatedCost);

@@ -1,6 +1,6 @@
-# 03 — 第一階段：初步篩選（Stage 1）
+# 03 — Stage 1: Initial Screening
 
-## 整體流程
+## Overall Flow
 
 ```mermaid
 flowchart TD
@@ -17,31 +17,31 @@ flowchart TD
     J --> E
 ```
 
-**作答時程**：無系統強制截止，由 Recruiter 自行與候選人協調安排。
+**Answer timeline**: No system-enforced deadline; Recruiter self-coordinates with candidates.
 
 ---
 
-## 輸入方式
+## Input Methods
 
-| 輸入類型 | 支援格式 | 說明 |
+| Input Type | Supported Formats | Description |
 |---|---|---|
-| JD 上傳 | `.docx`、`.pdf` | 系統自動解析職缺需求 |
-| 候選人履歷上傳 | `.docx`、`.pdf` | 用於個人化問題生成與交叉比對 |
-| 手動文字輸入 | 純文字 | 若無檔案，直接貼上文字 |
+| JD Upload | `.docx`, `.pdf` | System auto-parses job requirements |
+| Candidate Resume Upload | `.docx`, `.pdf` | Used for personalized question generation and cross-validation |
+| Manual Text Input | Plain text | Paste text directly if no file available |
 
-> 上傳的檔案存於 **Azure Blob Storage**，解析工作由後端 `JdParserPlugin` 完成。
+> Uploaded files are stored in **Azure Blob Storage**; parsing is done by the backend `JdParserPlugin`.
 
-### 履歷個人化
+### Resume Personalization
 
-上傳候選人履歷後，系統可對照 JD 生成**針對該候選人背景**的問題，而非通用問卷，更能有效識別「是否真的做過」。
+After uploading a candidate resume, the system can generate questions **tailored to that candidate's background** against the JD, rather than a generic questionnaire, more effectively identifying whether they "actually did it".
 
 ---
 
-## 問卷範本：公版問題範例（Full Stack / Azure 職缺）
+## Questionnaire Template: Public Questions (Full Stack / Azure Roles)
 
-> 問卷語言為**全英文**（目前專注印度市場，Recruiter 與候選人均為印度籍）。
+> Questionnaire language is **all English** (currently focused on the India market; both Recruiters and candidates are India-based).
 
-**Instructions（固定顯示於問卷頂部）**
+**Instructions (displayed at top of questionnaire)**
 
 ---
 
@@ -94,9 +94,9 @@ Briefly explain:
 
 ---
 
-## AI Agent：Recruiter 深入評估工具
+## AI Agent: Recruiter Deep-Dive Tool
 
-Recruiter 可在查看候選人報告時開啟對話式 AI Agent：
+Recruiter can open a conversational AI Agent when reviewing candidate reports:
 
 - Ask the Agent anything about the candidate's answers — it surfaces direct quotes and context
 - Agent generates **follow-up probe questions** based on red flags
@@ -107,25 +107,25 @@ Recruiter 可在查看候選人報告時開啟對話式 AI Agent：
 
 ## Stage 1 Candidate Evaluation Report
 
-每位候選人完成問卷後自動生成：
+Auto-generated for each candidate after submitting questionnaire:
 
-| 項目 | 內容 |
+| Item | Content |
 |---|---|
-| **Overall Recommendation** | Pass / Hold / Reject，附信心分數（0–100） |
-| **Technical Fit Summary** | 依 JD 要求逐項對照：Confirmed / Partial / Missing |
-| **Red Flags** | 模糊、前後矛盾或疑似 AI 生成的回答 |
-| **Suggested Follow-up Questions** | 供 Recruiter 進一步釐清的 3–5 道追問 |
-| **Resume vs. Answer Consistency** | 履歷聲明與問卷回答的自動交叉比對摘要 |
+| **Overall Recommendation** | Pass / Hold / Reject, with confidence score (0–100) |
+| **Technical Fit Summary** | Item-by-item comparison against JD requirements: Confirmed / Partial / Missing |
+| **Red Flags** | Vague, contradictory, or suspected AI-generated answers |
+| **Suggested Follow-up Questions** | 3–5 probe questions for Recruiter to clarify further |
+| **Resume vs. Answer Consistency** | Automated cross-reference summary of resume claims vs. questionnaire answers |
 
-報告可匯出為 **PDF**。
+Report can be exported as **PDF**.
 
 ---
 
-## 評分 Rubric（詳細說明見 [02-core-design.md](02-core-design.md)）
+## Scoring Rubric (see [02-core-design.md](02-core-design.md) for details)
 
-| 評分等級 | 說明 |
+| Score Level | Description |
 |---|---|
-| **Strong** | 具體、有細節、與 JD 高度相關 |
-| **Acceptable** | 基本符合，細節略少但無紅旗 |
-| **Needs Probe** | 回答模糊或範圍與 JD 相關性低，需追問 |
-| **Insufficient** | 明顯通用答案、無具體細節或疑似 AI 生成 |
+| **Strong** | Specific, detailed, highly relevant to JD |
+| **Acceptable** | Basically meets requirements, slightly less detail but no red flags |
+| **Needs Probe** | Vague answer or low relevance to JD scope, requires follow-up |
+| **Insufficient** | Clearly generic answer, no specific details, or suspected AI-generated |
