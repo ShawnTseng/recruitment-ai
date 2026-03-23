@@ -1,7 +1,7 @@
 # RecruitmentAI — Development Roadmap
 
-> **當前狀態**: Sprint 4 部分完成。三角色 UX 重新設計已上線（Recruiter / Interviewer / Manager 各自獨立頁面）。HTTP 500 問題已修復（Key Vault 設定 DB 連線字串與 Blob Endpoint、App Service Managed Identity RBAC、启动时自動 Migrate）。api.ts 完整（interviewApi / feedbackApi）。  
-> **下一目標**: System Parameter Management、Talent Pool、Application Insights 告警。
+> **當前狀態**: Sprint 4 全部完成。SWA Linked Backend 設定（前後端溝通問題修復）、Manager Dashboard KPI/系統參數/人才庫全部實作完成。Plugin 單元測試（Moq）完成。PII 中介件上線。  
+> **下一目標**: Application Insights 告警規則設定、Rate Limiting、Evaluation Background Job。
 
 ---
 
@@ -118,15 +118,20 @@
 
 ---
 
-## 📊 Sprint 4 — Manager Dashboard + Talent Pool (剩餘)
+## ✅ 已完成 (v0.5 — Sprint 4 全部完成)
 
 **目標**: 商業價值量化、Analytics、人才庫管理。
 
-| Task | 說明 |
-|---|---|
-| Manager Dashboard | KPI 看板：篩選率、通過率、客戶滿意度 |
-| System Parameter Management | 可調整 Rubric 權重、Prompt 版本管理 |
-| Talent Pool | 歷史候選人 Profile，支援未來重新接觸 |
+| Task | 說明 | 狀態 |
+|---|---|---|
+| SWA Linked Backend | infra/main.bicep 加入 linkedBackends，修復前後端雲上溝通 | ✅ |
+| CORS 動態設定 | webAppSettings 由 Bicep 注入 SWA hostname，不再硬編碼 | ✅ |
+| Manager Dashboard KPI | `GET /api/manager/stats`，完整 recruitment funnel 指標 | ✅ |
+| System Parameter Management | `GET/PUT/DELETE /api/system-parameters`，前端可視化管理 | ✅ |
+| Talent Pool | `GET /api/talent-pool` 技能/分數搜尋，`PATCH` 更新技能標籤 | ✅ |
+| Candidate.SkillTags | 新增欄位 + EF migration（自動於啟動時套用） | ✅ |
+| PII 保護中介件 | `PiiSanitizerMiddleware` 過濾 token 路徑（AppInsights v3.0 相容） | ✅ |
+| Plugin 單元測試 | JdParser/QaGenerator/AnswerEvaluator 各 3 個測試（Moq mock SK） | ✅ |
 
 ---
 
@@ -145,9 +150,9 @@
 
 ## 🏗️ 技術債 (持續追蹤)
 
-- [ ] Plugin 單元測試 — 每個 Plugin 至少 3 個測試 (happy path, empty input, adversarial)
+- [x] Plugin 單元測試 — JdParser / QaGenerator / AnswerEvaluator 各 3 個測試 (happy path, empty input, adversarial)
 - [ ] Integration tests with real Azure SQL
-- [ ] Candidate PII logging prevention (Application Insights filter)
+- [x] Candidate PII logging prevention (PiiSanitizerMiddleware — token URL redaction)
 - [ ] Rate limiting on candidate submission endpoint
 - [x] File upload validation (MIME type + size limit)
 - [x] EvaluationsController 改善 — 載入完整 Submission→Questionnaire→JD 鏈
@@ -159,7 +164,8 @@
 
 ## 立即下一步
 
-1. **Manager Dashboard** — 開始 Sprint 4：KPI 看板（篩選率、通過率、客戶滿意度），`GET /api/manager/stats` API
-2. **System Parameter Management** — Rubric 權重調整、Prompt 版本管理 UI
-3. **Talent Pool** — 歷史候選人 Profile 頁面，支援未來重新接觸
-4. **Application Insights 告警** — 設定異常偵測、PII 過濾排除 (候選人資料)
+1. **Application Insights 告警** — 設定 Azure Monitor alert rules（API 5xx rate、dependency failures）
+2. **Rate Limiting** — 候選人 submission endpoint 加入速率限制，防止濫用
+3. **Evaluation Background Job** — 評估觸發改用 Azure Service Bus / Background Service Queue
+4. **InterviewerPortal** — 面試分數回寫至 EvaluationReport Stage 2
+5. **AI vs. Human Agreement Rate** — 追蹤 AI 推薦與最終決定的一致率
