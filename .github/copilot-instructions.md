@@ -29,7 +29,7 @@ This is an **AI-powered recruitment screening system** for a company whose core 
 │   ├── main.bicep                  # Orchestrator
 │   └── modules/                    # Individual resource modules
 ├── src/
-│   ├── api/                        # .NET 8 Solution
+│   ├── api/                        # .NET 10 Solution
 │   │   ├── RecruitmentAI.Api/      # Web API (Controllers, DI, Middleware)
 │   │   ├── RecruitmentAI.Core/     # Domain Models, Interfaces, DTOs
 │   │   ├── RecruitmentAI.Infrastructure/ # EF Core, Repositories, Blob Service
@@ -39,6 +39,12 @@ This is an **AI-powered recruitment screening system** for a company whose core 
 ├── docs/                           # Specification documents (read-only)
 └── .github/                        # Copilot instructions & CI/CD workflows
 ```
+
+## Azure Resources
+
+- **Static Web App**: `recai-web` (resource group: `rg-recruitment-ai`, region: East Asia)
+- **SWA Deployment Token Secret**: GitHub Actions secret name = `AZURE_STATIC_WEB_APPS_API_TOKEN`
+- To retrieve token: `az staticwebapp secrets list --name recai-web --resource-group rg-recruitment-ai --query "properties.apiKey" -o tsv`
 
 ## Domain Terminology
 
@@ -54,6 +60,7 @@ This is an **AI-powered recruitment screening system** for a company whose core 
 - **Super Admin**: Full access to all features, pages, and workspaces
 - **Talent Pool**: Long-term candidate profile database for future re-engagement
 - **Rubric**: Scoring criteria per question (Technical Depth / Specificity / Relevance)
+- **Client**: Enterprise client that a Recruiter creates JDs for; one Client has 1–N JDs; scoped to Recruiter workspace
 
 ## Semantic Kernel Plugins
 
@@ -74,6 +81,15 @@ All AI operations are encapsulated in SK plugins. Each plugin has one responsibi
 - Multi-tenant isolation: always filter queries by `workspaceId` (Recruiter workspace); Super Admin bypasses this filter
 - Use `[Authorize]` with Role-based access control on all API endpoints
 - Access all secrets via `IConfiguration` backed by Azure Key Vault provider — never hardcode
+
+## Auth & Identity Patterns
+
+- JWT claims in use: `role`, `workspaceId`, `displayName`, `sub` (userId / AppUser.Id)
+- Identity triangle: `AppUser.WorkspaceId == Recruiter.Id == Recruiter.WorkspaceId` — all three are the same GUID
+- Controllers read `workspaceId` from JWT claims (`User.FindFirst("workspaceId")?.Value`); never accept it as a query/body param
+- `ResolveRecruiterIdAsync()` pattern in controllers: look up Recruiter by workspaceId, auto-provision if missing (avoids FK violations on first use)
+- Role-based nav in React: `roleNav` map in `Layout.tsx` defines visible nav per role; `RequireRole` component wraps all protected routes in `App.tsx`
+- JD creation is text-only (`rawText` required); file upload intentionally removed
 
 ## Security Rules
 
