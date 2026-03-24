@@ -1,8 +1,6 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState, useRef, type FormEvent, type DragEvent } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { candidateApi, submissionApi, type Candidate, type TokenResponse } from '../services/api'
-
-const WORKSPACE_ID = '00000000-0000-0000-0000-000000000001';
 
 export default function CandidateList() {
   const [searchParams] = useSearchParams();
@@ -15,6 +13,10 @@ export default function CandidateList() {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [parsing, setParsing] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Token generation
   const [generatedTokens, setGeneratedTokens] = useState<Record<string, TokenResponse>>({});
@@ -24,10 +26,9 @@ export default function CandidateList() {
   const [submissions, setSubmissions] = useState<Record<string, { id: string; submittedAt: string | null }[]>>({});
 
   useEffect(() => {
-    candidateApi.getByWorkspace(WORKSPACE_ID)
+    candidateApi.getByWorkspace()
       .then(async (cands) => {
         setCandidates(cands);
-        // Load submissions for each candidate to enable report links
         const subMap: Record<string, { id: string; submittedAt: string | null }[]> = {};
         await Promise.all(cands.map(async c => {
           try {
@@ -41,13 +42,40 @@ export default function CandidateList() {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleResumeSelect = async (file: File) => {
+    const ext = file.name.toLowerCase().split('.').pop();
+    if (!['pdf', 'docx', 'txt'].includes(ext ?? '')) {
+      setError('Only .pdf, .docx, and .txt files are supported.');
+      return;
+    }
+    setResumeFile(file);
+    setError(null);
+    setParsing(true);
+    try {
+      const result = await candidateApi.parseResume(file);
+      if (result.name) setName(result.name);
+      if (result.email) setEmail(result.email);
+    } catch {
+      // AI not available — user fills in manually, that's fine
+    } finally {
+      setParsing(false);
+    }
+  };
+
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleResumeSelect(file);
+  };
+
   const handleCreate = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     try {
-      const candidate = await candidateApi.create({ name, email, workspaceId: WORKSPACE_ID });
+      const candidate = await candidateApi.create({ name, email });
       setCandidates(prev => [...prev, candidate]);
-      setName(''); setEmail(''); setShowForm(false);
+      setName(''); setEmail(''); setResumeFile(null); setShowForm(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create candidate');
     }
@@ -89,11 +117,66 @@ export default function CandidateList() {
 
       {showForm && (
         <div style={{ ...cardStyle, marginBottom: '16px' }}>
-          <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>Add New Candidate</h3>
+          <h3 style={{ fontSize: '1rem', marginBottom: '4px' }}>Add New Candidate</h3>
+          <p style={{ fontSize: '0.8rem', color: '#5f6368', marginBottom: '12px' }}>
+            Upload a resume to auto-fill name & email, or enter details manually.
+          </p>
+
+          {/* Resume upload / drag-drop area */}
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            onDragOver={e => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={handleDrop}
+            style={{
+              border: `2px dashed ${dragOver ? '#1a73e8' : '#dadce0'}`,
+              borderRadius: '8px', padding: '16px',
+              textAlign: 'center', cursor: 'pointer',
+              background: dragOver ? '#e8f0fe' : '#fafafa',
+              marginBottom: '12px', transition: 'all 0.2s',
+            }}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.docx,.txt"
+              style={{ display: 'none' }}
+              onChange={e => { const f = e.target.files?.[0]; if (f) handleResumeSelect(f); }}
+            />
+            {parsing ? (
+              <div style={{ color: '#1a73e8', fontSize: '0.9rem' }}>🤖 Parsing resume with AI...</div>
+            ) : resumeFile ? (
+              <div>
+                <span style={{ fontWeight: 600, color: '#0d904f' }}>📄 {resumeFile.name}</span>
+                <span style={{ fontSize: '0.8rem', color: '#5f6368', marginLeft: '8px' }}>Click to change</span>
+              </div>
+            ) : (
+              <div style={{ fontSize: '0.85rem', color: '#5f6368' }}>
+                📎 Drop resume here or click to upload (PDF / DOCX / TXT)
+              </div>
+            )}
+          </div>
+
           <form onSubmit={handleCreate} style={{ display: 'grid', gap: '12px' }}>
-            <input type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} required style={inputStyle} />
-            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} />
-            <button type="submit" style={primaryBtn}>Create</button>
+            <input
+              type="text"
+              placeholder="Full Name *"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+              style={inputStyle}
+            />
+            <input
+              type="email"
+              placeholder="Email *"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              style={inputStyle}
+            />
+            <button type="submit" disabled={parsing} style={primaryBtn}>
+              {parsing ? 'Parsing...' : 'Create Candidate'}
+            </button>
           </form>
         </div>
       )}
@@ -155,7 +238,6 @@ export default function CandidateList() {
                 </div>
               )}
 
-              {/* Show report links for existing submissions */}
               {!generatedTokens[c.id] && submissions[c.id]?.filter(s => s.submittedAt).map(sub => (
                 <div key={sub.id} style={{ marginTop: '8px' }}>
                   <Link

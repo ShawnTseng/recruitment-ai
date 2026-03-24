@@ -115,8 +115,8 @@ function JdTab({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
 // ─── Candidates Tab ───────────────────────────────────────────────────────────
 
 function CandidatesTab() {
-  const { user } = useAuth();
-  const workspaceId = user?.workspaceId ?? '';  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const { user: _authUser } = useAuth();
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -164,7 +164,7 @@ function CandidatesTab() {
     e.preventDefault();
     setError(null);
     try {
-      const c = await candidateApi.create({ name, email, workspaceId });
+      const c = await candidateApi.create({ name, email });
       setCandidates(prev => [...prev, c]);
       setName(''); setEmail(''); setShowForm(false);
     } catch (err) {

@@ -6,6 +6,7 @@ using Microsoft.SemanticKernel;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Entities;
 using RecruitmentAI.Core.Interfaces;
+using RecruitmentAI.Infrastructure.Services;
 using RecruitmentAI.Plugins;
 
 namespace RecruitmentAI.Api.Controllers;
@@ -122,13 +123,72 @@ public class JobDescriptionsController : ControllerBase
         if (string.IsNullOrWhiteSpace(jd.RawText))
             return BadRequest(new { message = "JD has no raw text to parse." });
 
-        var plugin = new JdParserPlugin();
-        var parsedJson = await plugin.ParseJdAsync(_kernel, jd.RawText);
+        string parsedJson;
+        try
+        {
+            var plugin = new JdParserPlugin();
+            parsedJson = await plugin.ParseJdAsync(_kernel, jd.RawText);
+        }
+        catch (KernelException kex) when (kex.Message.Contains("required service"))
+        {
+            _logger.LogWarning("AI service not configured when parsing JD {JdId}", id);
+            return StatusCode(503, new { message = "AI service is not configured in this environment. Please contact the system administrator." });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "AI parse failed for JD {JdId}", id);
+            return StatusCode(502, new { message = "AI service call failed. Please try again later." });
+        }
 
         jd.ParsedJson = parsedJson;
         jd.PromptVersion = "1.0";
         await _jdRepo.UpdateAsync(jd, ct);
 
         return Ok(new JdAnalysisResponse(jd.Id, parsedJson));
+    }
+
+    /// <summary>POST /api/job-descriptions/upload — Create JD from an uploaded file (PDF / DOCX / TXT)</summary>
+    [HttpPost("upload")]
+    [Authorize(Roles = "Recruiter,SuperAdmin")]
+    [RequestSizeLimit(10 * 1024 * 1024)]
+    public async Task<IActionResult> Upload(
+        [FromForm] string title,
+        IFormFile file,
+        [FromForm] Guid? clientId,
+        CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+            return BadRequest(new { message = "Title is required." });
+
+        if (file is null || file.Length == 0)
+            return BadRequest(new { message = "File is required." });
+
+        if (!FileTextExtractorService.IsValidFile(file.FileName, file.ContentType, file.Length, out var fileError))
+            return BadRequest(new { message = fileError });
+
+        var recruiterId = await ResolveRecruiterIdAsync(ct);
+        if (recruiterId is null) return Forbid();
+
+        string rawText;
+        await using (var stream = file.OpenReadStream())
+        {
+            rawText = await FileTextExtractorService.ExtractTextAsync(stream, file.FileName);
+        }
+
+        if (string.IsNullOrWhiteSpace(rawText))
+            return BadRequest(new { message = "Could not extract text from the uploaded file. Please paste the text manually." });
+
+        var jd = new JobDescription
+        {
+            Id = Guid.NewGuid(),
+            RecruiterId = recruiterId.Value,
+            ClientId = clientId,
+            Title = title,
+            RawText = rawText,
+        };
+
+        await _jdRepo.AddAsync(jd, ct);
+        _logger.LogInformation("JD created via file upload: {JdId} for recruiter {RecruiterId}", jd.Id, recruiterId);
+        return CreatedAtAction(nameof(GetById), new { id = jd.Id }, ToResponse(jd));
     }
 }

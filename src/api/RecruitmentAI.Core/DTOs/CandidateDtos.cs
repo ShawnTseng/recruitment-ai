@@ -2,8 +2,13 @@ namespace RecruitmentAI.Core.DTOs;
 
 public record CreateCandidateRequest(
     string Name,
+    string Email
+);
+
+public record ResumeParseResult(
+    string Name,
     string Email,
-    Guid WorkspaceId
+    string RawText
 );
 
 public record CandidateResponse(

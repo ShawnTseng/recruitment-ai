@@ -131,6 +131,26 @@ export const jobDescriptionApi = {
       body: JSON.stringify(data),
     }),
 
+  uploadFile: async (data: { title: string; file: File; clientId?: string }) => {
+    const stored = sessionStorage.getItem('recai_auth');
+    const token = stored ? (JSON.parse(stored) as { token: string }).token : '';
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('file', data.file);
+    if (data.clientId) formData.append('clientId', data.clientId);
+
+    const res = await fetch(`${API_BASE}/api/job-descriptions/upload`, {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: formData,
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ message: res.statusText }));
+      throw new Error(error.message || `HTTP ${res.status}`);
+    }
+    return res.json() as Promise<JobDescription>;
+  },
+
   parse: (id: string) =>
     request<{ jobDescriptionId: string; parsedJson: string }>(
       `/api/job-descriptions/${id}/parse`,
@@ -163,6 +183,12 @@ export const clientApi = {
 
 // --- Candidates ---
 
+export interface ResumeParseResult {
+  name: string;
+  email: string;
+  rawText: string;
+}
+
 export const candidateApi = {
   // workspaceId is optional — Interviewers/Managers get all candidates; Recruiters are filtered server-side by JWT
   getByWorkspace: (workspaceId?: string) => {
@@ -173,11 +199,29 @@ export const candidateApi = {
   getById: (id: string) =>
     request<Candidate>(`/api/candidates/${id}`),
 
-  create: (data: { name: string; email: string; workspaceId: string }) =>
+  create: (data: { name: string; email: string }) =>
     request<Candidate>('/api/candidates', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+
+  parseResume: async (file: File) => {
+    const stored = sessionStorage.getItem('recai_auth');
+    const token = stored ? (JSON.parse(stored) as { token: string }).token : '';
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const res = await fetch(`${API_BASE}/api/candidates/parse-resume`, {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: formData,
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ message: res.statusText }));
+      throw new Error(error.message || `HTTP ${res.status}`);
+    }
+    return res.json() as Promise<ResumeParseResult>;
+  },
 
   generateToken: (candidateId: string, data: { questionnaireId: string; expiryHours?: number }) =>
     request<TokenResponse>(`/api/candidates/${candidateId}/tokens`, {

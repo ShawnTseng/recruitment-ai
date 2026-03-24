@@ -1,9 +1,12 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.SemanticKernel;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Entities;
 using RecruitmentAI.Core.Interfaces;
+using RecruitmentAI.Infrastructure.Services;
+using RecruitmentAI.Plugins;
 
 namespace RecruitmentAI.Api.Controllers;
 
@@ -16,6 +19,7 @@ public class CandidatesController : ControllerBase
     private readonly ICandidateSubmissionRepository _submissionRepo;
     private readonly IQuestionnaireRepository _questionnaireRepo;
     private readonly IBlobStorageService _blobService;
+    private readonly Kernel _kernel;
 
     private static readonly HashSet<string> AllowedExtensions = [".pdf", ".docx"];
     private static readonly HashSet<string> AllowedMimeTypes =
@@ -29,12 +33,14 @@ public class CandidatesController : ControllerBase
         ICandidateRepository candidateRepo,
         ICandidateSubmissionRepository submissionRepo,
         IQuestionnaireRepository questionnaireRepo,
-        IBlobStorageService blobService)
+        IBlobStorageService blobService,
+        Kernel kernel)
     {
         _candidateRepo = candidateRepo;
         _submissionRepo = submissionRepo;
         _questionnaireRepo = questionnaireRepo;
         _blobService = blobService;
+        _kernel = kernel;
     }
 
     private static CandidateResponse ToResponse(Candidate c) =>
@@ -79,12 +85,16 @@ public class CandidatesController : ControllerBase
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateCandidateRequest request, CancellationToken ct)
     {
+        // workspaceId comes from JWT — never trust client-supplied value
+        var wsStr = User.FindFirstValue("workspaceId");
+        if (!Guid.TryParse(wsStr, out var workspaceId)) return Forbid();
+
         var candidate = new Candidate
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
             Email = request.Email,
-            WorkspaceId = request.WorkspaceId,
+            WorkspaceId = workspaceId,
         };
 
         await _candidateRepo.AddAsync(candidate, ct);
@@ -147,5 +157,54 @@ public class CandidatesController : ControllerBase
 
         var baseUrl = $"{Request.Scheme}://{Request.Host}";
         return Ok(new TokenResponse(token, expiresAt, $"{baseUrl}/candidate/{token}", submission.Id));
+    }
+
+    /// <summary>POST /api/candidates/parse-resume — Extract name and email from an uploaded resume using AI</summary>
+    [HttpPost("parse-resume")]
+    [Authorize(Roles = "Recruiter,SuperAdmin")]
+    [RequestSizeLimit(10 * 1024 * 1024)]
+    public async Task<IActionResult> ParseResume(IFormFile file, CancellationToken ct)
+    {
+        if (file is null || file.Length == 0)
+            return BadRequest(new { message = "File is required." });
+
+        if (!FileTextExtractorService.IsValidFile(file.FileName, file.ContentType, file.Length, out var fileError))
+            return BadRequest(new { message = fileError });
+
+        string rawText;
+        await using (var stream = file.OpenReadStream())
+        {
+            rawText = await FileTextExtractorService.ExtractTextAsync(stream, file.FileName);
+        }
+
+        if (string.IsNullOrWhiteSpace(rawText))
+            return BadRequest(new { message = "Could not extract text from the uploaded file." });
+
+        string parsedJson;
+        try
+        {
+            var plugin = new ResumeParserPlugin();
+            parsedJson = await plugin.ParseResumeAsync(_kernel, rawText);
+        }
+        catch (KernelException)
+        {
+            // AI not available — return just the raw text so frontend can still proceed
+            return Ok(new ResumeParseResult(string.Empty, string.Empty, rawText));
+        }
+        catch
+        {
+            return Ok(new ResumeParseResult(string.Empty, string.Empty, rawText));
+        }
+
+        string name = string.Empty, email = string.Empty;
+        try
+        {
+            var doc = System.Text.Json.JsonDocument.Parse(parsedJson);
+            name = doc.RootElement.GetProperty("name").GetString() ?? string.Empty;
+            email = doc.RootElement.GetProperty("email").GetString() ?? string.Empty;
+        }
+        catch { /* AI returned invalid JSON — fallback to empty */ }
+
+        return Ok(new ResumeParseResult(name, email, rawText));
     }
 }
