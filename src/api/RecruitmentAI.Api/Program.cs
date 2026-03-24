@@ -70,7 +70,6 @@ if (!string.IsNullOrEmpty(aoaiEndpoint))
         kernelBuilder.Plugins.AddFromType<QaGeneratorPlugin>();
         kernelBuilder.Plugins.AddFromType<AnswerEvaluatorPlugin>();
         kernelBuilder.Plugins.AddFromType<ReportGeneratorPlugin>();
-        kernelBuilder.Plugins.AddFromType<ResumeParserPlugin>();
         return kernelBuilder.Build();
     });
 }
