@@ -13,7 +13,7 @@ public class Repository<T> : IRepository<T> where T : class
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken ct = default)
         => await _db.Set<T>().FindAsync([id], ct);
 
-    public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken ct = default)
+    public virtual async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken ct = default)
         => await _db.Set<T>().ToListAsync(ct);
 
     public async Task<T> AddAsync(T entity, CancellationToken ct = default)

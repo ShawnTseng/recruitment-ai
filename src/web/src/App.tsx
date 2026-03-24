@@ -73,8 +73,9 @@ function AppRoutes() {
           <Route path="recruiter/report/:submissionId" element={
             <RequireRole roles={recruiterRoles}><RecruiterReportView /></RequireRole>
           } />
-          <Route path="recruiter/clients" element={
-            <RequireRole roles={recruiterRoles}><ClientManagement /></RequireRole>
+          <Route path="recruiter/clients" element={<Navigate to="/clients" replace />} />
+          <Route path="clients" element={
+            <RequireRole roles={[...recruiterRoles, ...managerRoles]}><ClientManagement /></RequireRole>
           } />
 
           {/* Interviewer routes */}

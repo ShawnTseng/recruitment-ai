@@ -186,13 +186,7 @@ public class ClientRepository : Repository<Client>, IClientRepository
 {
     public ClientRepository(RecruitmentDbContext db) : base(db) { }
 
-    public async Task<IReadOnlyList<Client>> GetByWorkspaceAsync(Guid workspaceId, CancellationToken ct = default)
-        => await _db.Clients
-            .Where(c => c.WorkspaceId == workspaceId)
-            .OrderBy(c => c.Name)
-            .ToListAsync(ct);
-
-    public async Task<Client?> GetByIdAndWorkspaceAsync(Guid id, Guid workspaceId, CancellationToken ct = default)
-        => await _db.Clients
-            .FirstOrDefaultAsync(c => c.Id == id && c.WorkspaceId == workspaceId, ct);
+    /// <summary>Returns all clients ordered by name (no workspace filter — clients are shared).</summary>
+    public override async Task<IReadOnlyList<Client>> GetAllAsync(CancellationToken ct = default)
+        => await _db.Clients.OrderBy(c => c.Name).ToListAsync(ct);
 }

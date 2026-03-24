@@ -36,10 +36,10 @@ public interface IRecruiterRepository : IRepository<Recruiter>
     Task<Recruiter?> GetByWorkspaceIdAsync(Guid workspaceId, CancellationToken ct = default);
 }
 
+/// <summary>Clients are a shared resource — not scoped per workspace.</summary>
 public interface IClientRepository : IRepository<Client>
 {
-    Task<IReadOnlyList<Client>> GetByWorkspaceAsync(Guid workspaceId, CancellationToken ct = default);
-    Task<Client?> GetByIdAndWorkspaceAsync(Guid id, Guid workspaceId, CancellationToken ct = default);
+    // GetAllAsync and GetByIdAsync are inherited from IRepository<Client>
 }
 
 public interface IEvaluationReportRepository : IRepository<EvaluationReport>

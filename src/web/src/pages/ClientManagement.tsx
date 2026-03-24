@@ -1,9 +1,12 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { clientApi, jobDescriptionApi, type Client, type JobDescription } from '../services/api'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function ClientManagement() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const backPath = (user?.role === 'Manager' || user?.role === 'AccountManager') ? '/manager' : '/recruiter';
   const [clients, setClients] = useState<Client[]>([]);
   const [jdCounts, setJdCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
@@ -88,7 +91,7 @@ export default function ClientManagement() {
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <button onClick={() => navigate('/recruiter')} style={backBtn}>← Back</button>
+        <button onClick={() => navigate(backPath)} style={backBtn}>← Back</button>
         <h2 style={{ margin: 0 }}>Client Management</h2>
       </div>
 

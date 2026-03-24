@@ -70,7 +70,7 @@ function JdTab({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
         <span style={{ color: '#5f6368', fontSize: '0.9rem' }}>{jds.length} job description(s)</span>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <button onClick={() => navigate('/recruiter/clients')} style={secondaryBtn}>Manage Clients</button>
+          <button onClick={() => navigate('/clients')} style={secondaryBtn}>Manage Clients</button>
           <button onClick={() => navigate('/recruiter/jd/new')} style={primaryBtn}>+ New JD</button>
         </div>
       </div>

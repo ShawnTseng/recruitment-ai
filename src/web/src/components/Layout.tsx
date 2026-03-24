@@ -2,12 +2,22 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 const roleNav: Record<string, { path: string; label: string }[]> = {
-  Recruiter: [{ path: '/recruiter', label: 'My Portal' }],
+  Recruiter: [
+    { path: '/recruiter', label: 'My Portal' },
+    { path: '/clients', label: 'Clients' },
+  ],
   Interviewer: [{ path: '/interviewer', label: 'Interviews' }],
-  Manager: [{ path: '/manager', label: 'Dashboard' }],
-  AccountManager: [{ path: '/manager', label: 'Dashboard' }],
+  Manager: [
+    { path: '/manager', label: 'Dashboard' },
+    { path: '/clients', label: 'Clients' },
+  ],
+  AccountManager: [
+    { path: '/manager', label: 'Dashboard' },
+    { path: '/clients', label: 'Clients' },
+  ],
   SuperAdmin: [
     { path: '/recruiter', label: 'Recruiter' },
+    { path: '/clients', label: 'Clients' },
     { path: '/interviewer', label: 'Interviewer' },
     { path: '/manager', label: 'Manager' },
   ],

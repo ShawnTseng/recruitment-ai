@@ -105,9 +105,9 @@ export default function JdCreate() {
             {clients.length === 0 && (
               <span style={{ fontSize: '0.8rem', color: '#5f6368', marginTop: '4px', display: 'block' }}>
                 No clients yet.{' '}
-                <button type="button" onClick={() => navigate('/recruiter/clients')}
+                <button type="button" onClick={() => navigate('/clients')}
                   style={{ background: 'none', border: 'none', color: '#1a73e8', cursor: 'pointer', padding: 0, fontSize: '0.8rem' }}>
-                  Create a client first →
+                  Create a client first →{/* navigates to shared /clients page */}
                 </button>
               </span>
             )}
