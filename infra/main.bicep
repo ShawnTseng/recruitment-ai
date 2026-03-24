@@ -112,7 +112,7 @@ resource webAppSettings 'Microsoft.Web/sites/config@2023-12-01' = {
   properties: {
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.outputs.appInsightsConnectionString
     KeyVault__Uri: keyVault.outputs.keyVaultUri
-    WEBSITES_CONTAINER_START_TIME_LIMIT: '300'
+    WEBSITES_CONTAINER_START_TIME_LIMIT: '600'
     // Key Vault References — secrets resolved by App Service platform, not SDK
     ConnectionStrings__DefaultConnection: '@Microsoft.KeyVault(VaultName=${kvName};SecretName=ConnectionStrings--DefaultConnection)'
     AzureOpenAI__Endpoint: '@Microsoft.KeyVault(VaultName=${kvName};SecretName=AzureOpenAI--Endpoint)'
@@ -165,7 +165,7 @@ resource sqlConnectionSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   name: 'ConnectionStrings--DefaultConnection'
   dependsOn: [keyVault]
   properties: {
-    value: 'Server=tcp:${sql.outputs.sqlServerFqdn},1433;Initial Catalog=${sql.outputs.sqlDatabaseName};Persist Security Info=False;User ID=${sqlAdminLogin};Password=${sqlAdminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+    value: 'Server=tcp:${sql.outputs.sqlServerFqdn},1433;Initial Catalog=${sql.outputs.sqlDatabaseName};Persist Security Info=False;User ID=${sqlAdminLogin};Password=${sqlAdminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;'
   }
 }
 

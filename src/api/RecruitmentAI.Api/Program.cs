@@ -126,7 +126,7 @@ builder.Services.AddCors(options =>
 
 // -- Health Checks -----------------------------------------------------------
 builder.Services.AddHealthChecks()
-    .AddDbContextCheck<RecruitmentDbContext>();
+    .AddDbContextCheck<RecruitmentDbContext>("database", tags: ["ready"]);
 
 var app = builder.Build();
 
@@ -199,7 +199,18 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers().RequireAuthorization();
-app.MapHealthChecks("/health").AllowAnonymous();
+
+// Liveness: always OK if container is running (used by App Service to detect crashes)
+app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => false // exclude all registered checks — just return Healthy
+}).AllowAnonymous();
+
+// Readiness: includes DB check (used by probes / monitoring, not by App Service startup)
+app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready")
+}).AllowAnonymous();
 
 app.Run();
 
