@@ -24,11 +24,9 @@ public class EvaluationsController : ControllerBase
         _kernel = kernel;
     }
 
-    /// <summary>POST /api/evaluations/evaluate/{submissionId} — Trigger AI evaluation</summary>
     [HttpPost("evaluate/{submissionId:guid}")]
     public async Task<IActionResult> Evaluate(Guid submissionId, CancellationToken ct)
     {
-        // Load full chain: Submission → Questionnaire → JobDescription
         var submission = await _submissionRepo.GetByIdWithChainAsync(submissionId, ct);
         if (submission is null) return NotFound();
 
@@ -37,11 +35,9 @@ public class EvaluationsController : ControllerBase
 
         var jdRequirements = submission.Questionnaire?.JobDescription?.ParsedJson ?? "{}";
 
-        // Step 1: Evaluate answers
         var evaluator = new AnswerEvaluatorPlugin();
         var evaluationJson = await evaluator.EvaluateAnswersAsync(_kernel, submission.AnswersJson, jdRequirements);
 
-        // Step 2: Generate Stage 1 report
         var reportGen = new ReportGeneratorPlugin();
         var reportJson = await reportGen.GenerateReportAsync(_kernel, evaluationJson, 1);
 
@@ -55,7 +51,6 @@ public class EvaluationsController : ControllerBase
             Recommendation = "Pending",
         };
 
-        // Extract score and recommendation from the report JSON
         try
         {
             using var doc = System.Text.Json.JsonDocument.Parse(reportJson);
@@ -64,7 +59,7 @@ public class EvaluationsController : ControllerBase
             if (doc.RootElement.TryGetProperty("recommendation", out var rec))
                 report.Recommendation = rec.GetString() ?? "Pending";
         }
-        catch { /* non-critical */ }
+        catch { }
 
         await _evalRepo.AddAsync(report, ct);
 
@@ -80,7 +75,6 @@ public class EvaluationsController : ControllerBase
         });
     }
 
-    /// <summary>GET /api/evaluations/{id}</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -99,7 +93,6 @@ public class EvaluationsController : ControllerBase
         });
     }
 
-    /// <summary>GET /api/evaluations/by-submission/{submissionId}</summary>
     [HttpGet("by-submission/{submissionId:guid}")]
     public async Task<IActionResult> GetBySubmission(Guid submissionId, CancellationToken ct)
     {

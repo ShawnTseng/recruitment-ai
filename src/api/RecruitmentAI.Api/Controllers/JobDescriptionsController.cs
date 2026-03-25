@@ -36,8 +36,6 @@ public class JobDescriptionsController : ControllerBase
     private static JobDescriptionResponse ToResponse(JobDescription jd) =>
         new(jd.Id, jd.RecruiterId, jd.ClientId, jd.Client?.Name, jd.Title, jd.BlobUrl, jd.ParsedJson, jd.PromptVersion, jd.CreatedAt);
 
-    /// <summary>Resolves the RecruiterId for the calling Recruiter from the JWT workspaceId claim.
-    /// If no Recruiter row exists yet, auto-provisions one.</summary>
     private async Task<Guid?> ResolveRecruiterIdAsync(CancellationToken ct)
     {
         var workspaceIdStr = User.FindFirstValue("workspaceId");
@@ -58,7 +56,6 @@ public class JobDescriptionsController : ControllerBase
         return recruiter.Id;
     }
 
-    /// <summary>GET /api/job-descriptions — returns JDs for the calling recruiter (or by clientId filter)</summary>
     [HttpGet]
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     public async Task<IActionResult> GetByRecruiter([FromQuery] Guid? clientId, CancellationToken ct)
@@ -75,7 +72,6 @@ public class JobDescriptionsController : ControllerBase
         return Ok(jds.Select(ToResponse));
     }
 
-    /// <summary>GET /api/job-descriptions/{id}</summary>
     [HttpGet("{id:guid}")]
     [Authorize(Roles = "Recruiter,Interviewer,Manager,SuperAdmin")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
@@ -85,7 +81,6 @@ public class JobDescriptionsController : ControllerBase
         return Ok(ToResponse(jd));
     }
 
-    /// <summary>POST /api/job-descriptions — Create JD with raw text</summary>
     [HttpPost]
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateJobDescriptionRequest request, CancellationToken ct)
@@ -112,7 +107,6 @@ public class JobDescriptionsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = jd.Id }, ToResponse(jd));
     }
 
-    /// <summary>POST /api/job-descriptions/{id}/parse — Trigger AI parsing of JD</summary>
     [HttpPost("{id:guid}/parse")]
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     public async Task<IActionResult> Parse(Guid id, CancellationToken ct)
@@ -147,7 +141,6 @@ public class JobDescriptionsController : ControllerBase
         return Ok(new JdAnalysisResponse(jd.Id, parsedJson));
     }
 
-    /// <summary>POST /api/job-descriptions/upload — Create JD from an uploaded file (PDF / DOCX / TXT)</summary>
     [HttpPost("upload")]
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     [RequestSizeLimit(10 * 1024 * 1024)]

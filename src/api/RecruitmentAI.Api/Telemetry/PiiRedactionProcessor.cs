@@ -1,11 +1,5 @@
 namespace RecruitmentAI.Api.Telemetry;
 
-/// <summary>
-/// ASP.NET Core middleware that sanitizes sensitive data from request logging.
-/// Replaces candidate token values in request paths with [REDACTED] so they
-/// never appear in Application Insights or structured logs.
-/// Per OWASP: never log personal data or security tokens.
-/// </summary>
 public sealed class PiiSanitizerMiddleware
 {
     private readonly RequestDelegate _next;
@@ -22,7 +16,6 @@ public sealed class PiiSanitizerMiddleware
         // Log a sanitized path — replace token segment with [REDACTED]
         if (context.Request.Path.StartsWithSegments("/api/submissions/by-token", StringComparison.OrdinalIgnoreCase))
         {
-            // Override path for Activity/telemetry name by setting a custom property
             context.Items["SanitizedPath"] = "/api/submissions/by-token/[REDACTED]";
         }
 

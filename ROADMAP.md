@@ -1,6 +1,6 @@
 # RecruitmentAI — Development Roadmap
 
-> **Current Status**: Sprint 4 fully complete. SWA Linked Backend configured (frontend-backend communication fix), Manager Dashboard KPI/System Parameters/Talent Pool all implemented. Plugin unit tests (Moq) done. PII middleware live.  
+> **Current Status**: Sprint 5 完成。一鍵角色登入（Demo Login）上線，移除帳號密碼流程。代碼清理：移除所有控制器 XML doc comments 與行內冗余註解。  
 > **Next Goal**: Application Insights alert rules, Rate Limiting, Evaluation Background Job.
 
 ---
@@ -76,7 +76,7 @@
 | `InterviewsController` | `POST /api/interviews/generate/{submissionId}` (Stage 2 guide) + `GET /api/interviews/{submissionId}` | ✅ |
 | `FeedbackController` | `POST /api/feedback` + `GET /api/feedback?recruiterId=` (client feedback API) | ✅ |
 | `SubmissionsController` GET by candidateId | `GET /api/submissions?candidateId=` (Recruiter-side query) | ✅ |
-| Azure Entra ID integration | Add `[Authorize]` to all endpoints (except candidate endpoints); `AddMicrosoftIdentityWebApiAuthentication` integration | ❌ Removed (MVP — no login required) |
+| Azure Entra ID integration | `[Authorize]` on all endpoints (except candidate endpoints) | ✅ (JWT demo auth) |
 
 ### Frontend
 | Task | Description | Status |
@@ -84,7 +84,7 @@
 | `RecruiterReportView` | `/recruiter/report/:submissionId` — AI scores, Technical Fit table, red flag questions, one-click Stage 2 guide generation | ✅ |
 | `InterviewerPortal` | `/interviewer/:submissionId` — interview guide display, live ★ rating, note recording, contextual good/red-flag answers | ✅ |
 | `CandidateList` add report link | Show "View Report→" link for submitted submissions | ✅ |
-| MSAL Auth integration | Azure Entra ID SSO for Recruiter/Interviewer | ❌ Removed (MVP — no login required) |
+| MSAL Auth integration | Azure Entra ID SSO for Recruiter/Interviewer | ⬜ Future sprint |
 
 ---
 
@@ -135,11 +135,21 @@
 
 ---
 
+## ✅ Completed (v0.6 — Sprint 5 Demo Login + Code Cleanup)
+
+| Task | Description | Status |
+|---|---|---|
+| One-click Demo Login | `POST /api/auth/demo-login` — select role button to log in, no password required | ✅ |
+| Remove username/password login | Replaced `LoginPage` form with role selector buttons | ✅ |
+| Code cleanup | Remove XML doc comments and redundant inline comments across all controllers | ✅ |
+
+---
+
 ## 🔐 Cross-Sprint Essentials
 
 | Task | When | Status |
 |---|---|---|
-| Azure Entra ID MSAL integration | Sprint 3 | ❌ Removed (MVP — no login required) |
+| Azure Entra ID MSAL integration | Future sprint | ⬜ |
 | SQL Migration automation | Sprint 1 | ✅ |
 | Application Insights alert setup | Sprint 3 | ⬜ |
 | Security Review (OWASP Top 10) | Before end of Sprint 3 | ⬜ |

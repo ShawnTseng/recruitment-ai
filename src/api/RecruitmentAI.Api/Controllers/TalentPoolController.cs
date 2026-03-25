@@ -19,10 +19,6 @@ public class TalentPoolController : ControllerBase
         _candidates = candidates;
     }
 
-    /// <summary>
-    /// Search talent pool. Optionally filter by skill keyword (matched against SkillTags or Name)
-    /// and/or a minimum Stage 1 AI score.
-    /// </summary>
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<TalentPoolCandidateResponse>>> Search(
         [FromQuery] string? skills,
@@ -60,7 +56,6 @@ public class TalentPoolController : ControllerBase
         return Ok(results);
     }
 
-    /// <summary>Update skill tags for a candidate (used from Talent Pool UI).</summary>
     [HttpPatch("{candidateId:guid}/skills")]
     public async Task<IActionResult> UpdateSkillTags(
         Guid candidateId,

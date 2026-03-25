@@ -25,7 +25,6 @@ public class QuestionnairesController : ControllerBase
         _kernel = kernel;
     }
 
-    /// <summary>GET /api/questionnaires?jobDescriptionId={id}</summary>
     [HttpGet]
     public async Task<IActionResult> GetByJd([FromQuery] Guid jobDescriptionId, CancellationToken ct)
     {
@@ -35,7 +34,6 @@ public class QuestionnairesController : ControllerBase
         return Ok(response);
     }
 
-    /// <summary>GET /api/questionnaires/{id}</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -44,7 +42,6 @@ public class QuestionnairesController : ControllerBase
         return Ok(new QuestionnaireResponse(q.Id, q.JobDescriptionId, q.TemplateVersion, q.QuestionsJson, q.CreatedAt));
     }
 
-    /// <summary>POST /api/questionnaires/generate — AI-generate questionnaire from JD</summary>
     [HttpPost("generate")]
     public async Task<IActionResult> Generate([FromBody] GenerateQuestionnaireRequest request, CancellationToken ct)
     {
@@ -71,7 +68,6 @@ public class QuestionnairesController : ControllerBase
             new QuestionnaireResponse(questionnaire.Id, questionnaire.JobDescriptionId, questionnaire.TemplateVersion, questionnaire.QuestionsJson, questionnaire.CreatedAt));
     }
 
-    /// <summary>PUT /api/questionnaires/{id} — Update questions (recruiter customization)</summary>
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] QuestionnaireResponse update, CancellationToken ct)
     {

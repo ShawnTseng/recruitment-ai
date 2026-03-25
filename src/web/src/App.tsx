@@ -13,7 +13,6 @@ import InterviewerPortal, { InterviewerLanding } from './pages/InterviewerPortal
 import ClientManagement from './pages/ClientManagement'
 import NotFound from './pages/NotFound'
 
-/** Route guard: redirects to root if user's role is not in allowedRoles */
 function RequireRole({ roles, children }: { roles: string[]; children: ReactElement }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/" replace />;
@@ -21,7 +20,6 @@ function RequireRole({ roles, children }: { roles: string[]; children: ReactElem
   return children;
 }
 
-/** Landing redirect based on role */
 function RoleRedirect() {
   const { user } = useAuth();
   if (!user) return <Dashboard />;
@@ -37,7 +35,6 @@ function RoleRedirect() {
 function AppRoutes() {
   const { user } = useAuth();
 
-  // Public candidate questionnaire — no login required
   if (window.location.pathname.startsWith('/candidate/')) {
     return (
       <BrowserRouter>
@@ -59,38 +56,15 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<RoleRedirect />} />
-
-          {/* Recruiter routes */}
-          <Route path="recruiter" element={
-            <RequireRole roles={recruiterRoles}><RecruiterDashboard /></RequireRole>
-          } />
-          <Route path="recruiter/jd/new" element={
-            <RequireRole roles={recruiterRoles}><JdCreate /></RequireRole>
-          } />
-          <Route path="recruiter/jd/:id" element={
-            <RequireRole roles={[...recruiterRoles, ...interviewerRoles]}><JdDetail /></RequireRole>
-          } />
-          <Route path="recruiter/report/:submissionId" element={
-            <RequireRole roles={recruiterRoles}><RecruiterReportView /></RequireRole>
-          } />
+          <Route path="recruiter" element={<RequireRole roles={recruiterRoles}><RecruiterDashboard /></RequireRole>} />
+          <Route path="recruiter/jd/new" element={<RequireRole roles={recruiterRoles}><JdCreate /></RequireRole>} />
+          <Route path="recruiter/jd/:id" element={<RequireRole roles={[...recruiterRoles, ...interviewerRoles]}><JdDetail /></RequireRole>} />
+          <Route path="recruiter/report/:submissionId" element={<RequireRole roles={recruiterRoles}><RecruiterReportView /></RequireRole>} />
           <Route path="recruiter/clients" element={<Navigate to="/clients" replace />} />
-          <Route path="clients" element={
-            <RequireRole roles={[...recruiterRoles, ...managerRoles]}><ClientManagement /></RequireRole>
-          } />
-
-          {/* Interviewer routes */}
-          <Route path="interviewer" element={
-            <RequireRole roles={interviewerRoles}><InterviewerLanding /></RequireRole>
-          } />
-          <Route path="interviewer/:submissionId" element={
-            <RequireRole roles={interviewerRoles}><InterviewerPortal /></RequireRole>
-          } />
-
-          {/* Manager routes */}
-          <Route path="manager" element={
-            <RequireRole roles={managerRoles}><Dashboard /></RequireRole>
-          } />
-
+          <Route path="clients" element={<RequireRole roles={[...recruiterRoles, ...managerRoles]}><ClientManagement /></RequireRole>} />
+          <Route path="interviewer" element={<RequireRole roles={interviewerRoles}><InterviewerLanding /></RequireRole>} />
+          <Route path="interviewer/:submissionId" element={<RequireRole roles={interviewerRoles}><InterviewerPortal /></RequireRole>} />
+          <Route path="manager" element={<RequireRole roles={managerRoles}><Dashboard /></RequireRole>} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/candidate/:token" element={<CandidateQuestionnaire />} />

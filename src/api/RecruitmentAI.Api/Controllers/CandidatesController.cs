@@ -46,8 +46,6 @@ public class CandidatesController : ControllerBase
     private static CandidateResponse ToResponse(Candidate c) =>
         new(c.Id, c.Name, c.Email, c.ResumeBlobUrl, c.WorkspaceId, c.CreatedAt);
 
-    /// <summary>GET /api/candidates?workspaceId={id}
-    /// Recruiters pass their workspaceId. Interviewers/Managers get all (workspaceId ignored).</summary>
     [HttpGet]
     [Authorize(Roles = "Recruiter,Interviewer,Manager,SuperAdmin")]
     public async Task<IActionResult> GetCandidates([FromQuery] Guid? workspaceId, CancellationToken ct)
@@ -61,7 +59,6 @@ public class CandidatesController : ControllerBase
         }
         else
         {
-            // Recruiter: use JWT workspaceId for isolation
             var wsStr = User.FindFirstValue("workspaceId");
             var wsId = workspaceId ?? (Guid.TryParse(wsStr, out var id) ? id : Guid.Empty);
             if (wsId == Guid.Empty) return Forbid();
@@ -71,7 +68,6 @@ public class CandidatesController : ControllerBase
         return Ok(candidates.Select(ToResponse));
     }
 
-    /// <summary>GET /api/candidates/{id}</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -80,12 +76,10 @@ public class CandidatesController : ControllerBase
         return Ok(ToResponse(candidate));
     }
 
-    /// <summary>POST /api/candidates</summary>
     [HttpPost]
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateCandidateRequest request, CancellationToken ct)
     {
-        // workspaceId comes from JWT — never trust client-supplied value
         var wsStr = User.FindFirstValue("workspaceId");
         if (!Guid.TryParse(wsStr, out var workspaceId)) return Forbid();
 
@@ -101,7 +95,6 @@ public class CandidatesController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = candidate.Id }, ToResponse(candidate));
     }
 
-    /// <summary>POST /api/candidates/{id}/resume — Upload resume</summary>
     [HttpPost("{id:guid}/resume")]
     [RequestSizeLimit(MaxFileSize)]
     public async Task<IActionResult> UploadResume(Guid id, IFormFile file, CancellationToken ct)
@@ -130,7 +123,6 @@ public class CandidatesController : ControllerBase
             candidate.Id, candidate.Name, candidate.Email, candidate.ResumeBlobUrl, candidate.WorkspaceId, candidate.CreatedAt));
     }
 
-    /// <summary>POST /api/candidates/{id}/tokens — Generate a one-time submission token</summary>
     [HttpPost("{id:guid}/tokens")]
     public async Task<IActionResult> GenerateToken(Guid id, [FromBody] GenerateTokenRequest request, CancellationToken ct)
     {
@@ -159,7 +151,6 @@ public class CandidatesController : ControllerBase
         return Ok(new TokenResponse(token, expiresAt, $"{baseUrl}/candidate/{token}", submission.Id));
     }
 
-    /// <summary>POST /api/candidates/parse-resume — Extract name and email from an uploaded resume using AI</summary>
     [HttpPost("parse-resume")]
     [Authorize(Roles = "Recruiter,SuperAdmin")]
     [RequestSizeLimit(10 * 1024 * 1024)]

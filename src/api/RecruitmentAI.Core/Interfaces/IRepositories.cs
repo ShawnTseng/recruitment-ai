@@ -21,7 +21,6 @@ public interface ICandidateSubmissionRepository : IRepository<CandidateSubmissio
 {
     Task<CandidateSubmission?> GetByTokenAsync(string token, CancellationToken ct = default);
     Task<IReadOnlyList<CandidateSubmission>> GetByCandidateAsync(Guid candidateId, CancellationToken ct = default);
-    /// <summary>Loads submission with Questionnaire → JobDescription chain.</summary>
     Task<CandidateSubmission?> GetByIdWithChainAsync(Guid submissionId, CancellationToken ct = default);
 }
 
@@ -36,10 +35,8 @@ public interface IRecruiterRepository : IRepository<Recruiter>
     Task<Recruiter?> GetByWorkspaceIdAsync(Guid workspaceId, CancellationToken ct = default);
 }
 
-/// <summary>Clients are a shared resource — not scoped per workspace.</summary>
 public interface IClientRepository : IRepository<Client>
 {
-    // GetAllAsync and GetByIdAsync are inherited from IRepository<Client>
 }
 
 public interface IEvaluationReportRepository : IRepository<EvaluationReport>

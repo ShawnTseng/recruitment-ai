@@ -16,7 +16,6 @@ public class SubmissionsController : ControllerBase
         _submissionRepo = submissionRepo;
     }
 
-    /// <summary>GET /api/submissions/by-token/{token} — Get questionnaire for a candidate (no auth required)</summary>
     [HttpGet("by-token/{token}")]
     [AllowAnonymous]
     public async Task<IActionResult> GetByToken(string token, CancellationToken ct)
@@ -31,7 +30,6 @@ public class SubmissionsController : ControllerBase
             submission.Questionnaire.JobDescription?.Title));
     }
 
-    /// <summary>POST /api/submissions/by-token/{token}/answer — Submit answers (no auth required)</summary>
     [HttpPost("by-token/{token}/answer")]
     [AllowAnonymous]
     public async Task<IActionResult> SubmitAnswers(string token, [FromBody] SubmitAnswersRequest request, CancellationToken ct)
@@ -52,7 +50,6 @@ public class SubmissionsController : ControllerBase
         return Ok(new { message = "Answers submitted successfully.", submissionId = submission.Id });
     }
 
-    /// <summary>GET /api/submissions/{id}</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -67,7 +64,6 @@ public class SubmissionsController : ControllerBase
             submission.SubmittedAt));
     }
 
-    /// <summary>GET /api/submissions?candidateId={id} — List submissions for a candidate (recruiter-facing)</summary>
     [HttpGet]
     public async Task<IActionResult> GetByCandidate([FromQuery] Guid candidateId, CancellationToken ct)
     {

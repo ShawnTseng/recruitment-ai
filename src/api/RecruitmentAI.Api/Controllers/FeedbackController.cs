@@ -22,7 +22,6 @@ public class FeedbackController : ControllerBase
     private static FeedbackResponse ToResponse(ClientFeedback f) =>
         new(f.Id, f.CandidateId, f.JobDescriptionId, f.RecruiterId, f.Outcome, f.Tags, f.Comments, f.CreatedAt);
 
-    /// <summary>POST /api/feedback — Submit client feedback</summary>
     [HttpPost]
     [Authorize(Roles = "Recruiter,AccountManager,SuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateFeedbackRequest req, CancellationToken ct)
@@ -46,7 +45,6 @@ public class FeedbackController : ControllerBase
         return Ok(ToResponse(feedback));
     }
 
-    /// <summary>GET /api/feedback — Manager/Admin: all feedback; Recruiter: own feedback (uses JWT workspaceId)</summary>
     [HttpGet]
     [Authorize(Roles = "Recruiter,Manager,AccountManager,SuperAdmin")]
     public async Task<IActionResult> GetFeedback(CancellationToken ct)

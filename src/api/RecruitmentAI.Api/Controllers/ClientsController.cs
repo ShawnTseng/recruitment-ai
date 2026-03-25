@@ -23,7 +23,6 @@ public class ClientsController : ControllerBase
     private static ClientResponse ToResponse(Client c)
         => new(c.Id, c.Name, c.Description, c.WorkspaceId, c.CreatedAt);
 
-    /// <summary>GET /api/clients — list all shared clients</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll(CancellationToken ct)
     {
@@ -31,7 +30,6 @@ public class ClientsController : ControllerBase
         return Ok(clients.Select(ToResponse));
     }
 
-    /// <summary>GET /api/clients/{id}</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -40,7 +38,6 @@ public class ClientsController : ControllerBase
         return Ok(ToResponse(client));
     }
 
-    /// <summary>POST /api/clients — create a new shared client</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateClientRequest request, CancellationToken ct)
     {
@@ -52,7 +49,7 @@ public class ClientsController : ControllerBase
             Id = Guid.NewGuid(),
             Name = request.Name.Trim(),
             Description = request.Description?.Trim(),
-            WorkspaceId = Guid.Empty, // clients are shared; no workspace scope
+            WorkspaceId = Guid.Empty,
         };
 
         await _clientRepo.AddAsync(client, ct);
@@ -60,7 +57,6 @@ public class ClientsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = client.Id }, ToResponse(client));
     }
 
-    /// <summary>PUT /api/clients/{id} — update client</summary>
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateClientRequest request, CancellationToken ct)
     {
@@ -76,7 +72,6 @@ public class ClientsController : ControllerBase
         return Ok(ToResponse(client));
     }
 
-    /// <summary>DELETE /api/clients/{id}</summary>
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
     {

@@ -3,11 +3,9 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RecruitmentAI.Core.DTOs;
 using RecruitmentAI.Core.Entities;
-using RecruitmentAI.Infrastructure.Data;
 
 namespace RecruitmentAI.Api.Controllers;
 
@@ -16,28 +14,33 @@ namespace RecruitmentAI.Api.Controllers;
 [AllowAnonymous]
 public class AuthController : ControllerBase
 {
-    private readonly RecruitmentDbContext _db;
+    private static readonly Dictionary<string, (string DisplayName, Guid? WorkspaceId)> DemoUsers = new()
+    {
+        ["Recruiter"]       = ("Demo Recruiter",         Guid.Parse("00000000-0000-0000-0000-000000000001")),
+        ["Interviewer"]     = ("Demo Interviewer",       null),
+        ["Manager"]         = ("Demo Manager",           null),
+        ["AccountManager"]  = ("Demo Account Manager",  null),
+        ["SuperAdmin"]      = ("Demo Super Admin",       null),
+    };
+
     private readonly IConfiguration _config;
 
-    public AuthController(RecruitmentDbContext db, IConfiguration config)
+    public AuthController(IConfiguration config) => _config = config;
+
+    [HttpPost("demo-login")]
+    public IActionResult DemoLogin([FromBody] DemoLoginRequest req)
     {
-        _db = db;
-        _config = config;
-    }
+        if (!DemoUsers.TryGetValue(req.Role, out var info))
+            return BadRequest(new { message = "Invalid role." });
 
-    /// <summary>POST /api/auth/login — returns JWT token</summary>
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest req, CancellationToken ct)
-    {
-        if (string.IsNullOrWhiteSpace(req.Username) || string.IsNullOrWhiteSpace(req.Password))
-            return BadRequest(new { message = "Username and password are required." });
-
-        var user = await _db.AppUsers
-            .FirstOrDefaultAsync(u => u.Username == req.Username, ct);
-
-        // Constant-time comparison to prevent user enumeration
-        if (user == null || !BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash))
-            return Unauthorized(new { message = "Invalid username or password." });
+        var user = new AppUser
+        {
+            Id = Guid.Parse($"00000000-0000-0000-0000-{DemoUsers.Keys.ToList().IndexOf(req.Role) + 1:D12}"),
+            Username = $"demo_{req.Role.ToLower()}",
+            Role = req.Role,
+            DisplayName = info.DisplayName,
+            WorkspaceId = info.WorkspaceId,
+        };
 
         var token = GenerateJwt(user);
         return Ok(new LoginResponse(token, user.Role, user.DisplayName, user.WorkspaceId));
